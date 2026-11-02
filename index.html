@@ -2,88 +2,88 @@
 <html lang="es">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#090b10">
-  <meta name="description" content="VOX — Entrena tu voz, claridad y capacidad de comunicar.">
-  <title>VOX — Entrena tu comunicación</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#f7f7f4">
+  <meta name="description" content="VOX — Entrena tu comunicación.">
+  <title>VOX — Comunicación consciente</title>
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" href="./icons/vox.svg" type="image/svg+xml">
   <link rel="stylesheet" href="./css/app.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./js/app.js" defer></script>
 </head>
 <body>
-  <div class="app-shell">
-    <aside class="sidebar" aria-label="Navegación principal">
-      <a class="brand" href="#inicio" aria-label="VOX inicio"><span class="brand-mark">V</span><span>VOX<span class="brand-dot">.</span></span></a>
-      <div class="side-label">ESPACIO PERSONAL</div>
-      <nav class="nav-list">
-        <button class="nav-item active" data-view="inicio"><span class="nav-icon">⌂</span>Inicio</button>
-        <button class="nav-item" data-view="entrenar"><span class="nav-icon">◉</span>Entrenar</button>
-        <button class="nav-item" data-view="academia"><span class="nav-icon">▤</span>Academia</button>
-        <button class="nav-item" data-view="progreso"><span class="nav-icon">↗</span>Mi progreso</button>
-      </nav>
-      <div class="sidebar-bottom"><div class="privacy-chip"><span class="privacy-dot"></span><span>Privacidad primero</span></div><p>Tu voz. Tu proceso.<br>Tu evolución.</p><span class="version">VOX · PREVIEW 0.1</span></div>
-    </aside>
+  <div class="app-frame">
+    <header class="topbar">
+      <a class="wordmark" href="#" aria-label="VOX inicio">vox<span>.</span></a>
+      <div class="top-actions"><span id="user-label" class="user-label">Tu espacio de práctica</span><button id="auth-open" class="quiet-button">Iniciar sesión</button><button id="signout" class="quiet-button" hidden>Cerrar sesión</button></div>
+    </header>
 
-    <main class="main-content">
-      <header class="topbar"><div class="mobile-brand"><span class="brand-mark">V</span> VOX<span class="brand-dot">.</span></div><div class="topbar-right"><span class="status-pill"><i></i> ENTRENADOR PERSONAL</span><button class="avatar" aria-label="Perfil">C</button></div></header>
-
-      <section class="view active" id="view-inicio">
-        <div class="welcome-row"><div><p class="eyebrow">TU ESPACIO DE ENTRENAMIENTO</p><h1>La forma en que hablas<br><span>también se entrena.</span></h1><p class="lead">No busques sonar como alguien más. Aprende a comunicar con claridad, intención y dominio.</p></div><div class="hero-orb" aria-hidden="true"><div class="orb-ring ring-one"></div><div class="orb-ring ring-two"></div><div class="orb-core">V<span>O</span>X</div><div class="orb-wave"><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b></div></div></div>
-        <div class="section-heading"><div><p class="eyebrow">PUNTO DE PARTIDA</p><h2>Tu siguiente paso</h2></div><span class="muted">Una sesión a la vez.</span></div>
-        <div class="start-card"><div class="start-symbol">◉</div><div class="start-copy"><span class="tag tag-live">SESIÓN GUIADA</span><h3>Conoce cómo te estás comunicando</h3><p>Haz una intervención breve. VOX registrará tu voz, medirá señales acústicas básicas y te ayudará a revisar tu expresión.</p></div><button class="button button-primary" data-go="entrenar">Comenzar sesión <span>↗</span></button></div>
-        <div class="metrics-grid"><article class="metric-card"><span class="metric-label">SESIONES REALIZADAS</span><strong id="stat-sessions">0</strong><small>Tu práctica acumulada</small></article><article class="metric-card"><span class="metric-label">TIEMPO DE PRÁCTICA</span><strong id="stat-minutes">0 <em>min</em></strong><small>Tiempo grabado en este dispositivo</small></article><article class="metric-card"><span class="metric-label">ÚLTIMA ACTIVIDAD</span><strong class="metric-word" id="stat-last">Aún no</strong><small>Empieza cuando quieras</small></article></div>
-        <div class="section-heading lower"><div><p class="eyebrow">TU RUTA</p><h2>Entrena cinco dimensiones</h2></div><button class="text-button" data-go="academia">Ver ejercicios ↗</button></div>
-        <div class="module-grid">
-          <article class="module-card"><span class="module-number">01 / VOZ</span><div class="module-icon">〰</div><h3>Control vocal</h3><p>Ritmo, pausas, articulación y modulación.</p></article>
-          <article class="module-card"><span class="module-number">02 / EXPRESIÓN</span><div class="module-icon">✳</div><h3>Oratoria</h3><p>Ordena tus ideas y transmite el mensaje.</p></article>
-          <article class="module-card"><span class="module-number">03 / LIDERAZGO</span><div class="module-icon">⌁</div><h3>Autoridad</h3><p>Habla con firmeza sin perder naturalidad.</p></article>
-          <article class="module-card"><span class="module-number">04 / CONEXIÓN</span><div class="module-icon">◎</div><h3>Inteligencia comunicativa</h3><p>Escucha, comprende y responde mejor.</p></article>
-          <article class="module-card"><span class="module-number">05 / AGILIDAD</span><div class="module-icon">⟡</div><h3>Improvisación</h3><p>Piensa y responde bajo presión.</p></article>
+    <main>
+      <section id="home-screen" class="screen active">
+        <div class="home-copy">
+          <p class="kicker">COMUNICACIÓN · VOZ · PRESENCIA</p>
+          <h1>Que tus palabras<br>lleguen <em>como quieres.</em></h1>
+          <p class="intro">Entrena tu forma de expresarte. Aprende a ordenar tus ideas, usar tu voz y comunicar con intención.</p>
+          <button id="start-session" class="primary-button">Empezar una sesión <span>↗</span></button>
+          <p class="small-note">Un ejercicio a la vez. Sin prisa, sin personajes.</p>
+        </div>
+        <div class="home-bottom">
+          <div><span class="number" id="home-count">0</span><span class="metric-caption">sesiones guardadas</span></div>
+          <div class="bottom-divider"></div>
+          <p>La claridad se practica.<br>La confianza se construye.</p>
         </div>
       </section>
 
-      <section class="view" id="view-entrenar">
-        <div class="page-intro"><p class="eyebrow">SALA DE ENTRENAMIENTO / 01</p><h1>Tu voz, <span>en primer plano.</span></h1><p class="lead">Elige un tema, habla con naturalidad y revisa lo que puedes mejorar.</p></div>
-        <div class="session-layout">
-          <div class="session-main panel">
-            <div class="panel-top"><div><span class="tag">PRÁCTICA LIBRE</span><h2>Habla sin preparar demasiado.</h2></div><span class="session-index">01 — 05 MIN</span></div>
-            <label class="field-label" for="session-prompt">TU RETO DE HOY</label>
-            <div class="prompt-box" id="session-prompt">Explícame una idea o experiencia que consideres importante. ¿Qué ocurrió, qué aprendiste y por qué debería importarle a otra persona?</div>
-            <div class="recorder-area">
-              <div class="record-orb" id="record-orb"><div class="record-inner"><span class="mic-symbol">🎙</span><span class="record-state" id="record-state">LISTO PARA ESCUCHAR</span></div></div>
-              <canvas id="waveform" width="680" height="100" aria-label="Visualización de audio"></canvas>
-              <div class="timer" id="timer">00:00</div>
-              <p class="record-hint" id="record-hint">Pulsa iniciar cuando estés listo. El audio se procesa en esta sesión.</p>
-              <div class="record-controls"><button class="button button-primary" id="record-start">● Iniciar grabación</button><button class="button button-stop" id="record-stop" disabled>Finalizar sesión</button></div>
-              <div class="audio-player-wrap" id="audio-player-wrap" hidden><label class="field-label">TU GRABACIÓN</label><audio id="audio-player" controls></audio></div>
-            </div>
-            <div class="transcript-block"><div class="transcript-head"><label class="field-label" for="transcript">TRANSCRIPCIÓN</label><span id="transcript-status" class="muted tiny">Disponible según tu navegador</span></div><textarea id="transcript" placeholder="Si el reconocimiento de voz no está disponible, puedes pegar o escribir aquí lo que dijiste para revisar la estructura de tu mensaje." rows="5"></textarea><p class="microcopy">El reconocimiento del navegador puede enviar audio a un servicio externo. Solo se activa al iniciar la sesión y si está disponible.</p></div>
-            <div class="analysis-actions"><button class="button button-primary" id="analyze-btn" disabled>Revisar mi intervención ↗</button><span class="muted tiny" id="analysis-note">Finaliza una grabación o escribe una transcripción.</span></div>
+      <section id="practice-screen" class="screen">
+        <div class="screen-heading"><button class="back-button" data-back>← Inicio</button><span class="kicker">SESIÓN DE PRÁCTICA</span></div>
+        <div class="practice-wrap">
+          <p class="kicker">TU RETO</p>
+          <h2 id="prompt">Cuéntame una idea que te importe y explícame por qué.</h2>
+          <p class="practice-guidance">Habla como lo harías con otra persona. No necesitas memorizar nada.</p>
+          <div class="record-zone">
+            <div class="record-indicator" id="record-indicator"><span></span></div>
+            <div class="clock" id="clock">00:00</div>
+            <p id="record-status" class="record-status">Micrófono apagado</p>
+            <div class="record-buttons"><button id="record-start" class="primary-button">Iniciar grabación</button><button id="record-stop" class="secondary-button" disabled>Terminar</button></div>
           </div>
-          <aside class="session-aside">
-            <div class="panel coach-panel"><span class="tag tag-accent">CRITERIO VOX</span><div class="coach-mark">V.</div><h3>No busques hacerlo perfecto.</h3><p>Busca hacerlo consciente. Una buena práctica empieza cuando puedes reconocer qué funciona y qué no.</p><div class="coach-rule"></div><p class="coach-quote">“Primero claridad. Después velocidad.”</p></div>
-            <div class="panel privacy-panel"><span class="privacy-dot"></span><div><strong>Control de tu audio</strong><p>La grabación permanece en esta sesión. El historial guarda métricas y texto, no el archivo de audio.</p></div></div>
-          </aside>
+          <div class="transcript-area">
+            <div class="transcript-title"><label for="transcript">Lo que dijiste</label><span id="transcript-state">La transcripción aparecerá aquí</span></div>
+            <textarea id="transcript" rows="5" placeholder="La transcripción aparecerá mientras hablas. También puedes escribirla aquí si el navegador no reconoce tu voz."></textarea>
+          </div>
+          <div class="session-actions"><button id="save-session" class="primary-button" disabled>Guardar sesión</button><span id="save-hint">Inicia y termina una grabación para guardar.</span></div>
+          <audio id="audio-player" controls hidden></audio>
+          <div id="save-result" class="save-result" role="status"></div>
         </div>
-        <div class="panel report-panel" id="report-panel" hidden><div class="report-header"><div><p class="eyebrow">REVISIÓN DE SESIÓN</p><h2>Esto es lo que podemos observar.</h2></div><span class="tag tag-accent">ANÁLISIS LOCAL</span></div><div id="report-content"></div></div>
       </section>
 
-      <section class="view" id="view-academia">
-        <div class="page-intro"><p class="eyebrow">ACADEMIA VOX / 02</p><h1>Entrena con <span>intención.</span></h1><p class="lead">Ejercicios breves para desarrollar habilidades que se notan en conversaciones reales.</p></div>
-        <div class="exercise-grid" id="exercise-grid"></div>
+      <section id="history-screen" class="screen">
+        <div class="screen-heading"><button class="back-button" data-back>← Inicio</button><span class="kicker">TU RECORRIDO</span></div>
+        <h2 class="history-heading">Tus sesiones</h2>
+        <p class="intro">Tu práctica, guardada en tu cuenta.</p>
+        <div id="history-list" class="history-list"><p class="empty">Inicia sesión para ver tus sesiones guardadas.</p></div>
       </section>
-
-      <section class="view" id="view-progreso">
-        <div class="page-intro"><p class="eyebrow">EVOLUCIÓN / 03</p><h1>Tu progreso, <span>sin maquillaje.</span></h1><p class="lead">Observa tu constancia y los indicadores que has ido trabajando.</p></div>
-        <div class="progress-summary metrics-grid"><article class="metric-card"><span class="metric-label">SESIONES</span><strong id="progress-sessions">0</strong><small>Sesiones guardadas</small></article><article class="metric-card"><span class="metric-label">PALABRAS REVISADAS</span><strong id="progress-words">0</strong><small>En tus transcripciones</small></article><article class="metric-card"><span class="metric-label">MINUTOS DE VOZ</span><strong id="progress-minutes">0</strong><small>Tiempo de grabación</small></article></div>
-        <div class="panel history-panel"><div class="section-heading"><div><p class="eyebrow">REGISTRO LOCAL</p><h2>Sesiones recientes</h2></div><button class="text-button" id="clear-history">Borrar historial</button></div><div id="history-list" class="history-list"><div class="empty-state">Todavía no hay sesiones. Tu primera práctica aparecerá aquí.</div></div></div>
-      </section>
-
-      <footer class="footer"><span>VOX<span class="brand-dot">.</span> <span class="muted">Entrena tu comunicación.</span></span><span class="footer-note">PREVIEW 0.1 · FUNCIONES EN DESARROLLO</span></footer>
     </main>
+
+    <footer class="bottom-nav"><button class="nav-link selected" data-screen="home-screen">Inicio</button><button class="nav-link" data-screen="history-screen">Mis sesiones</button></footer>
   </div>
-  <nav class="mobile-nav" aria-label="Navegación móvil"><button class="active" data-view="inicio"><span>⌂</span>Inicio</button><button data-view="entrenar"><span>◉</span>Entrenar</button><button data-view="academia"><span>▤</span>Academia</button><button data-view="progreso"><span>↗</span>Progreso</button></nav>
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
-  <script src="./js/app.js" defer></script>
+
+  <div id="auth-modal" class="modal" hidden>
+    <div class="auth-card">
+      <button id="auth-close" class="modal-close" aria-label="Cerrar">×</button>
+      <a class="wordmark auth-wordmark" href="#">vox<span>.</span></a>
+      <p class="kicker">TU ESPACIO PERSONAL</p>
+      <h2 id="auth-title">Bienvenido de nuevo.</h2>
+      <p id="auth-description" class="auth-description">Inicia sesión para guardar y consultar tus prácticas.</p>
+      <form id="auth-form">
+        <label for="email">Correo electrónico</label><input id="email" type="email" autocomplete="email" placeholder="tu@correo.com" required>
+        <label for="password">Contraseña</label><input id="password" type="password" autocomplete="current-password" minlength="6" placeholder="Mínimo 6 caracteres" required>
+        <button id="auth-submit" class="primary-button auth-submit" type="submit">Iniciar sesión</button>
+      </form>
+      <p id="auth-message" class="auth-message" role="status"></p>
+      <button id="auth-switch" class="switch-auth">¿No tienes cuenta? Crear una</button>
+    </div>
+  </div>
+  <div id="toast" class="toast" role="status"></div>
 </body>
 </html>
