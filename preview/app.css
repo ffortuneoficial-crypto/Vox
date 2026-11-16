@@ -77,3 +77,5 @@ h1 span{color:#999}
 @media(min-width:700px){.app{padding-left:34px;padding-right:34px}.view{padding-top:45px}}
 @media(max-width:390px){.app{padding-left:17px;padding-right:17px}.view{padding-top:27px}.practice-title{font-size:30px}.recorder,.transcript{padding:13px}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important}}
+
+.app-message{margin:14px 0 0;padding:12px 14px;border:1px solid #666;border-radius:7px;background:#202020;color:#eee;font-size:12px;line-height:1.5}.app-message[hidden]{display:none}
