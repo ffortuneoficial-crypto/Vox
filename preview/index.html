@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#090d18"><meta name="description" content="VOX — Entrena tu comunicación">
+<link rel="manifest" href="./manifest.webmanifest"><link rel="stylesheet" href="./app.css">
+<title>VOX — Tu voz, con intención</title>
+</head>
+<body>
+<div class="shell">
+<header class="top"><a class="brand" href="#" aria-label="VOX inicio">V<span>O</span>X<span class="dot">.</span></a><div class="topright"><span class="status"><i></i> ESPACIO PERSONAL</span><button id="install" class="ghost" hidden>Instalar app</button></div></header>
+<main>
+<section id="home" class="view active">
+<div class="eyebrow">ENTRENAMIENTO DE COMUNICACIÓN <span>·</span> BETA 0.2</div>
+<div class="hero"><div><p class="overline">TU VOZ ES UNA HERRAMIENTA</p><h1>Habla con<br><em>intención.</em></h1><p class="lead">Entrena tu claridad, presencia y capacidad para transmitir ideas con seguridad. Una sesión a la vez.</p><button id="goPractice" class="primary">Comenzar práctica <b>↗</b></button></div><div class="orb-wrap"><div class="orb"><div class="orb-core"></div><span class="orb-ring r1"></span><span class="orb-ring r2"></span><span class="orb-ring r3"></span><div class="orb-label">VOZ<br><small>EN DESARROLLO</small></div></div></div></div>
+<div class="stats"><article><small>SESIONES</small><strong id="sessionCount">0</strong><span>Tu constancia</span></article><article><small>PALABRAS</small><strong id="wordCount">0</strong><span>Ideas expresadas</span></article><article><small>ESTADO</small><strong class="ready">Listo</strong><span>Motor de voz en integración</span></article></div>
+<div class="sectionline"><span>ENTRENA LO QUE IMPORTA</span><span>01 — 03</span></div>
+<div class="modules"><article><b>01</b><h3>Claridad</h3><p>Ordena tus ideas y ve directo al punto.</p></article><article><b>02</b><h3>Presencia</h3><p>Trabaja ritmo, pausas y seguridad.</p></article><article><b>03</b><h3>Liderazgo</h3><p>Comunica con criterio e intención.</p></article></div>
+</section>
+<section id="practice" class="view">
+<div class="pagehead"><button class="back" data-home>← Volver</button><span class="eyebrow">SESIÓN DE ENTRENAMIENTO</span></div>
+<div class="practice-head"><div class="overline">RETO DE HOY · CLARIDAD</div><h2>Explícame una idea en la que creas y por qué merece la pena.</h2><p>No busques sonar perfecto. Busca que la otra persona te entienda.</p></div>
+<div class="studio">
+<div class="studio-top"><span>ESTUDIO DE VOZ</span><span id="micState" class="mic-state"><i></i> MICRÓFONO APAGADO</span></div>
+<div class="visualizer" id="visualizer"><div class="bars" id="bars"></div><div class="mic-circle"><span>●</span></div></div>
+<div id="timer" class="timer">00:00</div><p id="recordMessage" class="record-message">Cuando estés listo, comienza a hablar.</p>
+<div class="controls"><button id="recordBtn" class="record"><span></span> Empezar a hablar</button><button id="stopBtn" class="stop" disabled>Terminar</button></div>
+<div class="privacy">🔒 El audio se procesa en este dispositivo en esta versión de prueba. No se envía a una cuenta ni se guarda en un servidor.</div>
+</div>
+<div class="transcript"><div class="transcript-head"><label for="transcript">TU TRANSCRIPCIÓN</label><span id="transcriptStatus">Esperando tu voz</span></div><textarea id="transcript" placeholder="Aquí aparecerán tus palabras. También puedes escribir o corregir el texto..." rows="6"></textarea><div class="transcript-actions"><span id="wordTally">0 palabras</span><button id="saveBtn" class="primary small" disabled>Guardar práctica</button></div></div>
+</section>
+<section id="history" class="view">
+<div class="pagehead"><button class="back" data-home>← Volver</button><span class="eyebrow">TU PROGRESO</span></div><h2 class="history-title">Tu recorrido.</h2><p class="lead">Cada práctica cuenta. Aquí estarán tus sesiones guardadas en este dispositivo.</p><div id="historyList" class="history-list"></div>
+</section>
+</main>
+<nav class="nav"><button class="navitem active" data-view="home">Inicio</button><button class="navitem" data-view="history">Mi progreso</button><span>VOX / BETA</span></nav>
+</div>
+<script src="./app.js"></script>
+</body></html>
