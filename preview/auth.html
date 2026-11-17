@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#fff6f1">
+<meta name="description" content="Entra a VOX y empieza a entrenar tu comunicación.">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" href="./icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="./auth.css?v=auth03">
+<title>VOX — Tu voz, tu espacio</title>
+</head>
+<body class="auth-page">
+<div class="ambient ambient-one"></div><div class="ambient ambient-two"></div><div class="ambient ambient-three"></div>
+<div class="auth-boot" id="authBoot" aria-live="polite">
+  <div class="boot-mark">v<span>.</span></div>
+  <div class="boot-spinner"></div>
+  <p>Preparando tu espacio...</p>
+</div>
+<main class="auth-shell" id="authShell" hidden>
+  <header class="auth-brand">
+    <a href="./auth.html" class="brand-lockup" aria-label="VOX inicio"><span class="brand-mark">v<span>.</span></span><span class="brand-name">VOX</span></a>
+    <span class="brand-caption">TU VOZ, TU ESPACIO</span>
+  </header>
+  <div class="auth-content">
+    <section class="welcome-panel">
+      <div class="welcome-orbit orbit-a"></div><div class="welcome-orbit orbit-b"></div>
+      <div class="welcome-copy">
+        <span class="eyebrow"><span class="eyebrow-dot"></span> CRECE A TU PROPIO RITMO</span>
+        <h1>Haz que tu voz<br>se haga <span>sentir.</span></h1>
+        <p>Un espacio para practicar, ganar confianza y descubrir todo lo que puedes comunicar.</p>
+      </div>
+      <div class="floating-note note-one"><span class="note-icon">✦</span><span><strong>Un día a la vez</strong><small>Tu progreso empieza aquí</small></span></div>
+      <div class="floating-note note-two"><span class="sound-wave"><i></i><i></i><i></i><i></i><i></i></span><span><strong>Tu voz importa</strong><small>Vamos a entrenarla</small></span></div>
+      <div class="welcome-sparkle sparkle-one">✦</div><div class="welcome-sparkle sparkle-two">✧</div>
+    </section>
+    <section class="auth-card" aria-labelledby="authHeading">
+      <div class="card-topline"><span class="card-bubble">✿</span><span class="card-toptext">QUÉ BUENO TENERTE AQUÍ</span></div>
+      <div class="auth-tabs" role="tablist" aria-label="Acceso a VOX">
+        <button class="auth-tab active" type="button" data-auth-mode="login" role="tab" aria-selected="true">Iniciar sesión</button>
+        <button class="auth-tab" type="button" data-auth-mode="signup" role="tab" aria-selected="false">Crear cuenta</button>
+      </div>
+      <div class="form-heading">
+        <h2 id="authHeading">Hola de nuevo <span>♡</span></h2>
+        <p id="authSubheading">Qué alegría tenerte de vuelta. Vamos a seguir creciendo.</p>
+      </div>
+      <form id="authForm" class="auth-form">
+        <label class="field-label" for="authEmail">Tu correo electrónico
+          <span class="input-wrap"><span class="field-icon">✉</span><input id="authEmail" name="email" type="email" autocomplete="email" inputmode="email" placeholder="hola@ejemplo.com" required></span>
+        </label>
+        <label class="field-label" for="authPassword">Contraseña
+          <span class="input-wrap"><span class="field-icon">✧</span><input id="authPassword" name="password" type="password" autocomplete="current-password" minlength="6" placeholder="Al menos 6 caracteres" required><button class="password-toggle" type="button" id="togglePassword" aria-label="Mostrar contraseña">Ver</button></span>
+        </label>
+        <label class="field-label confirm-field" id="confirmField" for="authConfirm" hidden>Repite tu contraseña
+          <span class="input-wrap"><span class="field-icon">♡</span><input id="authConfirm" name="password-confirm" type="password" autocomplete="new-password" minlength="6" placeholder="Escríbela otra vez"></span>
+        </label>
+        <button class="forgot-link" id="forgotPassword" type="button">¿Olvidaste tu contraseña?</button>
+        <button class="submit-button" id="authSubmit" type="submit"><span class="submit-label">Entrar a VOX</span><span class="submit-arrow">↗</span></button>
+        <p class="auth-message" id="authMessage" role="status" aria-live="polite"></p>
+      </form>
+      <div class="card-footer"><span class="footer-heart">♡</span> Un espacio seguro para crecer, a tu manera.</div>
+    </section>
+  </div>
+  <footer class="auth-footer"><span>VOX © 2026</span><span>Hecho para que tu voz llegue más lejos <b>✦</b></span></footer>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.105.0"></script>
+<script src="./auth.js?v=auth03"></script>
+</body>
+</html>
