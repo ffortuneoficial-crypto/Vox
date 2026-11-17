@@ -176,3 +176,16 @@ body[data-auth-mode="login"] .auth-divider{display:none}
  .field-icon{width:56px}
 }
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
+
+@media(max-height:850px){
+ .auth-shell{padding-top:10px;padding-bottom:calc(13px + env(safe-area-inset-bottom))}
+ .auth-brand{margin-top:clamp(64px,8vh,82px)}
+ .brand-name{font-size:clamp(86px,19vw,128px)}
+ .mascot-stage{height:clamp(230px,29vh,280px)}
+ .auth-card{min-height:clamp(330px,39vh,430px);margin-top:-9vh;padding:5vh 20px 3vh}
+ .auth-form{gap:12px}
+ .input-wrap{height:clamp(50px,5.8vh,60px)}
+ .submit-button{min-height:clamp(54px,6vh,64px);margin-top:12px}
+ .auth-divider{margin-top:22px}
+ .auth-footer{padding-top:14px}
+}
