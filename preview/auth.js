@@ -75,6 +75,7 @@ function fail(text,fields=[]){
 }
 function setMode(next){
   mode=next;
+  document.body.dataset.authMode=mode;
   const signup=mode==="signup";
   document.querySelectorAll("[data-auth-mode]").forEach(button=>{
     const active=button.dataset.authMode===mode;
@@ -82,9 +83,9 @@ function setMode(next){
     button.setAttribute("aria-selected",String(active));
   });
   $("#authHeading").textContent=signup?"CREAR CUENTA":"INICIO";
-  const divider=$("#authDividerText");if(divider)divider.textContent=signup?"o regístrate":"o inicia sesión";
+  const divider=$("#authDividerText");if(divider)divider.textContent="o regístrate";
   const prompt=$("#authModePrompt"),link=$("#authModeLink");
-  if(prompt)prompt.textContent=signup?"¿Ya tienes una cuenta?":"¿Todavía no tienes cuenta?";
+  if(prompt)prompt.textContent=signup?"¿Ya tienes una cuenta?":"¿No tienes una cuenta?";
   if(link)link.textContent=signup?"Inicia sesión":"Crear una cuenta";
   $("#authPassword").autocomplete=signup?"new-password":"current-password";
   $("#authSubmit .submit-label").textContent=signup?"CREAR UNA CUENTA":"INICIAR SESIÓN";
@@ -107,7 +108,7 @@ function loading(active){
   button.classList.toggle("is-loading",active);
   button.innerHTML=active
     ?'<span class="button-spinner"></span><span class="submit-label">Un momento...</span>'
-    :'<span class="submit-label">'+(mode==="signup"?"Crear mi cuenta":"Entrar a VOX")+'</span><span class="submit-arrow" aria-hidden="true">↗</span>';
+     :'<span class="submit-label">'+(mode==="signup"?"CREAR UNA CUENTA":"INICIAR SESIÓN")+'</span>';
 }
 function validate(email,password){
   clearErrors();
