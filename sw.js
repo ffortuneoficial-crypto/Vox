@@ -1,25 +1,7 @@
-const CACHE_NAME="vox-root-bridge-05";
-const APP_SHELL=[
-  "./",
-  "./index.html",
-  "./auth.html",
-  "./manifest.webmanifest",
-  "./icons/vox.svg",
-  "./preview/auth.html",
-  "./preview/auth.css?v=auth06",
-  "./preview/auth.js?v=auth06",
-  "./preview/index.html",
-  "./preview/app.css?v=app03",
-  "./preview/app.js?v=app03",
-  "./preview/manifest.webmanifest",
-  "./preview/icon.svg"
-];
-self.addEventListener("install",event=>{
-  event.waitUntil(caches.open(CACHE_NAME).then(cache=>cache.addAll(APP_SHELL)).then(()=>self.skipWaiting()));
-});
-self.addEventListener("activate",event=>{
-  event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key!==CACHE_NAME).map(key=>caches.delete(key)))).then(()=>self.clients.claim()));
-});
+const CACHE_NAME="vox-root-bridge-06";
+const APP_SHELL=["./","./index.html","./auth.html","./manifest.webmanifest","./icons/vox.svg","./preview/auth.html","./preview/auth.css?v=auth07","./preview/auth.js?v=auth07","./preview/index.html","./preview/app.css?v=app03","./preview/app.js?v=app03","./preview/manifest.webmanifest","./preview/icon.svg"];
+self.addEventListener("install",event=>event.waitUntil(caches.open(CACHE_NAME).then(cache=>cache.addAll(APP_SHELL)).then(()=>self.skipWaiting())));
+self.addEventListener("activate",event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key!==CACHE_NAME).map(key=>caches.delete(key)))).then(()=>self.clients.claim())));
 self.addEventListener("fetch",event=>{
   const request=event.request;
   if(request.method!=="GET")return;
