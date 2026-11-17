@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#111111">
+<meta name="description" content="VOX — Entrena tu comunicación">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="stylesheet" href="./app.css">
+<title>VOX — Entrena tu comunicación</title>
+</head>
+<body>
+<div class="app">
+<header class="topbar">
+  <a class="brand" href="#" aria-label="VOX inicio">VOX<span>.</span></a>
+  <span class="beta">VERSIÓN INICIAL</span>
+  <button id="install" class="install" hidden>Instalar</button>
+</header>
+<div id="appMessage" class="app-message" role="status" aria-live="polite" hidden></div>
+<main>
+<section id="home" class="view active">
+  <p class="eyebrow">TU ESPACIO DE ENTRENAMIENTO</p>
+  <h1>Comunica mejor.<br><span>Una sesión a la vez.</span></h1>
+  <p class="intro">Practica cómo hablas, revisa tus palabras y construye una comunicación más clara y segura.</p>
+  <button id="goPractice" class="primary">Iniciar una sesión <span>→</span></button>
+
+  <div class="summary">
+    <div><span>SESIONES</span><strong id="sessionCount">0</strong></div>
+    <div><span>PALABRAS</span><strong id="wordCount">0</strong></div>
+  </div>
+
+  <div class="section-title"><h2>Áreas de entrenamiento</h2></div>
+  <div class="areas">
+    <article><span>01</span><div><h3>Voz</h3><p>Ritmo, pausas y articulación.</p></div></article>
+    <article><span>02</span><div><h3>Expresión</h3><p>Claridad y orden de ideas.</p></div></article>
+    <article><span>03</span><div><h3>Liderazgo</h3><p>Seguridad y autoridad al hablar.</p></div></article>
+    <article><span>04</span><div><h3>Conexión</h3><p>Escucha y comunicación interpersonal.</p></div></article>
+    <article><span>05</span><div><h3>Agilidad</h3><p>Improvisación y respuesta.</p></div></article>
+  </div>
+</section>
+
+<section id="practice" class="view">
+  <div class="page-head"><button class="back" data-home>← Inicio</button><p class="eyebrow">NUEVA SESIÓN</p></div>
+  <h1 class="practice-title">Tómate tu tiempo.<br><span>Te estamos escuchando.</span></h1>
+  <div class="prompt"><span>PRÁCTICA · CLARIDAD</span><p>Preséntate y cuéntame qué habilidad te gustaría mejorar y por qué.</p></div>
+  <div class="recorder">
+    <div class="recorder-status"><span id="micState" class="mic-state"><i></i> MICRÓFONO APAGADO</span><span id="timer">00:00</span></div>
+    <div id="visualizer" class="visualizer"><div id="bars" class="bars"></div><div class="mic-icon">●</div></div>
+    <p id="recordMessage" class="record-message">Pulsa para comenzar tu práctica.</p>
+    <div class="controls"><button id="recordBtn" class="primary record">● Iniciar grabación</button><button id="stopBtn" class="secondary" disabled>Terminar</button></div>
+  </div>
+  <div class="transcript">
+    <div class="transcript-heading"><label for="transcript">TRANSCRIPCIÓN</label><span id="transcriptStatus">Esperando tu voz</span></div>
+    <textarea id="transcript" rows="5" placeholder="Tu texto aparecerá aquí si el navegador admite dictado. También puedes escribirlo..."></textarea>
+    <div class="transcript-footer"><span id="wordTally">0 palabras</span><button id="saveBtn" class="save" disabled>Guardar sesión</button></div>
+    <p class="privacy">El audio no se guarda ni se sube desde esta versión. El dictado del navegador puede procesarse mediante servicios externos. La integración con Whisper local está pendiente.</p>
+  </div>
+</section>
+
+<section id="history" class="view">
+  <div class="page-head"><button class="back" data-home>← Inicio</button><p class="eyebrow">TU PROGRESO</p></div>
+  <h1>Tu práctica.</h1>
+  <p class="intro">Aquí encontrarás las sesiones que guardes en este dispositivo.</p>
+  <div id="historyList" class="history-list"></div>
+</section>
+</main>
+<nav class="bottom-nav">
+  <button class="navitem active" data-view="home"><span>⌂</span>Inicio</button>
+  <button class="navitem" data-view="practice"><span>◉</span>Entrenar</button>
+  <button class="navitem" data-view="history"><span>▤</span>Historial</button>
+</nav>
+</div>
+<script src="./app.js"></script>
+</body>
+</html>
