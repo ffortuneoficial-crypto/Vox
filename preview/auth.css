@@ -198,3 +198,19 @@ body[data-auth-mode="login"] .auth-divider{display:none}
  .mascot-stage{height:clamp(180px,22vh,210px)}
  .vox-mascot{width:82%}
 }
+
+
+/* FINAL OVERRIDE — actually scale the mascot image, not just its container */
+.mascot-stage{
+  height:clamp(125px,17vh,165px)!important;
+  min-height:0!important;
+  margin-top:0!important;
+  overflow:visible!important;
+}
+.vox-mascot{
+  width:min(46vw,290px)!important;
+  height:100%!important;
+  max-width:290px!important;
+  object-fit:contain!important;
+  object-position:center bottom!important;
+}
