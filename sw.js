@@ -1,4 +1,4 @@
-const CACHE_NAME="vox-root-bridge-02";
+const CACHE_NAME="vox-root-bridge-03";
 const APP_SHELL=[
   "./",
   "./index.html",
@@ -6,8 +6,8 @@ const APP_SHELL=[
   "./manifest.webmanifest",
   "./icons/vox.svg",
   "./preview/auth.html",
-  "./preview/auth.css?v=auth04",
-  "./preview/auth.js?v=auth04",
+  "./preview/auth.css?v=auth05",
+  "./preview/auth.js?v=auth05",
   "./preview/index.html",
   "./preview/app.css?v=app03",
   "./preview/app.js?v=app03",
