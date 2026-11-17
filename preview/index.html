@@ -3,97 +3,39 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#101010">
-<meta name="description" content="VOX. Entrenador conversacional de comunicación con IA.">
+<meta name="theme-color" content="#111111">
+<meta name="description" content="VOX. Entrena tu comunicación conversando.">
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="icon" href="./icon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="./app.css">
-<title>VOX — Entrenador conversacional</title>
+<title>VOX — Entrena conversando</title>
 </head>
 <body>
-<div class="shell">
-  <header class="topbar">
-    <a class="brand" href="#" data-go="home" aria-label="VOX, inicio"><span class="brand-mark">V.</span><span class="brand-name">VOX</span></a>
-    <div class="topbar-right"><span class="status-dot"></span><span class="topbar-label">ENTRENAMIENTO CONVERSACIONAL</span><button class="avatar" data-go="profile" aria-label="Abrir perfil">C</button></div>
-  </header>
-
+<div class="app">
+  <header class="topbar"><a class="brand" href="#" data-go="home">VOX<span>.</span></a><span class="top-label">ENTRENADOR DE COMUNICACIÓN</span></header>
   <main>
-    <section class="screen active" id="home" aria-labelledby="home-title">
-      <div class="welcome-row"><div><p class="overline">TU ENTRENAMIENTO · A TU RITMO</p><h1 id="home-title">Haz que tu voz<br><span>llegue más lejos.</span></h1></div><div class="orbit" aria-hidden="true"><span></span><i></i><b></b></div></div>
-      <p class="lead">Entrena conversando. VOX será tu interlocutor: escucha, pregunta, simula situaciones reales y te ayuda a comunicar con más claridad y seguridad.</p>
-      <button class="hero-cta" data-go="practice"><span class="cta-icon">↗</span><span><strong>Conversar con VOX</strong><small>Entrenamiento hablado con inteligencia artificial</small></span><span class="cta-arrow">→</span></button>
-
-      <div class="section-head"><div><p class="overline">TU RECORRIDO</p><h2>Tu evolución</h2></div><button class="text-link" data-go="progress">Ver todo <span>↗</span></button></div>
-      <div class="stats-grid">
-        <article class="stat-card"><span class="stat-label">SESIONES</span><strong id="sessionCount">00</strong><span class="stat-foot">Prácticas completadas</span></article>
-        <article class="stat-card"><span class="stat-label">PALABRAS</span><strong id="wordCount">00</strong><span class="stat-foot">Ideas expresadas</span></article>
-        <article class="stat-card stat-wide"><div><span class="stat-label">CONSTANCIA</span><strong id="minutesCount">00 <small>min</small></strong><span class="stat-foot">Tiempo de práctica registrado</span></div><div class="mini-bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></article>
-      </div>
-
-      <div class="section-head section-gap"><div><p class="overline">ENTRENA A TU MANERA</p><h2>¿Qué quieres entrenar?</h2></div></div>
-      <div class="focus-list">
-        <button class="focus-card" data-focus="Voz"><span class="focus-number">01</span><span class="focus-copy"><strong>Voz y presencia</strong><small>Ritmo, pausas y articulación</small></span><span class="focus-symbol">〰</span><span class="focus-chevron">↗</span></button>
-        <button class="focus-card" data-focus="Claridad"><span class="focus-number">02</span><span class="focus-copy"><strong>Claridad al hablar</strong><small>Ordena tus ideas y explica mejor</small></span><span class="focus-symbol">⌁</span><span class="focus-chevron">↗</span></button>
-        <button class="focus-card" data-focus="Liderazgo"><span class="focus-number">03</span><span class="focus-copy"><strong>Autoridad y liderazgo</strong><small>Seguridad, intención y criterio</small></span><span class="focus-symbol">◉</span><span class="focus-chevron">↗</span></button>
-        <button class="focus-card" data-focus="Conexión"><span class="focus-number">04</span><span class="focus-copy"><strong>Conexión interpersonal</strong><small>Escucha y conversaciones difíciles</small></span><span class="focus-symbol">⌘</span><span class="focus-chevron">↗</span></button>
-        <button class="focus-card" data-focus="Agilidad"><span class="focus-number">05</span><span class="focus-copy"><strong>Improvisación</strong><small>Piensa, responde y fluye</small></span><span class="focus-symbol">✳</span><span class="focus-chevron">↗</span></button>
-      </div>
-      <div class="quote-strip"><span class="quote-mark">“</span><p>No se trata de hablar más.<br><strong>Se trata de comunicar mejor.</strong></p><span class="quote-tag">VOX / PRINCIPIO 01</span></div>
+    <section class="screen active" id="home">
+      <p class="eyebrow">TU ESPACIO DE ENTRENAMIENTO</p>
+      <h1>Habla.<br>Escucha.<br><span>Mejora.</span></h1>
+      <p class="intro">Entrena tu comunicación conversando. Una sesión a la vez.</p>
+      <button class="primary" data-go="practice">Iniciar entrenamiento <span>→</span></button>
+      <div class="home-bottom"><div><strong id="sessionCount">0</strong><span>SESIONES</span></div><p>Tu progreso empieza con una conversación.</p></div>
     </section>
-
-    <section class="screen" id="practice" aria-labelledby="practice-title">
-      <div class="screen-top"><button class="back-link" data-go="home">← Volver</button><span class="overline">CONVERSACIÓN CON IA</span></div>
-      <div class="practice-intro"><p class="overline">VOX · ENTRENADOR CONVERSACIONAL</p><h1 id="practice-title">No practiques<br><span>en solitario.</span></h1><p class="lead">Habla con un interlocutor que te escucha, responde y profundiza. Después de la conversación, VOX analizará cómo comunicaste.</p></div>
-      <div class="conversation-card">
-        <div class="conversation-top"><div class="vox-avatar">V.</div><div><strong>VOX</strong><small>Tu entrenador de comunicación</small></div><span class="connection-state"><i></i> MOTOR PENDIENTE</span></div>
-        <div class="conversation-body">
-          <div class="message message-vox"><span class="message-author">VOX</span><p>Hola. Cuando conectemos el motor de voz, podremos mantener una conversación natural, practicar situaciones reales y trabajar sobre tus respuestas.</p></div>
-          <div class="message message-note"><span class="message-author">PRIMERA EXPERIENCIA</span><p>La interfaz está preparada como punto de partida. La conversación inteligente en tiempo real todavía requiere conectar el servicio de IA de forma segura.</p></div>
-        </div>
-        <div class="conversation-controls">
-          <div class="scenario-select"><span class="overline">ESCENARIO DE PRÁCTICA</span><select id="scenarioSelect" aria-label="Escenario de práctica"><option value="libre">Conversación libre</option><option value="cliente">Cliente difícil</option><option value="entrevista">Entrevista laboral</option><option value="liderazgo">Liderazgo y autoridad</option><option value="conflicto">Conversación difícil</option><option value="improvisacion">Improvisación</option></select></div>
-          <button id="startConversation" class="record-primary conversation-start"><span>◉</span> Preparar conversación</button>
-          <p class="conversation-disclaimer">Todavía no se activa el micrófono ni se simula una respuesta de IA. No queremos hacerte creer que existe una conexión que aún no hemos implementado.</p>
-        </div>
+    <section class="screen" id="practice">
+      <button class="back" data-go="home">← Inicio</button>
+      <p class="eyebrow">SESIÓN DE ENTRENAMIENTO</p>
+      <h2>Conversa con <span>VOX.</span></h2>
+      <p class="intro">La idea es hablar contigo, no solo transcribir tus palabras.</p>
+      <div class="voice-panel">
+        <div class="vox-mark">V.</div>
+        <h3>Tu entrenador está preparado.</h3>
+        <p>La conversación de voz con IA será el corazón de VOX. Estamos construyendo esa conexión; todavía no está activa.</p>
+        <div class="status"><i></i> CONEXIÓN DE IA PENDIENTE</div>
       </div>
-      <div class="analysis-preview">
-        <div class="section-head"><div><p class="overline">DESPUÉS DE CONVERSAR</p><h2>Un análisis con fundamento</h2></div></div>
-        <div class="analysis-item"><span>01</span><div><strong>Claridad y estructura</strong><small>Cómo organizas y explicas tus ideas.</small></div></div>
-        <div class="analysis-item"><span>02</span><div><strong>Escucha y respuesta</strong><small>Cómo interpretas al interlocutor y respondes a lo que plantea.</small></div></div>
-        <div class="analysis-item"><span>03</span><div><strong>Voz y presencia</strong><small>Ritmo, pausas, articulación y señales acústicas observables.</small></div></div>
-        <div class="analysis-item"><span>04</span><div><strong>Evolución</strong><small>Recomendaciones concretas y comparación entre sesiones.</small></div></div>
-        <p class="analysis-footnote">Las evaluaciones deberán estar respaldadas por evidencias de la conversación. Si no hay datos suficientes, VOX lo dirá.</p>
-      </div>
-    </section>
-
-    <section class="screen" id="progress" aria-labelledby="progress-title">
-      <div class="screen-top"><button class="back-link" data-go="home">← Volver</button><span class="overline">EVOLUCIÓN</span></div>
-      <p class="overline">CADA PRÁCTICA CUENTA</p><h1 id="progress-title">Tu progreso<span>.</span></h1><p class="lead">Un registro de tu constancia. Los datos reflejan únicamente las sesiones que guardas en este dispositivo.</p>
-      <div class="progress-feature"><div><span class="overline">TIEMPO ENTRENADO</span><strong id="progressMinutes">00 <small>min</small></strong><p>Tiempo acumulado de tus sesiones</p></div><div class="progress-emblem">V<span>.</span></div></div>
-      <div class="stats-grid progress-stats"><article class="stat-card"><span class="stat-label">SESIONES</span><strong id="progressSessions">00</strong><span class="stat-foot">En este dispositivo</span></article><article class="stat-card"><span class="stat-label">PALABRAS</span><strong id="progressWords">00</strong><span class="stat-foot">En tus transcripciones</span></article></div>
-      <div class="section-head history-title"><div><p class="overline">REGISTRO PERSONAL</p><h2>Historial de sesiones</h2></div><button id="clearHistory" class="text-link">Borrar todo</button></div>
-      <div id="historyList" class="history-list"></div>
-    </section>
-
-    <section class="screen" id="profile" aria-labelledby="profile-title">
-      <div class="screen-top"><button class="back-link" data-go="home">← Volver</button><span class="overline">PREFERENCIAS</span></div>
-      <p class="overline">TU ESPACIO, TUS REGLAS</p><h1 id="profile-title">Perfil<span>.</span></h1><p class="lead">VOX está en su primera etapa. Aquí puedes revisar el estado real de sus funciones y cómo se manejarán tus datos.</p>
-      <div class="profile-panel"><div class="profile-monogram">V.</div><div><strong>VOX</strong><span>Entrenamiento de comunicación</span></div><span class="version-pill">VERSIÓN 0.2</span></div>
-      <div class="settings-group"><p class="overline">PRIVACIDAD</p><article class="setting-row"><span class="setting-icon">◉</span><div><strong>Micrófono</strong><small>La interfaz todavía no solicita acceso. Se pedirá permiso explícito cuando conectemos la conversación de voz.</small></div></article><article class="setting-row"><span class="setting-icon">▤</span><div><strong>Datos de práctica</strong><small>El historial local de la versión inicial permanece en este dispositivo. La memoria entre sesiones se diseñará con controles de privacidad.</small></div></article><article class="setting-row"><span class="setting-icon">◇</span><div><strong>Motor de IA</strong><small>La conversación en tiempo real aún no está conectada. No se envía audio a ningún proveedor desde esta versión.</small></div></article></div>
-      <div class="about-card"><span class="overline">LA IDEA DETRÁS DE VOX</span><h2>Entrenar la comunicación es entrenar la forma en que te presentas al mundo.</h2><p>Un entrenador para conversar, observar y mejorar. Sin juicios vacíos: progreso con intención.</p></div>
-      <p class="profile-foot">VOX · HECHO PARA CRECER CONTIGO</p>
+      <p class="small-note">Cuando esté conectado, podrás hablar naturalmente, practicar situaciones reales y recibir un análisis de tu comunicación al terminar.</p>
     </section>
   </main>
-
-  <nav class="bottom-nav" aria-label="Navegación principal">
-    <button class="nav-item active" data-go="home"><span class="nav-icon">⌂</span><span>Inicio</span></button>
-    <button class="nav-item" data-go="practice"><span class="nav-icon">◉</span><span>Entrenar</span></button>
-    <button class="nav-item" data-go="progress"><span class="nav-icon">↗</span><span>Progreso</span></button>
-    <button class="nav-item" data-go="profile"><span class="nav-icon">◌</span><span>Perfil</span></button>
-  </nav>
+  <nav class="bottom-nav" aria-label="Navegación"><button class="nav-item active" data-go="home"><span>⌂</span>Inicio</button><button class="nav-item" data-go="practice"><span>◉</span>Entrenar</button></nav>
   <div id="appMessage" class="toast" role="status" aria-live="polite" hidden></div>
 </div>
 <script src="./app.js"></script>
