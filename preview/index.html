@@ -7,7 +7,7 @@
 <meta name="description" content="VOX. Entrena tu comunicación conversando.">
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="icon" href="./icon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="./app.css?v=release07">
+<link rel="stylesheet" href="./app.css?v=voice01">
 <title>VOX — Entrena conversando</title>
 </head>
 <body>
@@ -25,19 +25,22 @@
       <button class="back" data-go="home">← Inicio</button>
       <p class="eyebrow">SESIÓN DE ENTRENAMIENTO</p>
       <h2>Conversa con <span>VOX.</span></h2>
-      <p class="intro">La idea es hablar contigo, no solo transcribir tus palabras.</p>
-      <div class="voice-panel">
-        <div class="vox-mark">V.</div>
-        <h3>Tu entrenador está preparado.</h3>
-        <p>La conversación de voz con IA será el corazón de VOX. Estamos construyendo esa conexión; todavía no está activa.</p>
-        <div class="status"><i></i> CONEXIÓN DE IA PENDIENTE</div>
+      <p class="intro">Habla con naturalidad. VOX te escucha, responde y mantiene el hilo de la conversación.</p>
+      <div class="engine-status" id="engineStatus"><i></i><span>Comprobando motor local…</span></div>
+      <div class="conversation" id="conversation" aria-live="polite">
+        <p class="empty-conversation" id="emptyConversation">Cuando estés listo, toca el micrófono y empieza a hablar.</p>
       </div>
-      <p class="small-note">Cuando esté conectado, podrás hablar naturalmente, practicar situaciones reales y recibir un análisis de tu comunicación al terminar.</p>
+      <div class="voice-controls">
+        <button class="talk-button" id="talkButton" type="button"><span class="mic-icon">●</span><span id="talkLabel">Hablar con VOX</span></button>
+        <p class="control-hint" id="controlHint">Toca para empezar a hablar. Toca de nuevo cuando termines.</p>
+        <button class="end-button" id="endButton" type="button">Finalizar sesión</button>
+      </div>
+      <p class="privacy-note">El audio se procesa en tu dispositivo. Esta versión no guarda grabaciones ni conversaciones.</p>
     </section>
   </main>
   <nav class="bottom-nav" aria-label="Navegación"><button class="nav-item active" data-go="home"><span>⌂</span>Inicio</button><button class="nav-item" data-go="practice"><span>◉</span>Entrenar</button></nav>
   <div id="appMessage" class="toast" role="status" aria-live="polite" hidden></div>
 </div>
-<script src="./app.js?v=release07"></script>
+<script src="./app.js?v=voice01"></script>
 </body>
 </html>
