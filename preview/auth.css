@@ -329,3 +329,35 @@ body[data-auth-mode="login"] .auth-divider{display:none}
  .vox-wave-art{width:min(78vw,340px)!important}
 }
 @media(prefers-reduced-motion:reduce){.vox-wave-line{animation:none!important}}
+
+
+/* VOX voice-volume equalizer: glossy 3D frequency bars */
+.vox-wave-art{
+ width:min(82vw,370px)!important;
+ height:100%!important;
+ overflow:visible!important;
+ filter:drop-shadow(0 8px 13px #284b7038);
+}
+.vox-eq-bar{
+ transform-box:fill-box;
+ transform-origin:center;
+ animation:voxVolumePulse 1.12s ease-in-out infinite;
+ animation-delay:var(--bar-delay,0s);
+}
+.vox-eq-ripple{
+ transform-box:fill-box;
+ transform-origin:center;
+ animation:voxSoundRipple 2.8s ease-in-out infinite;
+}
+.vox-eq-ripple.ripple-b{animation-delay:-1.4s}
+@keyframes voxVolumePulse{
+ 0%,100%{transform:scaleY(.48);opacity:.82}
+ 50%{transform:scaleY(1.16);opacity:1}
+}
+@keyframes voxSoundRipple{
+ 0%,100%{opacity:.48;transform:scaleY(.78) translateY(2px)}
+ 50%{opacity:.95;transform:scaleY(1.12) translateY(-2px)}
+}
+@media(prefers-reduced-motion:reduce){
+ .vox-eq-bar,.vox-eq-ripple{animation:none!important}
+}
