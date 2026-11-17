@@ -7,7 +7,7 @@
 <meta name="description" content="VOX — Entrenamiento de voz y comunicación.">
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="icon" href="./icon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="./auth.css?v=auth16">
+<link rel="stylesheet" href="./auth.css?v=auth17">
 <script defer src="./auth.js?v=auth13"></script>
 <title>VOX — Tu voz, tu potencial</title>
 </head>
@@ -19,7 +19,20 @@
 <main class="auth-shell" id="authShell">
   <a class="back-button" href="./index.html" aria-label="Volver"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 4.5 7.5 12l8 7.5"/></svg></a>
   <header class="auth-brand"><a href="./auth.html" class="brand-lockup" aria-label="VOX, inicio"><span class="brand-name">Vox</span></a></header>
-  <div class="mascot-stage" role="img" aria-label="Ondas tridimensionales en movimiento"><div class="vox-waves" aria-hidden="true"><span class="wave-ribbon wave-one"></span><span class="wave-ribbon wave-two"></span><span class="wave-ribbon wave-three"></span><span class="wave-ribbon wave-four"></span><span class="wave-glow"></span></div></div>
+  <div class="mascot-stage" role="img" aria-label="Ondas tridimensionales en movimiento">
+  <svg class="vox-wave-art" viewBox="0 0 360 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+   <defs>
+    <linearGradient id="voxWaveA" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#b9d6e8" stop-opacity="0"/><stop offset=".24" stop-color="#dce9ec"/><stop offset=".52" stop-color="#fff7df"/><stop offset=".8" stop-color="#b8d5df"/><stop offset="1" stop-color="#b9d6e8" stop-opacity="0"/></linearGradient>
+    <linearGradient id="voxWaveB" x1="0" y1="0" x2="1" y2=".2"><stop stop-color="#e7efdc" stop-opacity="0"/><stop offset=".3" stop-color="#e7efdc"/><stop offset=".55" stop-color="#fff" /><stop offset=".82" stop-color="#b7d1df"/><stop offset="1" stop-color="#b7d1df" stop-opacity="0"/></linearGradient>
+    <filter id="voxWaveShadow" x="-30%" y="-80%" width="160%" height="260%"><feGaussianBlur stdDeviation="3" result="blur"/><feColorMatrix in="blur" type="matrix" values="0 0 0 0 .18 0 0 0 0 .27 0 0 0 0 .4 0 0 0 .3 0"/><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+   </defs>
+   <g fill="none" stroke-linecap="round" filter="url(#voxWaveShadow)">
+    <path class="vox-wave-line wave-a" d="M14 51 C55 9 88 88 130 48 S205 10 245 48 S309 82 346 43" stroke="url(#voxWaveA)" stroke-width="11"/>
+    <path class="vox-wave-line wave-b" d="M8 63 C50 28 86 83 126 60 S203 24 244 57 S307 84 352 57" stroke="url(#voxWaveB)" stroke-width="8"/>
+    <path class="vox-wave-line wave-c" d="M18 38 C57 72 89 15 132 39 S204 77 246 38 S308 16 344 40" stroke="url(#voxWaveA)" stroke-width="6"/>
+   </g>
+  </svg>
+ </div>
   <section class="auth-card" id="authAccess" aria-labelledby="authHeading">
     <h1 id="authHeading" class="sr-only">Crear tu cuenta</h1>
     <form id="authForm" class="auth-form" novalidate>
