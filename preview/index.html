@@ -3,80 +3,77 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#111111">
+<meta name="theme-color" content="#f7f4ff">
 <meta name="description" content="VOX. Entrena tu comunicación conversando.">
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="icon" href="./icon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="./app.css?v=voice02">
+<link rel="stylesheet" href="./app.css?v=app03">
 <title>VOX — Entrena conversando</title>
 </head>
 <body>
+<div class="app-boot" id="appBoot" aria-live="polite"><div class="boot-orbit"><span>v.</span></div><div class="boot-loader"></div><p>Abriendo tu espacio VOX...</p></div>
 <div class="app">
   <header class="topbar">
-    <a class="brand" href="#" data-go="home">VOX<span>.</span></a>
-    <div class="header-actions">
-      <span class="top-label" id="accountStatus">ENTRENADOR DE COMUNICACIÓN</span>
-      <button class="account-button" id="accountButton" type="button">Iniciar sesión</button>
-      <button class="account-button" id="logoutButton" type="button" hidden>Cerrar sesión</button>
+    <a class="brand" href="#" data-go="home"><span class="brand-symbol">v.</span><span>VOX</span></a>
+    <div class="topbar-actions">
+      <span class="account-chip"><i></i><span id="accountStatus">Tu espacio</span></span>
+      <button class="logout-button" id="logoutButton" type="button">Salir <span>↗</span></button>
     </div>
   </header>
   <main>
     <section class="screen active" id="home">
-      <p class="eyebrow">TU ESPACIO DE ENTRENAMIENTO</p>
-      <h1>Habla.<br>Escucha.<br><span>Mejora.</span></h1>
-      <p class="intro">Entrena tu comunicación conversando. Una sesión a la vez.</p>
-      <button class="primary" data-go="practice">Iniciar entrenamiento <span>→</span></button>
-      <div class="home-bottom"><div><strong id="sessionCount">0</strong><span>SESIONES</span></div><p>Tu progreso empieza con una conversación.</p></div>
-    </section>
-    <section class="screen" id="practice">
-      <button class="back" data-go="home">← Inicio</button>
-      <p class="eyebrow">SESIÓN DE ENTRENAMIENTO</p>
-      <h2>Conversa con <span>VOX.</span></h2>
-      <p class="intro">Habla con naturalidad. VOX te escucha, responde y mantiene el hilo de la conversación.</p>
-      <div class="engine-status" id="engineStatus"><i></i><span>Comprobando motor local…</span></div>
-      <div class="conversation" id="conversation" aria-live="polite">
-        <p class="empty-conversation" id="emptyConversation">Cuando estés listo, toca el micrófono y empieza a hablar.</p>
-      </div>
-      <div class="voice-controls">
-        <button class="talk-button" id="talkButton" type="button"><span class="mic-icon">●</span><span id="talkLabel">Hablar con VOX</span></button>
-        <p class="control-hint" id="controlHint">Toca para empezar a hablar. Toca de nuevo cuando termines.</p>
-        <button class="end-button" id="endButton" type="button">Finalizar sesión</button>
-      </div>
-      <p class="privacy-note">El audio se procesa en tu dispositivo. Esta versión no guarda grabaciones ni conversaciones.</p>
-    </section>
-    <section class="screen auth-screen" id="auth">
-      <button class="back" type="button" data-go="home">← Volver al inicio</button>
-      <div class="auth-layout">
-        <p class="eyebrow">CUENTA VOX</p>
-        <h2 id="authTitle">Tu espacio.<br><span>Tu progreso.</span></h2>
-        <p class="auth-description" id="authDescription">Inicia sesión para acceder a tu cuenta VOX.</p>
-        <div class="auth-tabs" role="tablist" aria-label="Acceso a VOX">
-          <button class="active" type="button" data-auth-mode="login" role="tab" aria-selected="true">Iniciar sesión</button>
-          <button type="button" data-auth-mode="signup" role="tab" aria-selected="false">Crear cuenta</button>
+      <div class="home-hero">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="eyebrow-spark">✦</span> TU ESPACIO DE ENTRENAMIENTO</p>
+          <h1>Tu voz puede<br><span>llegar más lejos.</span></h1>
+          <p class="intro">Comunica con claridad, confianza y autenticidad. Vamos paso a paso, conversación a conversación.</p>
+          <button class="primary" data-go="practice" type="button"><span>Comenzar a entrenar</span><span class="button-arrow">↗</span></button>
+          <div class="hero-footnote"><span class="tiny-heart">♡</span> No tienes que hacerlo perfecto. Solo empezar.</div>
         </div>
-        <form class="auth-form" id="authForm">
-          <label for="authEmail">Correo electrónico
-            <input id="authEmail" name="email" type="email" autocomplete="email" inputmode="email" placeholder="tu@correo.com" required>
-          </label>
-          <label for="authPassword">Contraseña
-            <input id="authPassword" name="password" type="password" autocomplete="current-password" minlength="6" placeholder="Mínimo 6 caracteres" required>
-          </label>
-          <div id="authConfirmWrap" hidden>
-            <label for="authConfirm">Confirmar contraseña
-              <input id="authConfirm" name="password-confirm" type="password" autocomplete="new-password" minlength="6" placeholder="Repite tu contraseña">
-            </label>
-          </div>
-          <button class="primary auth-submit" id="authSubmit" type="submit">Entrar a VOX <span>→</span></button>
-          <p class="auth-message" id="authMessage" role="status" aria-live="polite"></p>
-        </form>
-        <p class="auth-footnote">Tu cuenta se gestiona de forma segura mediante Supabase Authentication. Nunca compartas tu contraseña.</p>
+        <div class="hero-art" aria-hidden="true">
+          <div class="art-orbit orbit-one"></div><div class="art-orbit orbit-two"></div>
+          <div class="art-glow"></div>
+          <div class="voice-core"><span class="core-spark">✦</span><strong>VOX</strong><small>YOUR VOICE MATTERS</small></div>
+          <div class="art-wave"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <div class="art-caption caption-one">confianza <span>✧</span></div>
+          <div class="art-caption caption-two"><span>✦</span> claridad</div>
+        </div>
       </div>
+      <div class="home-bottom">
+        <div class="session-stat"><span class="stat-label">TU RECORRIDO</span><strong id="sessionCount">0</strong><span class="stat-caption">sesiones completadas</span></div>
+        <p>Cada conversación es una oportunidad para descubrir una versión más segura de ti.</p>
+        <span class="bottom-flower">✿</span>
+      </div>
+    </section>
+    <section class="screen practice-screen" id="practice">
+      <div class="practice-heading">
+        <button class="back" type="button" data-go="home"><span>←</span> Volver a mi espacio</button>
+        <p class="eyebrow"><span class="eyebrow-spark">✦</span> SESIÓN DE ENTRENAMIENTO</p>
+        <h2>Una conversación<br><span>puede cambiarlo todo.</span></h2>
+        <p class="intro">Habla con naturalidad. VOX te escucha, responde y mantiene el hilo de la conversación.</p>
+        <div class="engine-status" id="engineStatus"><i></i><span>Comprobando motor local…</span></div>
+      </div>
+      <div class="practice-card">
+        <div class="conversation-top"><span class="conversation-dot"></span><span>CONVERSACIÓN EN VIVO</span><span class="conversation-live">● LISTO CUANDO TÚ</span></div>
+        <div class="conversation" id="conversation" aria-live="polite">
+          <p class="empty-conversation" id="emptyConversation"><span class="empty-spark">✧</span>Cuando estés listo, toca el botón y empieza a hablar.<small>Este es tu espacio. Tómate tu tiempo.</small></p>
+        </div>
+        <div class="voice-controls">
+          <button class="talk-button" id="talkButton" type="button"><span class="mic-icon">●</span><span id="talkLabel">Hablar con VOX</span><span class="talk-arrow">↗</span></button>
+          <p class="control-hint" id="controlHint">Toca para empezar a hablar. Toca de nuevo cuando termines.</p>
+          <button class="end-button" id="endButton" type="button">Finalizar sesión</button>
+        </div>
+      </div>
+      <p class="privacy-note"><span>♡</span> El audio se procesa en tu dispositivo. Esta versión no guarda grabaciones ni conversaciones.</p>
     </section>
   </main>
-  <nav class="bottom-nav" aria-label="Navegación"><button class="nav-item active" data-go="home"><span>⌂</span>Inicio</button><button class="nav-item" data-go="practice"><span>◉</span>Entrenar</button></nav>
+  <nav class="bottom-nav" aria-label="Navegación">
+    <button class="nav-item active" data-go="home" type="button"><span>⌂</span>Mi espacio</button>
+    <button class="nav-item" data-go="practice" type="button"><span>✧</span>Entrenar</button>
+  </nav>
   <div id="appMessage" class="toast" role="status" aria-live="polite" hidden></div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.105.0"></script>
-<script src="./app.js?v=voice02"></script>
+<script src="./app.js?v=app03"></script>
 </body>
 </html>
