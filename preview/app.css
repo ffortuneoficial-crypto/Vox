@@ -52,3 +52,23 @@ h2{font-size:clamp(42px,10vw,64px);line-height:1.05;letter-spacing:-2.5px;margin
 .toast[hidden]{display:none}
 @media(max-width:390px){.app{padding-left:22px;padding-right:22px}.top-label{font-size:9px}.home-bottom p{font-size:12px;max-width:145px}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+.header-actions{display:flex;align-items:center;gap:14px}
+.account-button{border:1px solid #444;border-radius:999px;background:transparent;color:#eee;padding:10px 14px;font-size:12px;font-weight:700}
+.account-button:hover{background:#eee;color:#111}
+.auth-screen{max-width:520px;margin:0 auto}
+.auth-screen .back{margin-bottom:28px}
+.auth-layout{width:100%;padding:clamp(24px,6vw,38px);border:1px solid #333;border-radius:18px;background:var(--panel)}
+.auth-layout .eyebrow{margin-bottom:16px}
+.auth-layout h2{font-size:clamp(38px,9vw,52px);margin-bottom:12px}
+.auth-description{margin:0 0 24px;color:#aaa;font-size:15px;line-height:1.6}
+.auth-tabs{display:grid;grid-template-columns:1fr 1fr;gap:4px;margin:0 0 24px;padding:4px;border:1px solid #333;border-radius:10px;background:#111}
+.auth-tabs button{padding:12px 8px;border:0;border-radius:7px;background:transparent;color:#888;font-size:13px;font-weight:700}
+.auth-tabs button.active{background:#eee;color:#111}
+.auth-form{display:grid;gap:14px}
+.auth-form label{display:grid;gap:8px;color:#c9c9c9;font-size:12px;font-weight:700}
+.auth-form input{width:100%;height:50px;padding:0 14px;border:1px solid #3b3b3b;border-radius:9px;background:#111;color:#eee;font-size:15px}
+.auth-form input:focus{outline:2px solid #888;outline-offset:1px}
+.auth-submit{width:100%;min-height:58px;margin-top:8px;border-radius:10px}
+.auth-message{min-height:24px;margin:2px 0 0;color:#c8c8c8;font-size:13px;line-height:1.55}
+.auth-footnote{margin:20px 0 0;color:#777;font-size:12px;line-height:1.6}
+@media(max-width:480px){.topbar{height:72px}.top-label{display:none}.header-actions{gap:8px}.account-button{padding:9px 12px;font-size:11px}.auth-layout{border-radius:14px}.auth-screen{padding-top:30px}}
