@@ -3,75 +3,45 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#090b18">
-<meta name="description" content="Entra a VOX y empieza a entrenar tu comunicación.">
+<meta name="theme-color" content="#11140f">
+<meta name="description" content="VOX. Entrena tu voz, claridad y presencia.">
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="icon" href="./icon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="./auth.css?v=auth06">
-<title>VOX — Hazte escuchar</title>
+<link rel="stylesheet" href="./auth.css?v=auth07">
+<script defer src="./auth.js?v=auth07"></script>
+<title>VOX — Tu voz tiene dirección</title>
 </head>
 <body class="auth-page">
-<div class="ambient ambient-one" aria-hidden="true"></div>
-<div class="ambient ambient-two" aria-hidden="true"></div>
-<div class="ambient ambient-three" aria-hidden="true"></div>
-<div class="noise-overlay" aria-hidden="true"></div>
+<svg class="background-mark" viewBox="0 0 520 680" aria-hidden="true" focusable="false">
+  <path d="M54 70 260 610 466 70"/>
+</svg>
 
-<div class="auth-boot" id="authBoot" aria-live="polite">
-  <div class="boot-mark">V<span></span></div>
-  <div class="boot-spinner"></div>
-  <p>Encontrando tu frecuencia</p>
-</div>
-
-<main class="auth-shell" id="authShell" hidden>
+<main class="auth-shell" id="authShell">
   <header class="auth-brand">
-    <a href="./auth.html" class="brand-lockup" aria-label="VOX inicio">
-      <span class="brand-mark">V<span></span></span>
+    <a href="./auth.html" class="brand-lockup" aria-label="VOX, inicio">
+      <svg class="brand-symbol" viewBox="0 0 42 42" aria-hidden="true"><path d="M5 7 21 36 37 7"/></svg>
       <span class="brand-name">VOX</span>
     </a>
-    <span class="brand-caption">ENTRENA TU PRESENCIA <i></i></span>
+    <span class="brand-caption">COMUNICACIÓN CON INTENCIÓN</span>
   </header>
 
   <div class="auth-content">
-    <section class="welcome-panel">
-      <div class="visual-meta">
-        <span class="meta-chip"><i></i> ESPACIO DE ENTRENAMIENTO</span>
-        <span class="meta-index">01 <b>/</b> 03</span>
-      </div>
-
-      <div class="voice-visual" aria-hidden="true">
-        <div class="visual-grid"></div>
-        <div class="visual-aura aura-outer"></div>
-        <div class="visual-aura aura-inner"></div>
-        <div class="orbit orbit-one"><span></span></div>
-        <div class="orbit orbit-two"><span></span></div>
-        <div class="orbit orbit-three"><span></span></div>
-        <div class="voice-core">
-          <div class="core-shine"></div>
-          <span class="core-symbol">V</span>
-          <svg class="core-wave" viewBox="0 0 180 42" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M3 21H23L32 9L43 33L54 15L64 26L74 4L86 38L98 13L108 27L119 17L129 23L139 8L150 33L160 19H177" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
-        <span class="signal-label signal-left">VOZ <b>01</b></span>
-        <span class="signal-label signal-right"><i></i> FRECUENCIA ACTIVA</span>
-        <span class="visual-cross cross-one"></span>
-        <span class="visual-cross cross-two"></span>
-      </div>
-
+    <section class="welcome-panel" aria-labelledby="welcomeTitle">
+      <div class="hero-index"><span></span> ENTRENAMIENTO PERSONAL</div>
       <div class="welcome-copy">
-        <span class="eyebrow"><span class="eyebrow-line"></span> EL SIGUIENTE NIVEL EMPIEZA AQUÍ</span>
-        <h1>No solo hables.<br><span>Hazte escuchar.</span></h1>
-        <p>Entrena tu voz, afina tus ideas y transmite lo que realmente quieres decir.</p>
-        <div class="welcome-tags" aria-label="Áreas de entrenamiento">
-          <span>CLARIDAD</span><i></i><span>CONFIANZA</span><i></i><span>PRESENCIA</span>
-        </div>
+        <h1 id="welcomeTitle">Tu voz tiene<br><em>dirección.</em></h1>
+        <p>Habla con claridad. Expresa tus ideas con seguridad. Aprende a transmitir lo que realmente importa.</p>
+      </div>
+      <div class="hero-signature">
+        <span>VOZ</span><i></i><span>IDEAS</span><i></i><span>PRESENCIA</span>
       </div>
     </section>
 
-    <section class="auth-card" id="authCard" aria-labelledby="authHeading">
-      <div class="card-topline">
-        <span class="card-toptext">TU ESPACIO PERSONAL</span>
-        <span class="secure-label"><i></i> ACCESO SEGURO</span>
+    <section class="auth-access" id="authAccess" aria-labelledby="authHeading">
+      <div class="access-eyebrow">TU ESPACIO · 01</div>
+      <div class="form-heading">
+        <h2 id="authHeading">Qué bueno tenerte de vuelta.</h2>
+        <p id="authSubheading">Entra y continúa trabajando en tu comunicación.</p>
       </div>
 
       <div class="auth-tabs" role="tablist" aria-label="Acceso a VOX">
@@ -79,17 +49,11 @@
         <button class="auth-tab" type="button" data-auth-mode="signup" role="tab" aria-selected="false">Crear cuenta</button>
       </div>
 
-      <div class="form-heading">
-        <h2 id="authHeading">Qué bueno verte.</h2>
-        <p id="authSubheading">Vuelve a entrar. Tu próxima versión te está esperando.</p>
-      </div>
-
       <form id="authForm" class="auth-form" novalidate>
         <label class="field-label" id="emailField" for="authEmail">
           <span>Correo electrónico</span>
           <span class="input-wrap">
-            <svg class="field-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 6.75h16v10.5H4z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="m4.5 7.5 7.5 6 7.5-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            <input id="authEmail" name="email" type="email" autocomplete="email" inputmode="email" placeholder="hola@ejemplo.com" required>
+            <input id="authEmail" name="email" type="email" autocomplete="email" inputmode="email" placeholder="nombre@correo.com" required>
           </span>
           <small class="field-error" id="emailError"></small>
         </label>
@@ -97,17 +61,15 @@
         <label class="field-label" id="passwordField" for="authPassword">
           <span>Contraseña</span>
           <span class="input-wrap">
-            <svg class="field-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="5" y="10" width="14" height="10" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M8 10V7.5a4 4 0 0 1 8 0V10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M12 14v2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
             <input id="authPassword" name="password" type="password" autocomplete="current-password" minlength="6" placeholder="Tu contraseña" required>
-            <button class="password-toggle" type="button" id="togglePassword" aria-label="Mostrar contraseña">Mostrar</button>
+            <button class="password-toggle" type="button" id="togglePassword" aria-label="Mostrar contraseña">Ver</button>
           </span>
           <small class="field-error" id="passwordError"></small>
         </label>
 
         <label class="field-label confirm-field" id="confirmField" for="authConfirm" hidden>
-          <span>Repite tu contraseña</span>
+          <span>Confirma tu contraseña</span>
           <span class="input-wrap">
-            <svg class="field-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="5" y="10" width="14" height="10" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M8 10V7.5a4 4 0 0 1 8 0V10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
             <input id="authConfirm" name="password-confirm" type="password" autocomplete="new-password" minlength="6" placeholder="Escríbela otra vez">
           </span>
           <small class="field-error" id="confirmError"></small>
@@ -120,24 +82,22 @@
         <p class="auth-message" id="authMessage" role="status" aria-live="polite"></p>
       </form>
 
-      <div class="card-footer"><span class="footer-spark"></span> Una práctica a la vez. Tu voz, cada vez más tuya.</div>
+      <p class="access-note">Un paso a la vez. Una voz más clara cada día.</p>
     </section>
   </div>
 
   <footer class="auth-footer">
     <span>VOX © 2026</span>
-    <span>MENOS RUIDO. MÁS PRESENCIA.</span>
+    <span>MENOS RUIDO. MÁS INTENCIÓN.</span>
   </footer>
 </main>
 
 <div class="success-scene" id="successScene" aria-hidden="true">
-  <div class="success-horizon"></div>
-  <div class="success-sun"></div>
-  <p>Bienvenido de vuelta</p>
-  <span>Tu espacio te espera.</span>
+  <svg class="success-v" viewBox="0 0 120 120" aria-hidden="true">
+    <path d="M17 20 60 101 103 20"/>
+  </svg>
+  <p>Bienvenido a VOX</p>
+  <span>Sigamos construyendo tu voz.</span>
 </div>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.105.0"></script>
-<script src="./auth.js?v=auth06"></script>
 </body>
 </html>
