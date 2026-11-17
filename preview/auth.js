@@ -83,6 +83,7 @@ function setMode(next){
     button.setAttribute("aria-selected",String(active));
   });
   $("#authHeading").textContent=signup?"CREAR CUENTA":"INICIO";
+  const divider=$("#authDividerText");if(divider)divider.textContent=signup?"o inicia sesión":"o regístrate";
   $("#authSubheading").textContent="";
   $("#confirmField").hidden=!signup;
   $("#authConfirm").required=signup;
