@@ -1,29 +1,45 @@
 <!doctype html>
-<html lang="es"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#9eac9a"><meta name="description" content="VOX. Entrena tu voz y desarrolla tu potencial.">
-<link rel="manifest" href="./manifest.webmanifest"><link rel="icon" href="./icon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="./auth.css?v=auth13"><script defer src="./auth.js?v=auth11"></script>
-<title>VOX — Entrena tu voz</title></head>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#6479a8">
+<meta name="description" content="VOX — Tu voz tiene más fuerza de la que imaginas.">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" href="./icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="./auth.css?v=auth14">
+<script defer src="./auth.js?v=auth12"></script>
+<title>VOX — Tu voz, tu potencial</title>
+</head>
 <body class="auth-page">
-<div class="auth-atmosphere" aria-hidden="true"><span class="orb orb-blue"></span><span class="orb orb-cream"></span><span class="orb orb-dark"></span></div>
+<div class="auth-atmosphere" aria-hidden="true">
+  <span class="orb orb-blue"></span><span class="orb orb-green"></span><span class="orb orb-cream"></span>
+  <span class="soft-wave"></span>
+</div>
 <main class="auth-shell" id="authShell">
-
-<section class="auth-card" id="authAccess" aria-labelledby="authHeading">
-<header class="auth-brand"><a href="./auth.html" class="brand-lockup" aria-label="VOX, inicio"><span class="brand-name">Vox</span></a></header>
-<div class="mascot-wrap"><img class="vox-mascot" src="./vox-mascot.svg" alt="Mascota de VOX, una carita verde de ojos grandes"></div>
-<h1 id="authHeading" class="sr-only">Inicio de sesión</h1>
-<form id="authForm" class="auth-form" novalidate>
-<label class="field-label" id="emailField" for="authEmail"><span class="sr-only">Correo electrónico</span><span class="input-wrap"><span class="field-icon" aria-hidden="true">✉</span><input id="authEmail" name="email" type="email" autocomplete="email" inputmode="email" placeholder="Correo electrónico" required></span><small class="field-error" id="emailError"></small></label>
-<label class="field-label" id="passwordField" for="authPassword"><span class="sr-only">Contraseña</span><span class="input-wrap"><span class="field-icon lock-icon" aria-hidden="true">⌑</span><input id="authPassword" name="password" type="password" autocomplete="current-password" minlength="6" placeholder="Contraseña" required><button class="password-toggle" type="button" id="togglePassword" aria-label="Mostrar contraseña">Ver</button></span><small class="field-error" id="passwordError"></small></label>
-<label class="field-label confirm-field" id="confirmField" for="authConfirm" hidden><span class="sr-only">Confirma tu contraseña</span><span class="input-wrap"><span class="field-icon lock-icon" aria-hidden="true">⌑</span><input id="authConfirm" name="password-confirm" type="password" autocomplete="new-password" minlength="6" placeholder="Confirma tu contraseña"></span><small class="field-error" id="confirmError"></small></label>
-<button class="submit-button" id="authSubmit" type="submit"><span class="submit-label">Entrar a VOX</span></button><p class="auth-message" id="authMessage" role="status" aria-live="polite"></p>
-</form>
-<div class="auth-divider" aria-hidden="true"><span></span><p id="authDividerText">¿Aún no tienes cuenta?</p><span></span></div>
-<div class="auth-tabs" role="tablist" aria-label="Acceso a VOX"><button class="auth-tab" type="button" data-auth-mode="login" role="tab" aria-selected="true">INICIAR SESIÓN</button><button class="auth-tab create-tab" type="button" data-auth-mode="signup" role="tab" aria-selected="false">CREAR UNA CUENTA</button></div>
-
-</section>
-<footer class="auth-footer"><span class="footer-dot"></span><p>VOX · HABLA CON CONFIANZA</p></footer>
+  <a class="back-button" href="./index.html" aria-label="Volver"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 4.5 7.5 12l8 7.5"/></svg></a>
+  <header class="auth-brand"><a href="./auth.html" class="brand-lockup" aria-label="VOX, inicio"><span class="brand-name">Vox</span></a></header>
+  <div class="mascot-stage"><img class="vox-mascot" src="./vox-mascot.webp" alt="Mascota verde de VOX con ojos grandes y un corazón crema"></div>
+  <section class="auth-card" id="authAccess" aria-labelledby="authHeading">
+    <h1 id="authHeading" class="sr-only">Crear tu cuenta</h1>
+    <form id="authForm" class="auth-form" novalidate>
+      <label class="field-label" id="emailField" for="authEmail">
+        <span class="sr-only">Correo electrónico</span>
+        <span class="input-wrap"><span class="field-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="2.8" y="5" width="18.4" height="14" rx="2.2"/><path d="m4 7 8 6 8-6"/></svg></span><input id="authEmail" name="email" type="email" autocomplete="email" inputmode="email" placeholder="you@yours.com" required></span>
+        <small class="field-error" id="emailError"></small>
+      </label>
+      <label class="field-label" id="passwordField" for="authPassword">
+        <span class="sr-only">Contraseña</span>
+        <span class="input-wrap"><span class="field-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2.3"/><path d="M8 10V7a4 4 0 0 1 8 0v3m-4 4v3"/></svg></span><input id="authPassword" name="password" type="password" autocomplete="new-password" minlength="6" placeholder="Contraseña" required><button class="password-toggle" type="button" id="togglePassword" aria-label="Mostrar contraseña"><svg viewBox="0 0 24 24"><path d="M2 12s3.6-6 10-6 10 6 10 6-3.6 6-10 6S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/><path d="m3 3 18 18"/></svg></button></span>
+        <small class="field-error" id="passwordError"></small>
+      </label>
+      <button class="submit-button" id="authSubmit" type="submit"><span class="submit-label">CREAR UNA CUENTA</span></button>
+      <p class="auth-message" id="authMessage" role="status" aria-live="polite"></p>
+    </form>
+    <div class="auth-divider" aria-hidden="true"><span></span><p id="authDividerText">o regístrate</p><span></span></div>
+  </section>
+  <footer class="auth-footer"><span id="authModePrompt">¿Ya tienes una cuenta?</span> <button id="authModeLink" type="button">Inicia sesión</button></footer>
 </main>
 <div class="success-scene" id="successScene" aria-hidden="true"><div class="success-mascot">✓</div><p>Bienvenido a VOX</p><span>Tu espacio te espera.</span></div>
-</body></html>
+</body>
+</html>
