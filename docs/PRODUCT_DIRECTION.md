@@ -41,3 +41,13 @@ VOX es un entrenador conversacional de comunicación impulsado por IA. No es una
 - La sesión puede finalizarse y produce un informe sustentado en evidencias.
 - No hay puntuaciones sin datos suficientes.
 - El usuario controla permisos, retención y eliminación de datos.
+
+
+## Authentication entry and visual system (17 Nov 2026)
+
+- `preview/auth.html` is the standalone entry point for login and registration; it is not embedded in the main app.
+- `preview/auth.js` manages Supabase email/password authentication, session detection, and redirects authenticated users to `preview/index.html`.
+- `preview/index.html` is the protected main application. It verifies the Supabase session before revealing the app and redirects unauthenticated users to `auth.html`.
+- The PWA manifest starts at `auth.html`; a valid existing session immediately continues to the main app.
+- `preview/auth.css` and `preview/app.css` use a soft, colorful, animated visual system with responsive layouts and loading states.
+- `preview/sw.js` caches both entry points and their assets independently.
