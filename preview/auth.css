@@ -189,3 +189,12 @@ body[data-auth-mode="login"] .auth-divider{display:none}
  .auth-divider{margin-top:22px}
  .auth-footer{padding-top:14px}
 }
+/* Mascot scale adjustment only: keep its dimensional shading and shadow */
+@media(max-height:850px){
+ .mascot-stage{height:clamp(180px,22vh,210px)}
+ .vox-mascot{width:min(82%,620px);height:100%;filter:drop-shadow(0 15px 16px #24375b30)}
+}
+@media(max-width:390px){
+ .mascot-stage{height:clamp(180px,22vh,210px)}
+ .vox-mascot{width:82%}
+}
