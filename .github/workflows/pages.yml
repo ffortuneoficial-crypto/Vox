@@ -1,7 +1,7 @@
-name: Deploy VOX preview to GitHub Pages
+name: Deploy VOX to GitHub Pages
 on:
   push:
-    branches: [feature/vox-app-interface]
+    branches: [main, feature/vox-app-interface]
     paths:
       - "preview/**"
       - ".github/workflows/pages.yml"
