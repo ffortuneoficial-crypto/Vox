@@ -2,14 +2,14 @@
   "id": "./",
   "name": "VOX — Entrena tu comunicación",
   "short_name": "VOX",
-  "description": "Entrena tu voz, claridad y liderazgo.",
+  "description": "Entrena tu voz, claridad y presencia.",
   "lang": "es-CO",
   "start_url": "./auth.html",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait-primary",
-  "background_color": "#090b18",
-  "theme_color": "#090b18",
+  "background_color": "#11140f",
+  "theme_color": "#11140f",
   "icons": [
     {
       "src": "./icon.svg",
