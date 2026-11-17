@@ -7,12 +7,19 @@
 <meta name="description" content="VOX. Entrena tu comunicación conversando.">
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="icon" href="./icon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="./app.css?v=voice01">
+<link rel="stylesheet" href="./app.css?v=voice02">
 <title>VOX — Entrena conversando</title>
 </head>
 <body>
 <div class="app">
-  <header class="topbar"><a class="brand" href="#" data-go="home">VOX<span>.</span></a><span class="top-label">ENTRENADOR DE COMUNICACIÓN</span></header>
+  <header class="topbar">
+    <a class="brand" href="#" data-go="home">VOX<span>.</span></a>
+    <div class="header-actions">
+      <span class="top-label" id="accountStatus">ENTRENADOR DE COMUNICACIÓN</span>
+      <button class="account-button" id="accountButton" type="button">Iniciar sesión</button>
+      <button class="account-button" id="logoutButton" type="button" hidden>Cerrar sesión</button>
+    </div>
+  </header>
   <main>
     <section class="screen active" id="home">
       <p class="eyebrow">TU ESPACIO DE ENTRENAMIENTO</p>
@@ -37,10 +44,39 @@
       </div>
       <p class="privacy-note">El audio se procesa en tu dispositivo. Esta versión no guarda grabaciones ni conversaciones.</p>
     </section>
+    <section class="screen auth-screen" id="auth">
+      <button class="back" type="button" data-go="home">← Volver al inicio</button>
+      <div class="auth-layout">
+        <p class="eyebrow">CUENTA VOX</p>
+        <h2 id="authTitle">Tu espacio.<br><span>Tu progreso.</span></h2>
+        <p class="auth-description" id="authDescription">Inicia sesión para acceder a tu cuenta VOX.</p>
+        <div class="auth-tabs" role="tablist" aria-label="Acceso a VOX">
+          <button class="active" type="button" data-auth-mode="login" role="tab" aria-selected="true">Iniciar sesión</button>
+          <button type="button" data-auth-mode="signup" role="tab" aria-selected="false">Crear cuenta</button>
+        </div>
+        <form class="auth-form" id="authForm">
+          <label for="authEmail">Correo electrónico
+            <input id="authEmail" name="email" type="email" autocomplete="email" inputmode="email" placeholder="tu@correo.com" required>
+          </label>
+          <label for="authPassword">Contraseña
+            <input id="authPassword" name="password" type="password" autocomplete="current-password" minlength="6" placeholder="Mínimo 6 caracteres" required>
+          </label>
+          <div id="authConfirmWrap" hidden>
+            <label for="authConfirm">Confirmar contraseña
+              <input id="authConfirm" name="password-confirm" type="password" autocomplete="new-password" minlength="6" placeholder="Repite tu contraseña">
+            </label>
+          </div>
+          <button class="primary auth-submit" id="authSubmit" type="submit">Entrar a VOX <span>→</span></button>
+          <p class="auth-message" id="authMessage" role="status" aria-live="polite"></p>
+        </form>
+        <p class="auth-footnote">Tu cuenta se gestiona de forma segura mediante Supabase Authentication. Nunca compartas tu contraseña.</p>
+      </div>
+    </section>
   </main>
   <nav class="bottom-nav" aria-label="Navegación"><button class="nav-item active" data-go="home"><span>⌂</span>Inicio</button><button class="nav-item" data-go="practice"><span>◉</span>Entrenar</button></nav>
   <div id="appMessage" class="toast" role="status" aria-live="polite" hidden></div>
 </div>
-<script src="./app.js?v=voice01"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.105.0"></script>
+<script src="./app.js?v=voice02"></script>
 </body>
 </html>
