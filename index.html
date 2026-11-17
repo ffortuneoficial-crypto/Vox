@@ -1,89 +1,14 @@
 <!doctype html>
 <html lang="es">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#f7f7f4">
-  <meta name="description" content="VOX — Entrena tu comunicación.">
-  <title>VOX — Comunicación consciente</title>
-  <link rel="manifest" href="./manifest.webmanifest">
-  <link rel="icon" href="./icons/vox.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="./css/app.css">
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="./js/app.js" defer></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<meta http-equiv="refresh" content="0;url=./auth.html">
+<title>VOX — Tu voz, tu espacio</title>
+<script>location.replace("./auth.html");</script>
 </head>
 <body>
-  <div class="app-frame">
-    <header class="topbar">
-      <a class="wordmark" href="#" aria-label="VOX inicio">vox<span>.</span></a>
-      <div class="top-actions"><span id="user-label" class="user-label">Tu espacio de práctica</span><button id="auth-open" class="quiet-button">Iniciar sesión</button><button id="signout" class="quiet-button" hidden>Cerrar sesión</button></div>
-    </header>
-
-    <main>
-      <section id="home-screen" class="screen active">
-        <div class="home-copy">
-          <p class="kicker">COMUNICACIÓN · VOZ · PRESENCIA</p>
-          <h1>Que tus palabras<br>lleguen <em>como quieres.</em></h1>
-          <p class="intro">Entrena tu forma de expresarte. Aprende a ordenar tus ideas, usar tu voz y comunicar con intención.</p>
-          <button id="start-session" class="primary-button">Empezar una sesión <span>↗</span></button>
-          <p class="small-note">Un ejercicio a la vez. Sin prisa, sin personajes.</p>
-        </div>
-        <div class="home-bottom">
-          <div><span class="number" id="home-count">0</span><span class="metric-caption">sesiones guardadas</span></div>
-          <div class="bottom-divider"></div>
-          <p>La claridad se practica.<br>La confianza se construye.</p>
-        </div>
-      </section>
-
-      <section id="practice-screen" class="screen">
-        <div class="screen-heading"><button class="back-button" data-back>← Inicio</button><span class="kicker">SESIÓN DE PRÁCTICA</span></div>
-        <div class="practice-wrap">
-          <p class="kicker">TU RETO</p>
-          <h2 id="prompt">Cuéntame una idea que te importe y explícame por qué.</h2>
-          <p class="practice-guidance">Habla como lo harías con otra persona. No necesitas memorizar nada.</p>
-          <div class="record-zone">
-            <div class="record-indicator" id="record-indicator"><span></span></div>
-            <div class="clock" id="clock">00:00</div>
-            <p id="record-status" class="record-status">Micrófono apagado</p>
-            <div class="record-buttons"><button id="record-start" class="primary-button">Iniciar grabación</button><button id="record-stop" class="secondary-button" disabled>Terminar</button></div>
-          </div>
-          <div class="transcript-area">
-            <div class="transcript-title"><label for="transcript">Lo que dijiste</label><span id="transcript-state">La transcripción aparecerá aquí</span></div>
-            <textarea id="transcript" rows="5" placeholder="La transcripción aparecerá mientras hablas. También puedes escribirla aquí si el navegador no reconoce tu voz."></textarea>
-          </div>
-          <div class="session-actions"><button id="save-session" class="primary-button" disabled>Guardar sesión</button><span id="save-hint">Inicia y termina una grabación para guardar.</span></div>
-          <audio id="audio-player" controls hidden></audio>
-          <div id="save-result" class="save-result" role="status"></div>
-        </div>
-      </section>
-
-      <section id="history-screen" class="screen">
-        <div class="screen-heading"><button class="back-button" data-back>← Inicio</button><span class="kicker">TU RECORRIDO</span></div>
-        <h2 class="history-heading">Tus sesiones</h2>
-        <p class="intro">Tu práctica, guardada en tu cuenta.</p>
-        <div id="history-list" class="history-list"><p class="empty">Inicia sesión para ver tus sesiones guardadas.</p></div>
-      </section>
-    </main>
-
-    <footer class="bottom-nav"><button class="nav-link selected" data-screen="home-screen">Inicio</button><button class="nav-link" data-screen="history-screen">Mis sesiones</button></footer>
-  </div>
-
-  <div id="auth-modal" class="modal" hidden>
-    <div class="auth-card">
-      <button id="auth-close" class="modal-close" aria-label="Cerrar">×</button>
-      <a class="wordmark auth-wordmark" href="#">vox<span>.</span></a>
-      <p class="kicker">TU ESPACIO PERSONAL</p>
-      <h2 id="auth-title">Bienvenido de nuevo.</h2>
-      <p id="auth-description" class="auth-description">Inicia sesión para guardar y consultar tus prácticas.</p>
-      <form id="auth-form">
-        <label for="email">Correo electrónico</label><input id="email" type="email" autocomplete="email" placeholder="tu@correo.com" required>
-        <label for="password">Contraseña</label><input id="password" type="password" autocomplete="current-password" minlength="6" placeholder="Mínimo 6 caracteres" required>
-        <button id="auth-submit" class="primary-button auth-submit" type="submit">Iniciar sesión</button>
-      </form>
-      <p id="auth-message" class="auth-message" role="status"></p>
-      <button id="auth-switch" class="switch-auth">¿No tienes cuenta? Crear una</button>
-    </div>
-  </div>
-  <div id="toast" class="toast" role="status"></div>
+<p>Abriendo VOX… <a href="./auth.html">Continuar</a></p>
 </body>
 </html>
