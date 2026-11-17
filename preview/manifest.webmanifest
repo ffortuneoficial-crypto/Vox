@@ -4,12 +4,12 @@
   "short_name": "VOX",
   "description": "Entrena tu voz, claridad y liderazgo.",
   "lang": "es-CO",
-  "start_url": "./",
+  "start_url": "./auth.html",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait-primary",
-  "background_color": "#101010",
-  "theme_color": "#101010",
+  "background_color": "#fff6f1",
+  "theme_color": "#fff6f1",
   "icons": [
     {
       "src": "./icon.svg",
