@@ -7,14 +7,14 @@
 <meta name="description" content="VOX. Entrena tu comunicación conversando.">
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="icon" href="./icon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="./app.css?v=app03">
+<link rel="stylesheet" href="./app.css?v=app04">
 <title>VOX — Entrena conversando</title>
 </head>
 <body>
 <div class="app-boot" id="appBoot" aria-live="polite"><div class="boot-orbit"><span>v.</span></div><div class="boot-loader"></div><p>Abriendo tu espacio VOX...</p></div>
 <div class="app">
   <header class="topbar">
-    <a class="brand" href="#" data-go="home"><span class="brand-symbol">v.</span><span>VOX</span></a>
+    <a class="brand" href="#" data-go="home" aria-label="VOX, mi espacio"><span class="brand-script">Vox</span></a>
     <div class="topbar-actions">
       <span class="account-chip"><i></i><span id="accountStatus">Tu espacio</span></span>
       <button class="logout-button" id="logoutButton" type="button">Salir <span>↗</span></button>
@@ -31,12 +31,36 @@
           <div class="hero-footnote"><span class="tiny-heart">♡</span> No tienes que hacerlo perfecto. Solo empezar.</div>
         </div>
         <div class="hero-art" aria-hidden="true">
-          <div class="art-orbit orbit-one"></div><div class="art-orbit orbit-two"></div>
-          <div class="art-glow"></div>
-          <div class="voice-core"><span class="core-spark">✦</span><strong>VOX</strong><small>YOUR VOICE MATTERS</small></div>
-          <div class="art-wave"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
-          <div class="art-caption caption-one">confianza <span>✧</span></div>
-          <div class="art-caption caption-two"><span>✦</span> claridad</div>
+          <div class="home-art-orb home-art-orb-blue"></div><div class="home-art-orb home-art-orb-cream"></div>
+          <div class="home-visual-logo">Vox</div>
+          <div class="home-visualizer"><svg class="vox-wave-art" viewBox="0 0 360 104" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Visualizador animado del volumen de la voz">
+ <defs>
+  <linearGradient id="voxEqFill" x1="0" y1="0" x2="0.9" y2="1"><stop stop-color="#f8fff5"/><stop offset=".25" stop-color="#a9e9f1"/><stop offset=".62" stop-color="#55a9e8"/><stop offset="1" stop-color="#8edc78"/></linearGradient>
+  <linearGradient id="voxEqWave" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#8edc78" stop-opacity="0"/><stop offset=".25" stop-color="#a9e9f1"/><stop offset=".52" stop-color="#fff"/><stop offset=".78" stop-color="#55a9e8"/><stop offset="1" stop-color="#8edc78" stop-opacity="0"/></linearGradient>
+  <radialGradient id="voxEqAura"><stop stop-color="#d9f5ec" stop-opacity=".62"/><stop offset="1" stop-color="#d9f5ec" stop-opacity="0"/></radialGradient>
+  <filter id="voxEqDepth" x="-30%" y="-100%" width="160%" height="300%"><feGaussianBlur stdDeviation="4" result="blur"/><feColorMatrix in="blur" type="matrix" values="0 0 0 0 .12 0 0 0 0 .28 0 0 0 0 .48 0 0 0 .34 0" result="shadow"/><feMerge><feMergeNode in="shadow"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+ </defs>
+ <ellipse cx="180" cy="54" rx="142" ry="38" fill="url(#voxEqAura)"/>
+ <g fill="none" stroke="url(#voxEqWave)" stroke-linecap="round" filter="url(#voxEqDepth)">
+  <path class="vox-eq-ripple ripple-a" d="M18 52 C42 52 47 25 72 25 S103 78 130 78 S157 52 180 52 S207 26 230 26 S260 78 288 78 S320 52 342 52" stroke-width="4"/>
+  <path class="vox-eq-ripple ripple-b" d="M28 61 C53 61 58 39 79 39 S111 68 135 68 S160 55 180 55 S205 40 226 40 S256 69 281 69 S309 60 332 60" stroke-width="2.5" opacity=".78"/>
+ </g>
+ <g filter="url(#voxEqDepth)"><g class="vox-eq-bar" style="--bar-delay:0.00s"><rect x="65" y="47.5" width="10" height="9" rx="5" fill="url(#voxEqFill)"/><rect x="67" y="50.5" width="2" height="5" rx="1" fill="#ffffff" opacity=".58"/><ellipse cx="70" cy="49.5" rx="3" ry="1.5" fill="#fff" opacity=".75"/></g>
+<g class="vox-eq-bar" style="--bar-delay:-0.13s"><rect x="84" y="43" width="10" height="18" rx="5" fill="url(#voxEqFill)"/><rect x="86" y="46" width="2" height="10" rx="1" fill="#ffffff" opacity=".58"/><ellipse cx="89" cy="45" rx="3" ry="1.5" fill="#fff" opacity=".75"/></g>
+<g class="vox-eq-bar" style="--bar-delay:-0.26s"><rect x="103" y="37.5" width="10" height="29" rx="5" fill="url(#voxEqFill)"/><rect x="105" y="40.5" width="2" height="21" rx="1" fill="#ffffff" opacity=".58"/><ellipse cx="108" cy="39.5" rx="3" ry="1.5" fill="#fff" opacity=".75"/></g>
+<g class="vox-eq-bar" style="--bar-delay:-0.39s"><rect x="122" y="31" width="10" height="42" rx="5" fill="url(#voxEqFill)"/><rect x="124" y="34" width="2" height="34" rx="1" fill="#ffffff" opacity=".58"/><ellipse cx="127" cy="33" rx="3" ry="1.5" fill="#fff" opacity=".75"/></g>
+<g class="vox-eq-bar" style="--bar-delay:-0.52s"><rect x="141" y="25" width="10" height="54" rx="5" fill="url(#voxEqFill)"/><rect x="143" y="28" width="2" height="46" rx="1" fill="#ffffff" opacity=".58"/><ellipse cx="146" cy="27" rx="3" ry="1.5" fill="#fff" opacity=".75"/></g>
+<g class="vox-eq-bar" style="--bar-delay:-0.65s"><rect x="160" y="33" width="10" height="38" rx="5" fill="url(#voxEqFill)"/><rect x="162" y="36" width="2" height="30" rx="1" fill="#ffffff" opacity=".58"/><ellipse cx="165" cy="35" rx="3" ry="1.5" fill="#fff" opacity=".75"/></g>
+<g class="vox-eq-bar" style="--bar-delay:-0.78s"><rect x="179" y="39.5" width="10" height="25" rx="5" fill="url(#voxEqFill)"/><rect x="181" y="42.5" width="2" height="17" rx="1" fill="#ffffff" opacity=".58"/><ellipse cx="184" cy="41.5" rx="3" ry="1.5" fill="#fff" opacity=".75"/></g>
+<g class="vox-eq-bar" style="--bar-delay:-0.91s"><rect x="198" y="28.5" width="10" height="47" rx="5" fill="url(#voxEqFill)"/><rect x="200" y="31.5" width="2" height="39" rx="1" fill="#ffffff" opacity=".58"/><ellipse cx="203" cy="30.5" rx="3" ry="1.5" fill="#fff" opacity=".75"/></g>
+<g class="vox-eq-bar" style="--bar-delay:-1.04s"><rect x="217" y="21" width="10" height="62" rx="5" fill="url(#voxEqFill)"/><rect x="219" y="24" width="2" height="54" rx="1" fill="#ffffff" opacity=".58"/><ellipse cx="222" cy="23" rx="3" ry="1.5" fill="#fff" opacity=".75"/></g>
+<g class="vox-eq-bar" style="--bar-delay:-1.17s"><rect x="236" y="30.5" width="10" height="43" rx="5" fill="url(#voxEqFill)"/><rect x="238" y="33.5" width="2" height="35" rx="1" fill="#ffffff" opacity=".58"/><ellipse cx="241" cy="32.5" rx="3" ry="1.5" fill="#fff" opacity=".75"/></g>
+<g class="vox-eq-bar" style="--bar-delay:-1.30s"><rect x="255" y="37" width="10" height="30" rx="5" fill="url(#voxEqFill)"/><rect x="257" y="40" width="2" height="22" rx="1" fill="#ffffff" opacity=".58"/><ellipse cx="260" cy="39" rx="3" ry="1.5" fill="#fff" opacity=".75"/></g>
+<g class="vox-eq-bar" style="--bar-delay:-1.43s"><rect x="274" y="42.5" width="10" height="19" rx="5" fill="url(#voxEqFill)"/><rect x="276" y="45.5" width="2" height="11" rx="1" fill="#ffffff" opacity=".58"/><ellipse cx="279" cy="44.5" rx="3" ry="1.5" fill="#fff" opacity=".75"/></g>
+<g class="vox-eq-bar" style="--bar-delay:-1.56s"><rect x="293" y="46.5" width="10" height="11" rx="5" fill="url(#voxEqFill)"/><rect x="295" y="49.5" width="2" height="5" rx="1" fill="#ffffff" opacity=".58"/><ellipse cx="298" cy="48.5" rx="3" ry="1.5" fill="#fff" opacity=".75"/></g></g>
+ <g fill="#eafffa" opacity=".92"><circle cx="48" cy="52" r="2.6"/><circle cx="312" cy="52" r="2.6"/></g>
+</svg></div>
+          <div class="home-art-caption"><span class="caption-dot"></span> TU VOZ · TU POTENCIAL</div>
         </div>
       </div>
       <div class="home-bottom">
