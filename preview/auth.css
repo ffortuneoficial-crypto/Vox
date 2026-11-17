@@ -292,3 +292,40 @@ body[data-auth-mode="login"] .auth-divider{display:none}
 @media(prefers-reduced-motion:reduce){
  .wave-ribbon,.wave-glow{animation:none!important}
 }
+
+
+/* Guaranteed-visible VOX 3D animated wave artwork */
+.mascot-stage{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  width:100%!important;
+  height:clamp(78px,11vh,104px)!important;
+  min-height:78px!important;
+  margin:0 auto!important;
+  overflow:visible!important;
+  position:relative!important;
+  z-index:1!important;
+}
+.vox-wave-art{
+  display:block!important;
+  visibility:visible!important;
+  opacity:1!important;
+  width:min(78vw,360px)!important;
+  height:100%!important;
+  overflow:visible!important;
+  filter:drop-shadow(0 9px 10px #23395a38);
+}
+.vox-wave-line{transform-box:fill-box;transform-origin:center;animation:voxWaveMotion 3.4s ease-in-out infinite}
+.vox-wave-line.wave-b{animation-delay:-1.1s;opacity:.9}
+.vox-wave-line.wave-c{animation-delay:-2.2s;opacity:.8}
+@keyframes voxWaveMotion{
+  0%,100%{transform:translateY(4px) scaleY(.82) skewX(-3deg)}
+  50%{transform:translateY(-5px) scaleY(1.2) skewX(4deg)}
+}
+.auth-card{position:relative!important;z-index:2!important;margin-top:0!important}
+@media(max-height:850px){
+ .mascot-stage{height:78px!important;min-height:78px!important}
+ .vox-wave-art{width:min(78vw,340px)!important}
+}
+@media(prefers-reduced-motion:reduce){.vox-wave-line{animation:none!important}}
