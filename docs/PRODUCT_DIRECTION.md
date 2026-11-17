@@ -32,7 +32,8 @@ VOX es un entrenador conversacional de comunicación impulsado por IA. No es una
 - Primer circuito local implementado: captura de audio en navegador, transcripción mediante whisper.cpp, conversación contextual mediante OmniRoute y respuesta hablada con síntesis del navegador.
 - El puente de desarrollo se ejecuta en Termux y solo escucha en loopback (`127.0.0.1`). No es arquitectura de producción ni se debe compartir como servicio.
 - No se guardan grabaciones ni el historial de conversación al cerrar la sesión.
-- Todavía no hay modo full-duplex, informes analíticos validados, autenticación ni backend multiusuario.
+- La versión publicada incorpora autenticación por correo y contraseña mediante Supabase Auth, con sesiones persistentes.
+- Todavía no hay modo full-duplex, informes analíticos validados ni persistencia multiusuario de las conversaciones.
 
 ## Criterios de aceptación de la primera experiencia real
 - El usuario puede hablar y escuchar respuestas de la IA sin alternar entre dictado y texto.
