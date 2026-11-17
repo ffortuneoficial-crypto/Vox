@@ -1,5 +1,5 @@
-const CACHE="vox-voice-01";
-const FILES=["./","./index.html","./app.css?v=voice01","./app.js?v=voice01","./manifest.webmanifest","./icon.svg"];
+const CACHE="vox-voice-02";
+const FILES=["./","./index.html","./app.css?v=voice02","./app.js?v=voice02","./manifest.webmanifest","./icon.svg"];
 self.addEventListener("install",event=>event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(FILES)).then(()=>self.skipWaiting())));
 self.addEventListener("activate",event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key!==CACHE).map(key=>caches.delete(key)))).then(()=>self.clients.claim())));
 self.addEventListener("fetch",event=>{
