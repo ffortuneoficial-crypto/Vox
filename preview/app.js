@@ -1,18 +1,8 @@
 (()=>{"use strict";
-const $=s=>document.querySelector(s),$$=s=>Array.from(document.querySelectorAll(s));
-const screens=["home","practice","progress","profile"],storeKey="vox.sessions.v3";
-const prompts={Voz:"Voz y presencia",Claridad:"Claridad al hablar",Liderazgo:"Autoridad y liderazgo",Conexión:"Conexión interpersonal",Agilidad:"Improvisación"};
-let toastId;
-const getSessions=()=>{try{const v=JSON.parse(localStorage.getItem(storeKey)||"[]");return Array.isArray(v)?v:[]}catch{return[]}};
-const notify=message=>{const el=$("#appMessage");if(!el)return;el.textContent=message;el.hidden=false;clearTimeout(toastId);toastId=setTimeout(()=>el.hidden=true,5000)};
-function navigate(id){if(!screens.includes(id))return;screens.forEach(v=>$("#"+v)?.classList.toggle("active",v===id));$$(".nav-item").forEach(b=>b.classList.toggle("active",b.dataset.go===id));if(id==="progress")renderProgress();window.scrollTo({top:0,behavior:"smooth"});if($("#appMessage"))$("#appMessage").hidden=true}
-function stats(){const all=getSessions(),words=all.reduce((n,x)=>n+(Number(x.words)||0),0),mins=all.reduce((n,x)=>n+(Number(x.duration)||0),0);const values={"#sessionCount":String(all.length).padStart(2,"0"),"#wordCount":words.toLocaleString("es-CO"),"#minutesCount":Math.floor(mins/60).toString().padStart(2,"0")+" <small>min</small>","#progressSessions":String(all.length).padStart(2,"0"),"#progressWords":words.toLocaleString("es-CO"),"#progressMinutes":Math.floor(mins/60).toString().padStart(2,"0")+" <small>min</small>"};Object.entries(values).forEach(([s,v])=>{const el=$(s);if(el)el.innerHTML=v})}
-function renderHistory(){const el=$("#historyList");if(!el)return;el.replaceChildren();const all=getSessions();if(!all.length){const p=document.createElement("p");p.className="empty-state";p.textContent="Todavía no hay sesiones. Cuando el motor conversacional esté conectado, aquí aparecerán tus prácticas e informes.";el.append(p);return}all.forEach(x=>{const row=document.createElement("article");row.className="history-item";const info=document.createElement("div");info.className="history-main";const title=document.createElement("strong");title.textContent=x.focus?"Sesión · "+x.focus:"Sesión de VOX";const meta=document.createElement("p");meta.textContent=new Intl.DateTimeFormat("es-CO",{dateStyle:"medium",timeStyle:"short"}).format(new Date(x.date))+" · "+(x.words||0)+" palabras";const duration=document.createElement("span");duration.className="history-duration";duration.textContent=Math.floor((x.duration||0)/60)+" min";info.append(title,meta);row.append(info,duration);el.append(row)})}
-function renderProgress(){stats();renderHistory()}
-$$("[data-go]").forEach(b=>b.addEventListener("click",()=>navigate(b.dataset.go)));
-$$("[data-focus]").forEach(b=>b.addEventListener("click",()=>{const f=b.dataset.focus;$("#scenarioSelect").value=f==="Liderazgo"?"liderazgo":f==="Agilidad"?"improvisacion":f==="Conexión"?"conflicto":"libre";navigate("practice")}));
-$("#startConversation")?.addEventListener("click",()=>{const scenarios={libre:"Conversación libre",cliente:"Cliente difícil",entrevista:"Entrevista laboral",liderazgo:"Liderazgo y autoridad",conflicto:"Conversación difícil",improvisacion:"Improvisación"};const scenario=$("#scenarioSelect").value;notify("Escenario seleccionado: "+(scenarios[scenario]||"Conversación libre")+". El siguiente paso es conectar el backend seguro y el motor de voz en tiempo real. Todavía no se ha activado el micrófono.")});
-$("#clearHistory")?.addEventListener("click",()=>{if(!getSessions().length){notify("Todavía no hay sesiones guardadas.");return}if(!confirm("¿Borrar el historial de este dispositivo? Esta acción no se puede deshacer."))return;try{localStorage.removeItem(storeKey);stats();renderHistory();notify("Historial eliminado de este dispositivo.")}catch{notify("No se pudo borrar el historial.")}});
-if("serviceWorker"in navigator&&location.protocol!=="file:")window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));
-stats();renderHistory();
+const $=s=>document.querySelector(s);
+const screens=["home","practice"];
+function show(id){if(!screens.includes(id))return;screens.forEach(name=>$("#"+name)?.classList.toggle("active",name===id));document.querySelectorAll(".nav-item").forEach(b=>b.classList.toggle("active",b.dataset.go===id));window.scrollTo(0,0)}
+document.querySelectorAll("[data-go]").forEach(button=>button.addEventListener("click",()=>show(button.dataset.go)));
+try{const sessions=JSON.parse(localStorage.getItem("vox.sessions.v3")||"[]");$("#sessionCount").textContent=Array.isArray(sessions)?sessions.length:0}catch{$("#sessionCount").textContent="0"}
+if("serviceWorker"in navigator&&location.protocol!=="file:"){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}))}
 })();
