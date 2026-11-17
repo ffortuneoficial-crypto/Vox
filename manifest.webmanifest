@@ -8,9 +8,14 @@
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait-primary",
-  "background_color": "#f3f1eb",
-  "theme_color": "#f3f1eb",
+  "background_color": "#090b18",
+  "theme_color": "#090b18",
   "icons": [
-    { "src": "./icons/vox.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+    {
+      "src": "./icons/vox.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
   ]
 }
