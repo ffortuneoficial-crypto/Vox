@@ -2,7 +2,7 @@
 const $=selector=>document.querySelector(selector);
 const SUPABASE_URL="https://kmwmwacgsojpkbqwhomd.supabase.co";
 const SUPABASE_KEY="sb_publishable_cS2Rrx0VuOUsQNLd33gNZQ_fgWf0BrI";
-let client=null,clientPromise=null,mode="login",transitioning=false;
+let client=null,clientPromise=null,mode="signup",transitioning=false;
 
 function getClient(){
   if(client)return Promise.resolve(client);
@@ -40,7 +40,6 @@ function fieldParts(name){
   const map={
     email:{field:"#emailField",input:"#authEmail",error:"#emailError"},
     password:{field:"#passwordField",input:"#authPassword",error:"#passwordError"},
-    confirm:{field:"#confirmField",input:"#authConfirm",error:"#confirmError"}
   };
   return map[name];
 }
@@ -59,7 +58,7 @@ function markField(name,text){
   $(parts.error).textContent=text;
 }
 function clearErrors(){
-  ["email","password","confirm"].forEach(clearFieldError);
+  ["email","password"].forEach(clearFieldError);
   message("");
 }
 function shakeAccess(){
@@ -83,12 +82,12 @@ function setMode(next){
     button.setAttribute("aria-selected",String(active));
   });
   $("#authHeading").textContent=signup?"CREAR CUENTA":"INICIO";
-  const divider=$("#authDividerText");if(divider)divider.textContent=signup?"¿Ya tienes cuenta?":"¿Aún no tienes cuenta?";
-  $("#authSubheading")?.replaceChildren();
-  $("#confirmField").hidden=!signup;
-  $("#authConfirm").required=signup;
+  const divider=$("#authDividerText");if(divider)divider.textContent=signup?"o regístrate":"o inicia sesión";
+  const prompt=$("#authModePrompt"),link=$("#authModeLink");
+  if(prompt)prompt.textContent=signup?"¿Ya tienes una cuenta?":"¿Todavía no tienes cuenta?";
+  if(link)link.textContent=signup?"Inicia sesión":"Crear una cuenta";
   $("#authPassword").autocomplete=signup?"new-password":"current-password";
-  $("#authSubmit .submit-label").textContent=signup?"Crear mi cuenta":"Entrar a VOX";
+  $("#authSubmit .submit-label").textContent=signup?"CREAR UNA CUENTA":"INICIAR SESIÓN";
   clearErrors();
 }
 function errorText(error){
@@ -110,7 +109,7 @@ function loading(active){
     ?'<span class="button-spinner"></span><span class="submit-label">Un momento...</span>'
     :'<span class="submit-label">'+(mode==="signup"?"Crear mi cuenta":"Entrar a VOX")+'</span><span class="submit-arrow" aria-hidden="true">↗</span>';
 }
-function validate(email,password,confirm){
+function validate(email,password){
   clearErrors();
   if(!email){
     fail("Escribe el correo con el que creaste tu cuenta.",[["email","Este campo es obligatorio."]]);
@@ -128,10 +127,6 @@ function validate(email,password,confirm){
     fail("La contraseña debe tener al menos 6 caracteres.",[["password","Usa al menos 6 caracteres."]]);
     $("#authPassword").focus();return false;
   }
-  if(mode==="signup"&&password!==confirm){
-    fail("Las contraseñas no coinciden. Vuelve a escribirlas.",[["confirm","Las contraseñas deben coincidir."]]);
-    $("#authConfirm").focus();return false;
-  }
   return true;
 }
 async function submit(event){
@@ -139,8 +134,7 @@ async function submit(event){
   if(transitioning)return;
   const email=$("#authEmail").value.trim();
   const password=$("#authPassword").value;
-  const confirm=$("#authConfirm").value;
-  if(!validate(email,password,confirm))return;
+  if(!validate(email,password))return;
   loading(true);
   message(mode==="signup"?"Creando tu espacio...":"Comprobando tus datos...","info");
   try{
@@ -186,19 +180,20 @@ async function init(){
     message("El acceso está listo. Cuando tengas conexión podrás iniciar sesión.","info");
   }
 }
-document.querySelectorAll("[data-auth-mode]").forEach(button=>button.addEventListener("click",()=>setMode(button.dataset.authMode)));
+$("#authModeLink").addEventListener("click",()=>setMode(mode==="signup"?"login":"signup"));
 $("#authForm").addEventListener("submit",submit);
-["email","password","confirm"].forEach(name=>{
+["email","password"].forEach(name=>{
   const parts=fieldParts(name);
   $(parts.input).addEventListener("input",()=>clearFieldError(name));
 });
 $("#togglePassword").addEventListener("click",()=>{
   const input=$("#authPassword"),show=input.type==="password";
   input.type=show?"text":"password";
-  $("#togglePassword").textContent=show?"Ocultar":"Ver";
+  $("#togglePassword").classList.toggle("is-visible",show);
+  $("#togglePassword").setAttribute("aria-label",show?"Ocultar contraseña":"Mostrar contraseña");
   $("#togglePassword").setAttribute("aria-label",show?"Ocultar contraseña":"Mostrar contraseña");
 });
-setMode("login");
+setMode("signup");
 init();
 if("serviceWorker"in navigator&&location.protocol!=="file:"){
   window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));
