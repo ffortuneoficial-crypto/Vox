@@ -54,6 +54,7 @@ function clearErrors(){
 }
 function shakeCard(){
   const card=$("#authCard");
+  card.classList.add("is-settled");
   card.classList.remove("is-shaking");
   void card.offsetWidth;
   card.classList.add("is-shaking");
