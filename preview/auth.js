@@ -83,8 +83,9 @@ function setMode(next){
     button.setAttribute("aria-selected",String(active));
   });
   $("#authHeading").textContent=signup?"CREAR CUENTA":"INICIO";
-  const divider=$("#authDividerText");if(divider)divider.textContent=signup?"o inicia sesión":"o regístrate";
-  $("#authSubheading").textContent="";
+  const divider=$("#authDividerText");if(divider)divider.textContent=signup?"¿Ya tienes cuenta?":"¿Aún no tienes cuenta?";
+  const submitLabel=$("#authSubmit .submit-label");if(submitLabel)submitLabel.textContent=signup?"Crear mi cuenta":"Entrar a VOX";
+  $("#authSubheading")?.replaceChildren();
   $("#confirmField").hidden=!signup;
   $("#authConfirm").required=signup;
   $("#authPassword").autocomplete=signup?"new-password":"current-password";
