@@ -16,4 +16,7 @@ document.querySelectorAll("[data-auth-mode]").forEach(button=>button.addEventLis
 $("#authForm").addEventListener("submit",submit);
 $("#togglePassword").addEventListener("click",()=>{const input=$("#authPassword"),show=input.type==="password";input.type=show?"text":"password";$("#togglePassword").textContent=show?"Ocultar":"Ver";$("#togglePassword").setAttribute("aria-label",show?"Ocultar contraseña":"Mostrar contraseña");});
 init();
+if("serviceWorker"in navigator&&location.protocol!=="file:"){
+  window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));
+}
 })();
