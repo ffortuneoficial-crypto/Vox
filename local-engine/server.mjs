@@ -69,9 +69,9 @@ const server=http.createServer(async(req,res)=>{
       const headers={"Content-Type":"application/json"};
       if(OMNI_API_KEY)headers.Authorization="Bearer "+OMNI_API_KEY;
       const upstream=await fetch(OMNI_BASE_URL+"/chat/completions",{method:"POST",headers,body:JSON.stringify({model:OMNI_MODEL,messages:[{role:"system",content:system},...messages],temperature:0.7,stream:false}),signal:AbortSignal.timeout(90000)});
-      const raw=await upstream.text();
-      if(!upstream.ok){send(res,502,{error:"OmniRoute: "+raw.slice(0,700)});return;}
-      const data=JSON.parse(raw);
+      const upstreamText=await upstream.text();
+      if(!upstream.ok){send(res,502,{error:"OmniRoute: "+upstreamText.slice(0,700)});return;}
+      const data=JSON.parse(upstreamText);
       const text=data.choices?.[0]?.message?.content;
       send(res,200,{text:typeof text==="string"?text:""});return;
     }
