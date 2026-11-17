@@ -82,10 +82,8 @@ function setMode(next){
     button.classList.toggle("active",active);
     button.setAttribute("aria-selected",String(active));
   });
-  $("#authHeading").textContent=signup?"Crea tu espacio.":"Qué bueno tenerte de vuelta.";
-  $("#authSubheading").textContent=signup
-    ?"Empieza a entrenar tu comunicación y construye confianza a tu ritmo."
-    :"Entra y continúa trabajando en tu comunicación.";
+  $("#authHeading").textContent=signup?"CREAR CUENTA":"INICIO";
+  $("#authSubheading").textContent="";
   $("#confirmField").hidden=!signup;
   $("#authConfirm").required=signup;
   $("#authPassword").autocomplete=signup?"new-password":"current-password";
