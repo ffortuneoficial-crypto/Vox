@@ -1,61 +1,38 @@
 (()=>{"use strict";
-const $=s=>document.querySelector(s);
-const views=["home","practice","history"];
-let recorder=null,stream=null,recognition=null,started=0,tick=null,elapsed=0,recording=false,installPrompt=null;
-const storeKey="vox.preview.sessions.v2";
-let memorySessions=[];
-const getSessions=()=>{try{const value=localStorage.getItem(storeKey);return value?JSON.parse(value):memorySessions}catch{return memorySessions}};
-const setSessions=value=>{memorySessions=value;try{localStorage.setItem(storeKey,JSON.stringify(value))}catch{showMessage("El almacenamiento del navegador está bloqueado. La sesión no pudo guardarse de forma permanente.")}};
-const words=s=>(s.trim().match(/\S+/g)||[]).length;
-function showMessage(message){const box=$("#appMessage");if(box){box.textContent=message;box.hidden=false}}
-function hideMessage(){const box=$("#appMessage");if(box){box.textContent="";box.hidden=true}}
-function show(id){views.forEach(v=>{const el=$("#"+v);if(el)el.classList.toggle("active",v===id)});document.querySelectorAll(".navitem").forEach(b=>b.classList.toggle("active",b.dataset.view===id));if(id==="history")renderHistory();hideMessage()}
-function fmt(n){n=Math.max(0,Math.floor(Number(n)||0));return String(Math.floor(n/60)).padStart(2,"0")+":"+String(n%60).padStart(2,"0")}
-function refreshStats(){const all=getSessions();$("#sessionCount").textContent=all.length;$("#wordCount").textContent=all.reduce((a,x)=>a+(x.words||0),0)}
-function setupBars(){const box=$("#bars");if(!box)return;box.replaceChildren();for(let i=0;i<43;i++){const s=document.createElement("span");s.style.setProperty("--h",(12+Math.round(Math.abs(Math.sin(i*2.31))*55))+"px");s.style.setProperty("--d",(i%9)*-.08+"s");box.append(s)}}
-function stopSpeech(){if(!recognition)return;const current=recognition;recognition=null;current.onend=null;current.onerror=null;try{current.stop()}catch{}}
-function startSpeech(){
- const API=window.SpeechRecognition||window.webkitSpeechRecognition;
- if(!API){$("#transcriptStatus").textContent="Dictado no disponible";$("#recordMessage").textContent="Puedes escribir tu práctica en el campo de texto.";return}
- try{
-  recognition=new API();recognition.lang="es-CO";recognition.continuous=true;recognition.interimResults=true;
-  recognition.onresult=e=>{let out="";for(let i=0;i<e.results.length;i++)out+=e.results[i][0].transcript+" ";const field=$("#transcript");field.value=out.trim();updateWords()};
-  recognition.onerror=e=>{$("#transcriptStatus").textContent="Dictado no disponible ("+e.error+"). Puedes escribir."};
-  recognition.onend=()=>{if(recording&&recognition){try{recognition.start()}catch{}}};
-  recognition.start();$("#transcriptStatus").textContent="Dictado del navegador activo";
- }catch{$("#transcriptStatus").textContent="Dictado no disponible. Puedes escribir."}
-}
-async function start(){
- if(recording)return;hideMessage();
- if(!navigator.mediaDevices?.getUserMedia||!window.MediaRecorder){showMessage("Este navegador no permite grabar audio. Abre VOX en Chrome actualizado y usa HTTPS.");return}
- try{
-  stream=await navigator.mediaDevices.getUserMedia({audio:true});
-  if(!stream.getAudioTracks().some(t=>t.readyState==="live"))throw new Error("No se pudo activar el micrófono.");
-  recorder=new MediaRecorder(stream);recorder.onstop=()=>{stream?.getTracks().forEach(t=>t.stop());stream=null;$("#saveBtn").disabled=!$("#transcript").value.trim()};
-  recorder.onerror=()=>showMessage("La grabación tuvo un problema. Inténtalo de nuevo.");
-  recorder.start();recording=true;started=Date.now();elapsed=0;
-  $("#recordBtn").disabled=true;$("#stopBtn").disabled=false;$("#micState").classList.add("active");$("#micState").innerHTML="<i></i> MICRÓFONO ACTIVO";$("#visualizer").classList.add("live");$("#recordMessage").textContent="Te estamos escuchando. Habla con naturalidad.";$ ("#transcriptStatus").textContent="Esperando transcripción";$("#timer").textContent="00:00";
-  tick=setInterval(()=>{$("#timer").textContent=fmt((Date.now()-started)/1000)},250);startSpeech();
- }catch(e){stream?.getTracks().forEach(t=>t.stop());stream=null;recording=false;$("#recordBtn").disabled=false;$("#stopBtn").disabled=true;showMessage(e.name==="NotAllowedError"?"Permite el acceso al micrófono desde los ajustes del navegador.":e.name==="NotFoundError"?"No se encontró un micrófono disponible.":("No se pudo iniciar el micrófono: "+(e.message||"error desconocido")))}
-}
-function stop(){
- if(!recording)return;recording=false;elapsed=(Date.now()-started)/1000;clearInterval(tick);tick=null;stopSpeech();
- if(recorder&&recorder.state!=="inactive"){try{recorder.stop()}catch{stream?.getTracks().forEach(t=>t.stop());stream=null}}else{stream?.getTracks().forEach(t=>t.stop());stream=null}
- $("#recordBtn").disabled=false;$("#stopBtn").disabled=true;$("#micState").classList.remove("active");$("#micState").innerHTML="<i></i> MICRÓFONO APAGADO";$("#visualizer").classList.remove("live");$("#recordMessage").textContent="Sesión terminada. Revisa y guarda tu práctica.";$ ("#timer").textContent=fmt(elapsed);$("#transcriptStatus").textContent="Puedes revisar el texto";$("#saveBtn").disabled=!$("#transcript").value.trim()
-}
-function updateWords(){const n=words($("#transcript").value);$("#wordTally").textContent=n+" palabras";if(!recording)$("#saveBtn").disabled=n===0}
-function save(){
- const text=$("#transcript").value.trim();if(!text){showMessage("Habla o escribe algo antes de guardar.");return}
- const all=getSessions();all.unshift({id:Date.now(),date:new Date().toISOString(),text,words:words(text),duration:Math.round(elapsed)});setSessions(all.slice(0,100));
- $("#transcript").value="";$("#saveBtn").disabled=true;elapsed=0;$("#timer").textContent="00:00";updateWords();refreshStats();show("history")
-}
-function renderHistory(){
- const all=getSessions(),el=$("#historyList");if(!all.length){el.innerHTML='<p class="empty">Todavía no hay sesiones guardadas. Tu primera práctica aparecerá aquí.</p>';return}
- el.replaceChildren();all.forEach(x=>{const article=document.createElement("article");article.className="history-item";const info=document.createElement("div"),title=document.createElement("strong"),meta=document.createElement("p"),duration=document.createElement("span");title.textContent="Práctica de comunicación";meta.textContent=new Date(x.date).toLocaleString("es-CO")+" · "+(x.words||0)+" palabras";duration.textContent=fmt(x.duration);info.append(title,meta);article.append(info,duration);el.append(article)})
-}
-$("#goPractice").addEventListener("click",()=>show("practice"));document.querySelectorAll("[data-home]").forEach(b=>b.addEventListener("click",()=>show("home")));document.querySelectorAll("[data-view]").forEach(b=>b.addEventListener("click",()=>show(b.dataset.view)));$("#recordBtn").addEventListener("click",start);$("#stopBtn").addEventListener("click",stop);$("#saveBtn").addEventListener("click",save);$("#transcript").addEventListener("input",updateWords);
-window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();installPrompt=e;$("#install").hidden=false});
-$("#install").addEventListener("click",async()=>{if(!installPrompt){showMessage("Para instalar VOX, abre el menú de Chrome y elige «Instalar aplicación» o «Añadir a pantalla de inicio».");return}installPrompt.prompt();await installPrompt.userChoice;installPrompt=null;$("#install").hidden=true});
-if("serviceWorker"in navigator&&location.protocol!=="file:")window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>showMessage("La aplicación funciona, pero no se pudo activar el modo sin conexión.")));
-setupBars();refreshStats();updateWords();
+const $=s=>document.querySelector(s),$$=s=>Array.from(document.querySelectorAll(s));
+const screens=["home","practice","progress","profile"],storeKey="vox.sessions.v3";
+let recorder=null,stream=null,recognition=null,timerId=null,startedAt=0,duration=0,recording=false,activeFocus="Claridad",toastId=null,memSessions=[];
+const prompts={
+ "Voz":["Habla con intención.","Lee en voz alta un párrafo breve. Concéntrate en respirar, hacer pausas y terminar cada frase sin apresurarte."],
+ "Claridad":["Explica una idea con claridad.","Cuéntame una idea que te interese. Explícala como si hablaras con alguien que no conoce el tema: contexto, idea principal y ejemplo."],
+ "Liderazgo":["Comunica una decisión.","Imagina que tu equipo necesita cambiar una forma de trabajar. Explica qué debe cambiar, por qué y cuál es el primer paso."],
+ "Conexión":["Escucha antes de responder.","Piensa en una conversación difícil. Explica cómo reconocerías la perspectiva de la otra persona antes de expresar la tuya."],
+ "Agilidad":["Responde sin perder el hilo.","Tienes un minuto para defender una idea inesperada. Presenta tu postura, da dos razones y cierra con una conclusión."]
+};
+const getSessions=()=>{try{const v=localStorage.getItem(storeKey);if(!v)return memSessions;const p=JSON.parse(v);return Array.isArray(p)?p:memSessions}catch{return memSessions}};
+const setSessions=v=>{memSessions=v;try{localStorage.setItem(storeKey,JSON.stringify(v));return true}catch{notify("El navegador no permitió guardar los datos. Revisa el almacenamiento disponible.");return false}};
+const countWords=s=>(s.trim().match(/\S+/g)||[]).length;
+const pad=n=>String(Math.max(0,Math.floor(n))).padStart(2,"0");
+const timeFmt=s=>pad(s/60)+":"+pad(s%60);
+function notify(message){const el=$("#appMessage");el.textContent=message;el.hidden=false;clearTimeout(toastId);toastId=setTimeout(()=>el.hidden=true,4200)}
+function navigate(id){if(!screens.includes(id))return;screens.forEach(v=>$("#"+v).classList.toggle("active",v===id));$$(".nav-item").forEach(b=>b.classList.toggle("active",b.dataset.go===id));if(id==="progress")renderProgress();window.scrollTo({top:0,behavior:"smooth"});$("#appMessage").hidden=true}
+function setFocus(focus){activeFocus=prompts[focus]?focus:"Claridad";$("#practice-kicker").textContent="SESIÓN · "+activeFocus.toUpperCase();$("#promptTitle").textContent=prompts[activeFocus][0];$("#promptText").textContent=prompts[activeFocus][1];navigate("practice")}
+function formatDate(iso){const d=new Date(iso);if(Number.isNaN(d.getTime()))return"Fecha no disponible";return new Intl.DateTimeFormat("es-CO",{day:"2-digit",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"}).format(d)}
+function stats(){const all=getSessions(),words=all.reduce((n,x)=>n+(Number(x.words)||0),0),mins=all.reduce((n,x)=>n+(Number(x.duration)||0),0);$("#sessionCount").textContent=pad(all.length);$("#wordCount").textContent=words.toLocaleString("es-CO");$("#minutesCount").innerHTML=pad(Math.floor(mins/60))+" <small>min</small>";$("#progressSessions").textContent=pad(all.length);$("#progressWords").textContent=words.toLocaleString("es-CO");$("#progressMinutes").innerHTML=pad(Math.floor(mins/60))+" <small>min</small>"}
+function renderHistory(){const el=$("#historyList"),all=getSessions();el.replaceChildren();if(!all.length){const p=document.createElement("p");p.className="empty-state";p.textContent="Todavía no hay sesiones guardadas. Tu primera práctica será el comienzo de tu recorrido.";el.append(p);return}all.forEach(x=>{const row=document.createElement("article");row.className="history-item";const info=document.createElement("div");info.className="history-main";const title=document.createElement("strong");title.textContent=x.focus?"Práctica · "+x.focus:"Práctica de comunicación";const meta=document.createElement("p");meta.textContent=formatDate(x.date)+" · "+(x.words||0)+" palabras";const durationEl=document.createElement("span");durationEl.className="history-duration";durationEl.textContent=timeFmt(x.duration||0);info.append(title,meta);row.append(info,durationEl);el.append(row)})}
+function renderProgress(){stats();renderHistory()}
+function setupWave(){const box=$("#bars");box.replaceChildren();for(let i=0;i<41;i++){const bar=document.createElement("span");bar.style.setProperty("--h",(8+Math.round(Math.abs(Math.sin(i*2.37))*38))+"px");bar.style.setProperty("--d",(i%8)*-.07+"s");box.append(bar)}}
+function updateWords(){const n=countWords($("#transcript").value);$("#wordTally").textContent=n+" "+(n===1?"palabra":"palabras");if(!recording)$("#saveBtn").disabled=n===0}
+function stopSpeech(){if(!recognition)return;const r=recognition;recognition=null;r.onend=null;r.onerror=null;try{r.stop()}catch{}}
+function startSpeech(){const API=window.SpeechRecognition||window.webkitSpeechRecognition;if(!API){$("#transcriptStatus").textContent="Dictado no disponible";$("#recordMessage").textContent="Puedes escribir tu práctica en el campo de texto.";return}try{recognition=new API();recognition.lang="es-CO";recognition.continuous=true;recognition.interimResults=true;recognition.onresult=e=>{let finalText="";for(let i=0;i<e.results.length;i++)finalText+=e.results[i][0].transcript+" ";$("#transcript").value=finalText.trim();updateWords()};recognition.onerror=e=>{$("#transcriptStatus").textContent="Dictado no disponible";if(e.error!=="no-speech")notify("El dictado no está disponible. Puedes continuar escribiendo.")};recognition.onend=()=>{if(recording&&recognition){try{recognition.start()}catch{}}};recognition.start();$("#transcriptStatus").textContent="Dictado del navegador activo"}catch{$("#transcriptStatus").textContent="Puedes escribir manualmente"}}
+async function startRecording(){if(recording)return;$("#appMessage").hidden=true;if(!navigator.mediaDevices?.getUserMedia||!window.MediaRecorder){notify("Este navegador no permite grabar. Abre VOX desde Chrome actualizado y con conexión segura (HTTPS).");return}try{stream=await navigator.mediaDevices.getUserMedia({audio:true});if(!stream.getAudioTracks().some(t=>t.readyState==="live"))throw new Error("No se pudo activar el micrófono.");recorder=new MediaRecorder(stream);recorder.onstop=()=>{if(stream){stream.getTracks().forEach(t=>t.stop());stream=null}$("#saveBtn").disabled=!$("#transcript").value.trim()};recorder.onerror=()=>notify("La grabación tuvo un problema. Inténtalo de nuevo.");recorder.start();recording=true;startedAt=Date.now();duration=0;$("#recordBtn").disabled=true;$("#stopBtn").disabled=false;$("#micLabel").textContent="Micrófono activo";$("#visualizer").classList.add("live");$("#recordMessage").textContent="Te estamos escuchando. Habla con naturalidad.";$("#transcriptStatus").textContent="Esperando tu voz";$("#timer").textContent="00:00";timerId=setInterval(()=>{$("#timer").textContent=timeFmt((Date.now()-startedAt)/1000)},250);startSpeech()}catch(e){if(stream){stream.getTracks().forEach(t=>t.stop());stream=null}recording=false;$("#recordBtn").disabled=false;$("#stopBtn").disabled=true;notify(e.name==="NotAllowedError"?"Permite el acceso al micrófono en los ajustes del navegador.":e.name==="NotFoundError"?"No se encontró un micrófono disponible.":"No se pudo iniciar el micrófono: "+(e.message||"error desconocido"))}}
+function stopRecording(){if(!recording)return;recording=false;duration=Math.round((Date.now()-startedAt)/1000);clearInterval(timerId);timerId=null;stopSpeech();if(recorder&&recorder.state!=="inactive"){try{recorder.stop()}catch{if(stream){stream.getTracks().forEach(t=>t.stop());stream=null}}}else if(stream){stream.getTracks().forEach(t=>t.stop());stream=null}$("#recordBtn").disabled=false;$("#stopBtn").disabled=true;$("#micLabel").textContent="Micrófono desactivado";$("#visualizer").classList.remove("live");$("#recordMessage").textContent="Práctica finalizada. Revisa tu texto y guarda la sesión.";$("#timer").textContent=timeFmt(duration);$("#transcriptStatus").textContent="Puedes revisar y editar";$("#saveBtn").disabled=!$("#transcript").value.trim()}
+function saveSession(){const text=$("#transcript").value.trim();if(!text){notify("Escribe o dicta algo antes de guardar.");return}if(recording){notify("Finaliza la grabación antes de guardar.");return}const all=getSessions();all.unshift({id:Date.now(),date:new Date().toISOString(),text,words:countWords(text),duration,focus:activeFocus});if(!setSessions(all.slice(0,150)))return;$("#transcript").value="";$("#saveBtn").disabled=true;duration=0;$("#timer").textContent="00:00";updateWords();stats();renderHistory();navigate("progress");notify("Sesión guardada en este dispositivo. Buen trabajo.")}
+function clearHistory(){if(!getSessions().length){notify("Todavía no hay sesiones para borrar.");return}if(!window.confirm("¿Borrar todas las sesiones guardadas en este dispositivo? Esta acción no se puede deshacer."))return;if(!setSessions([]))return;stats();renderHistory();notify("Historial borrado de este dispositivo.")}
+$$("[data-go]").forEach(b=>b.addEventListener("click",()=>navigate(b.dataset.go)));
+$$("[data-focus]").forEach(b=>b.addEventListener("click",()=>setFocus(b.dataset.focus)));
+$("#recordBtn").addEventListener("click",startRecording);$("#stopBtn").addEventListener("click",stopRecording);$("#saveBtn").addEventListener("click",saveSession);$("#transcript").addEventListener("input",updateWords);$("#clearHistory").addEventListener("click",clearHistory);
+window.addEventListener("beforeunload",()=>{if(recording)stopRecording()});
+if("serviceWorker"in navigator&&location.protocol!=="file:")window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>notify("VOX funciona, pero no se pudo activar el modo sin conexión.")));
+setupWave();stats();updateWords();
 })();
