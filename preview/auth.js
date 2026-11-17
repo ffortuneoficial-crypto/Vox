@@ -84,7 +84,6 @@ function setMode(next){
   });
   $("#authHeading").textContent=signup?"CREAR CUENTA":"INICIO";
   const divider=$("#authDividerText");if(divider)divider.textContent=signup?"¿Ya tienes cuenta?":"¿Aún no tienes cuenta?";
-  const submitLabel=$("#authSubmit .submit-label");if(submitLabel)submitLabel.textContent=signup?"Crear mi cuenta":"Entrar a VOX";
   $("#authSubheading")?.replaceChildren();
   $("#confirmField").hidden=!signup;
   $("#authConfirm").required=signup;
