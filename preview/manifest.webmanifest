@@ -1,1 +1,21 @@
-{"id":"./","name":"VOX — Entrena tu comunicación","short_name":"VOX","description":"Entrena tu voz y tu comunicación.","lang":"es-CO","start_url":"./","scope":"./","display":"standalone","orientation":"portrait-primary","background_color":"#111111","theme_color":"#111111"}
+{
+  "id": "./",
+  "name": "VOX — Entrena tu comunicación",
+  "short_name": "VOX",
+  "description": "Entrena tu voz, claridad y liderazgo.",
+  "lang": "es-CO",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#101010",
+  "theme_color": "#101010",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
