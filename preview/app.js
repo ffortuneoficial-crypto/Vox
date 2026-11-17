@@ -5,7 +5,7 @@ const SUPABASE_URL="https://kmwmwacgsojpkbqwhomd.supabase.co";
 const SUPABASE_KEY="sb_publishable_cS2Rrx0VuOUsQNLd33gNZQ_fgWf0BrI";
 const supabaseClient=window.supabase?.createClient?window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}}):null;
 const screens=["home","practice","auth"];
-let recorder=null,stream=null,chunks=[],messages=[],busy=false,sessionActive=false;
+let recorder=null,stream=null,chunks=[],messages=[],busy=false,sessionActive=false,currentUser=null,authMode="login";
 function show(id){if(!screens.includes(id))return;screens.forEach(name=>$("#"+name)?.classList.toggle("active",name===id));document.querySelectorAll(".nav-item").forEach(b=>b.classList.toggle("active",b.dataset.go===id));window.scrollTo(0,0);if(id==="practice")checkEngine()}
 function toast(message){const el=$("#appMessage");el.textContent=message;el.hidden=false;clearTimeout(toast.timer);toast.timer=setTimeout(()=>el.hidden=true,4200)}
 function setUser(user){currentUser=user||null;$("#accountStatus").textContent=currentUser?(currentUser.email||"Cuenta VOX"):"ENTRENADOR DE COMUNICACIÓN";$("#accountButton").hidden=!!currentUser;$("#logoutButton").hidden=!currentUser;}
