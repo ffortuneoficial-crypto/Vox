@@ -198,6 +198,7 @@ $("#togglePassword").addEventListener("click",()=>{
   $("#togglePassword").textContent=show?"Ocultar":"Ver";
   $("#togglePassword").setAttribute("aria-label",show?"Ocultar contraseña":"Mostrar contraseña");
 });
+setMode("login");
 init();
 if("serviceWorker"in navigator&&location.protocol!=="file:"){
   window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));
