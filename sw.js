@@ -1,4 +1,4 @@
-const CACHE_NAME="vox-root-bridge-17";
+const CACHE_NAME="vox-root-bridge-18";
 const APP_SHELL=["./","./index.html","./auth.html","./manifest.webmanifest","./icons/vox.svg","./preview/auth.html","./preview/auth.css?v=auth15","./preview/auth.js?v=auth13","./preview/index.html","./preview/app.css?v=app03","./preview/app.js?v=app03","./preview/manifest.webmanifest","./preview/icon.svg","./preview/vox-mascot.svg?v=mascot01"];
 self.addEventListener("install",event=>event.waitUntil(caches.open(CACHE_NAME).then(cache=>cache.addAll(APP_SHELL)).then(()=>self.skipWaiting())));
 self.addEventListener("activate",event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key!==CACHE_NAME).map(key=>caches.delete(key)))).then(()=>self.clients.claim())));
