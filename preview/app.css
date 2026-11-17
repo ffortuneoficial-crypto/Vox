@@ -251,3 +251,27 @@ h1 span{background:linear-gradient(100deg,#fff8e8,#e3eddb 55%,#c8e2e9);backgroun
  .home-bottom{padding:16px 14px}
 }
 @media(prefers-reduced-motion:reduce){.vox-eq-bar,.vox-eq-ripple{animation:none!important}}
+
+
+/* Reuse the same animated voice-equalizer motion from the VOX sign-in screen */
+.home-visualizer .vox-eq-bar{
+  transform-box:fill-box;transform-origin:center;
+  animation:voxHomeVolumePulse 1.12s ease-in-out infinite;
+  animation-delay:var(--bar-delay,0s);
+}
+.home-visualizer .vox-eq-ripple{
+  transform-box:fill-box;transform-origin:center;
+  animation:voxHomeSoundRipple 2.8s ease-in-out infinite;
+}
+.home-visualizer .vox-eq-ripple.ripple-b{animation-delay:-1.4s}
+@keyframes voxHomeVolumePulse{
+  0%,100%{transform:scaleY(.48);opacity:.82}
+  50%{transform:scaleY(1.16);opacity:1}
+}
+@keyframes voxHomeSoundRipple{
+  0%,100%{opacity:.48;transform:scaleY(.78) translateY(2px)}
+  50%{opacity:.95;transform:scaleY(1.12) translateY(-2px)}
+}
+@media(prefers-reduced-motion:reduce){
+  .home-visualizer .vox-eq-bar,.home-visualizer .vox-eq-ripple{animation:none!important}
+}
