@@ -1,5 +1,5 @@
 const CACHE="vox-auth-14";
-const FILES=["./","./index.html","./auth.html","./app.css?v=app03","./app.js?v=app03","./auth.css?v=auth12","./auth.js?v=auth10","./manifest.webmanifest","./icon.svg","./vox-mascot.svg"];
+const FILES=["./","./index.html","./auth.html","./app.css?v=app03","./app.js?v=app03","./auth.css?v=auth12","./auth.js?v=auth10","./manifest.webmanifest","./icon.svg","./vox-mascot.svg","./vox-mascot.svg"];
 self.addEventListener("install",event=>event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(FILES)).then(()=>self.skipWaiting())));
 self.addEventListener("activate",event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key!==CACHE).map(key=>caches.delete(key)))).then(()=>self.clients.claim())));
 self.addEventListener("fetch",event=>{
