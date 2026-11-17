@@ -1,4 +1,4 @@
-const CACHE_NAME="vox-root-bridge-04";
+const CACHE_NAME="vox-root-bridge-05";
 const APP_SHELL=[
   "./",
   "./index.html",
