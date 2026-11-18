@@ -21,8 +21,8 @@ function toast(message){
 function setUser(user){
   currentUser=user||null;
   const email=currentUser?.email||"Tu espacio";
-  $("#accountStatus").textContent=email.length>24?email.slice(0,21)+"…":email;
-  $("#accountStatus").title=email;
+  $("#accountStatus")?.textContent=email.length>24?email.slice(0,21)+"…":email;
+  if($("#accountStatus"))$("#accountStatus").title=email;
 }
 async function requireSession(){
   if(!supabaseClient){window.location.replace("./auth.html?reason=connection");return;}
@@ -89,7 +89,7 @@ function stopRecording(){
 async function processRecording(){
   const type=recorder?.mimeType||"audio/webm";recorder=null;
   const blob=new Blob(chunks,{type});chunks=[];
-  if(blob.size<1200){status("No se detectó suficiente audio","");$("#controlHint").textContent="Prueba otra vez y habla un poco más cerca del micrófono.";setOrbState("idle","Tocar para hablar con VOX");return;}
+  if(blob.size<1200){status("No se detectó suficiente audio","");setOrbState("idle","Tocar para hablar con VOX");return;}
   setBusy(true);setOrbState("thinking","Estoy pensando");
   try{
     const transcribe=await fetch(API+"/api/transcribe",{method:"POST",headers:{"Content-Type":type},body:blob});
