@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#151b25">
-<meta name="description" content="VOX. Una inteligencia artificial para conversar por voz.">
+<meta name="theme-color" content="#0d1118">
+<meta name="description" content="VOX. Entrenamiento inteligente de voz y comunicación.">
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="icon" href="./icon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="./app.css?v=app08">
+<link rel="stylesheet" href="./app.css?v=app09">
 <title>VOX — Hablemos</title>
 </head>
 <body>
@@ -15,26 +15,62 @@
 <div class="app">
   <main>
         <section class="screen active voice-screen" id="home">
-      <header class="vox-wordmark"><span>Vox</span></header>
-      <div class="voice-stage">
-        <button class="voice-orb" id="voiceOrb" data-state="idle" type="button" aria-label="Tocar para hablar con VOX">
-          <svg class="orb-art" viewBox="0 0 520 520" aria-hidden="true">
-            <defs>
-              <linearGradient id="outerGradient" x1="0%" y1="15%" x2="100%" y2="90%"><stop offset="0%" stop-color="#77777b"/><stop offset="48%" stop-color="#aaa9ad"/><stop offset="100%" stop-color="#65656b"/></linearGradient>
-              <linearGradient id="middleGradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#ff303b"/><stop offset="52%" stop-color="#ff4540"/><stop offset="100%" stop-color="#c91c35"/></linearGradient>
-              <linearGradient id="innerGradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#a000ff"/><stop offset="50%" stop-color="#7924ef"/><stop offset="100%" stop-color="#4b12b9"/></linearGradient>
-            </defs>
-            <path class="orbit orbit-outer" d="M260 34 C324 23 387 48 431 99 C481 150 493 216 479 281 C468 349 423 411 363 454 C302 493 225 495 159 466 C91 438 45 382 35 311 C22 241 45 166 91 111 C133 61 195 40 260 34Z" />
-            <path class="orbit orbit-middle" d="M257 82 C319 68 377 98 411 148 C449 199 448 270 425 329 C399 389 347 426 282 438 C214 448 146 420 108 369 C69 318 66 247 90 187 C117 127 184 91 257 82Z" />
-            <path class="orbit orbit-inner" d="M257 128 C305 116 350 139 378 177 C410 221 407 280 383 322 C358 365 317 393 266 398 C215 403 166 382 139 343 C109 302 108 245 130 199 C154 154 202 134 257 128Z" />
-          </svg>
-          <span class="orb-core"><span>IA</span></span>
-        </button>
+      <header class="home-topbar">
+        <a class="home-wordmark" href="./index.html" aria-label="VOX inicio">Vox<span>.</span></a>
+        <button class="home-menu-button" id="menuButton" type="button" aria-label="Abrir menú" aria-expanded="false"><span></span><span></span><span></span></button>
+      </header>
+
+      <div class="home-content">
+        <section class="home-intro">
+          <p class="home-eyebrow"><span></span> ENTRENAMIENTO PERSONAL CON IA</p>
+          <h1>Entrena tu <em>voz.</em></h1>
+          <p class="home-description">Practica hablando. VOX te escucha, conversa contigo y te ayuda a comunicarte mejor.</p>
+        </section>
+
+        <section class="voice-session-card" aria-label="Sesión de voz con VOX">
+          <div class="session-card-head">
+            <div><span class="session-kicker">TU ENTRENADOR DE VOZ</span><strong>Sesión con VOX</strong></div>
+            <span class="session-indicator"><i></i> LISTA</span>
+          </div>
+
+          <div class="voice-stage">
+            <div class="orb-aura" aria-hidden="true"></div>
+            <button class="voice-orb" id="voiceOrb" data-state="idle" type="button" aria-label="Tocar para hablar con VOX">
+              <svg class="orb-art" viewBox="0 0 520 520" aria-hidden="true">
+                <defs>
+                  <linearGradient id="outerGradient" x1="0%" y1="10%" x2="100%" y2="90%"><stop offset="0%" stop-color="#7f8996"/><stop offset="48%" stop-color="#c0c5cc"/><stop offset="100%" stop-color="#606a78"/></linearGradient>
+                  <linearGradient id="middleGradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#d77b83"/><stop offset="48%" stop-color="#e99a88"/><stop offset="100%" stop-color="#a95668"/></linearGradient>
+                  <linearGradient id="innerGradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#9b83d7"/><stop offset="48%" stop-color="#b5a0e8"/><stop offset="100%" stop-color="#6652a8"/></linearGradient>
+                </defs>
+                <path class="orbit orbit-outer" d="M260 34 C324 23 387 48 431 99 C481 150 493 216 479 281 C468 349 423 411 363 454 C302 493 225 495 159 466 C91 438 45 382 35 311 C22 241 45 166 91 111 C133 61 195 40 260 34Z" />
+                <path class="orbit orbit-middle" d="M257 82 C319 68 377 98 411 148 C449 199 448 270 425 329 C399 389 347 426 282 438 C214 448 146 420 108 369 C69 318 66 247 90 187 C117 127 184 91 257 82Z" />
+                <path class="orbit orbit-inner" d="M257 128 C305 116 350 139 378 177 C410 221 407 280 383 322 C358 365 317 393 266 398 C215 403 166 382 139 343 C109 302 108 245 130 199 C154 154 202 134 257 128Z" />
+              </svg>
+              <span class="orb-core"><span class="orb-core-shine"></span><span class="orb-core-label">IA</span></span>
+            </button>
+            <p class="orb-state" id="orbState" aria-live="polite">Estoy aquí</p>
+            <p class="orb-caption" id="orbCaption">Toca el botón y empecemos a practicar.</p>
+          </div>
+
+          <button class="voice-action-button" id="voiceAction" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="3" width="8" height="12" rx="4"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3m-4 0h8"/></svg>
+            <span id="voiceActionLabel">Comenzar conversación</span>
+          </button>
+          <p class="session-footnote">Puedes hablar con naturalidad. VOX se adapta a la conversación.</p>
+        </section>
+
+        <section class="focus-section" aria-label="Objetivo de entrenamiento">
+          <div class="focus-heading"><span>ELIGE TU ENFOQUE</span><small>Podrás cambiarlo cuando quieras</small></div>
+          <div class="focus-options" role="group" aria-label="Enfoque de la sesión">
+            <button class="focus-option active" type="button" data-focus="libre" aria-pressed="true"><span class="focus-option-icon">✳</span><span><strong>Libre</strong><small>Conversar</small></span></button>
+            <button class="focus-option" type="button" data-focus="seguridad" aria-pressed="false"><span class="focus-option-icon">◈</span><span><strong>Seguridad</strong><small>Confianza</small></span></button>
+            <button class="focus-option" type="button" data-focus="claridad" aria-pressed="false"><span class="focus-option-icon">⌁</span><span><strong>Claridad</strong><small>Dicción</small></span></button>
+            <button class="focus-option" type="button" data-focus="liderazgo" aria-pressed="false"><span class="focus-option-icon">↗</span><span><strong>Liderazgo</strong><small>Presencia</small></span></button>
+          </div>
+        </section>
       </div>
-      <button class="vox-menu-trigger" id="menuButton" type="button" aria-expanded="false">MENÚ</button>
-      <div class="vox-menu-panel" id="menuPanel" hidden>
-        <button id="logoutButton" type="button">Cerrar sesión</button>
-      </div>
+
+      <div class="home-menu-panel" id="menuPanel" hidden><button id="logoutButton" type="button">Cerrar sesión</button></div>
       <div id="conversation" hidden aria-hidden="true"></div>
       <span id="sessionCount" hidden>0</span>
     </section>
@@ -43,6 +79,6 @@
   <div id="appMessage" class="toast" role="status" aria-live="polite" hidden></div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.105.0"></script>
-<script src="./app.js?v=app05"></script>
+<script src="./app.js?v=app06"></script>
 </body>
 </html>
