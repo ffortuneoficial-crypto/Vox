@@ -21,8 +21,7 @@ function toast(message){
 function setUser(user){
   currentUser=user||null;
   const email=currentUser?.email||"Tu espacio";
-  $("#accountStatus")?.textContent=email.length>24?email.slice(0,21)+"…":email;
-  if($("#accountStatus"))$("#accountStatus").title=email;
+  /* La cuenta se mantiene autenticada sin mostrar datos en esta pantalla. */
 }
 async function requireSession(){
   if(!supabaseClient){window.location.replace("./auth.html?reason=connection");return;}
