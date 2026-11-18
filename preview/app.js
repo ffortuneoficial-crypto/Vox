@@ -20,7 +20,10 @@ function toast(message){
 }
 function setUser(user){
   currentUser=user||null;
-  const email=currentUser?.email||"Tu espacio";\n  const rawName=currentUser?.user_metadata?.full_name||currentUser?.user_metadata?.name||currentUser?.email?.split("@")[0]||"Cris";\n  const firstName=String(rawName).trim().split(/[ ._-]+/)[0];\n  const greeting=$("#homeGreeting");if(greeting)greeting.textContent="Hola, "+(firstName||"Cris");
+  const email=currentUser?.email||"Tu espacio";
+  const rawName=currentUser?.user_metadata?.full_name||currentUser?.user_metadata?.name||currentUser?.email?.split("@")[0]||"Cris";
+  const firstName=String(rawName).trim().split(/[ ._-]+/)[0];
+  const greeting=$("#homeGreeting");if(greeting)greeting.textContent="Hola, "+(firstName||"Cris");
   /* La cuenta se mantiene autenticada sin mostrar datos en esta pantalla. */
 }
 async function requireSession(){
@@ -205,7 +208,8 @@ $("#logoutButton").addEventListener("click",async()=>{
   else window.location.replace("./auth.html");
 });
 const toggleVoice=()=>{if(recorder){stopRecording();return;}if(window.speechSynthesis?.speaking)window.speechSynthesis.cancel();startRecording();};
-$("#voiceOrb").addEventListener("click",toggleVoice);\n$("#messageForm").addEventListener("submit",event=>{event.preventDefault();const input=$("#messageInput");const value=input.value;input.value="";sendTextMessage(value);});
+$("#voiceOrb").addEventListener("click",toggleVoice);
+$("#messageForm").addEventListener("submit",event=>{event.preventDefault();const input=$("#messageInput");const value=input.value;input.value="";sendTextMessage(value);});
 $("#voiceAction").addEventListener("click",toggleVoice);
 document.querySelectorAll("[data-focus]").forEach(button=>button.addEventListener("click",()=>{
   if(recorder||busy){toast("Espera a que termine la intervención para cambiar el enfoque.");return;}
@@ -223,6 +227,6 @@ $("#sessionCount").textContent=localStorage.getItem("vox.sessionCount")||"0";
 if("serviceWorker"in navigator&&location.protocol!=="file:"){
   window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));
 }
-initVoxHologram();
+initVoxCore();
 requireSession();
 })();
