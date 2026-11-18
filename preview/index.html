@@ -7,7 +7,7 @@
 <meta name="description" content="VOX. Entrenamiento inteligente de voz y comunicación.">
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="icon" href="./icon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="./app.css?v=app10">
+<link rel="stylesheet" href="./app.css?v=app11">
 <title>VOX — Hablemos</title>
 </head>
 <body>
@@ -36,17 +36,20 @@
           <div class="voice-stage">
             <div class="orb-aura" aria-hidden="true"></div>
             <button class="voice-orb" id="voiceOrb" data-state="idle" type="button" aria-label="Tocar para hablar con VOX">
-              <svg class="orb-art" viewBox="0 0 520 520" aria-hidden="true">
-                <defs>
-                  <linearGradient id="outerGradient" x1="0%" y1="10%" x2="100%" y2="90%"><stop offset="0%" stop-color="#7f8996"/><stop offset="48%" stop-color="#c0c5cc"/><stop offset="100%" stop-color="#606a78"/></linearGradient>
-                  <linearGradient id="middleGradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#d77b83"/><stop offset="48%" stop-color="#e99a88"/><stop offset="100%" stop-color="#a95668"/></linearGradient>
-                  <linearGradient id="innerGradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#9b83d7"/><stop offset="48%" stop-color="#b5a0e8"/><stop offset="100%" stop-color="#6652a8"/></linearGradient>
-                </defs>
-                <path class="orbit orbit-outer" d="M260 34 C324 23 387 48 431 99 C481 150 493 216 479 281 C468 349 423 411 363 454 C302 493 225 495 159 466 C91 438 45 382 35 311 C22 241 45 166 91 111 C133 61 195 40 260 34Z" />
-                <path class="orbit orbit-middle" d="M257 82 C319 68 377 98 411 148 C449 199 448 270 425 329 C399 389 347 426 282 438 C214 448 146 420 108 369 C69 318 66 247 90 187 C117 127 184 91 257 82Z" />
-                <path class="orbit orbit-inner" d="M257 128 C305 116 350 139 378 177 C410 221 407 280 383 322 C358 365 317 393 266 398 C215 403 166 382 139 343 C109 302 108 245 130 199 C154 154 202 134 257 128Z" />
-              </svg>
-              <span class="orb-core"><span class="orb-core-shine"></span><span class="orb-core-label">IA</span></span>
+              <span class="orb-hologram" aria-hidden="true">
+                <span class="orb-hud-ring ring-one"></span>
+                <span class="orb-hud-ring ring-two"></span>
+                <span class="orb-hud-ring ring-three"></span>
+                <span class="orb-particle particle-one"></span>
+                <span class="orb-particle particle-two"></span>
+                <span class="orb-particle particle-three"></span>
+              </span>
+              <span class="orb-core" aria-hidden="true">
+                <span class="orb-core-shine"></span>
+                <span class="orb-plasma"></span>
+                <span class="orb-scanline"></span>
+                <span class="orb-core-label">VOX</span>
+              </span>
             </button>
             <p class="orb-state" id="orbState" aria-live="polite">Estoy aquí</p>
             <p class="orb-caption" id="orbCaption">Toca el botón y empecemos a practicar.</p>
