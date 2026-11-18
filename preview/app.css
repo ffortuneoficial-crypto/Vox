@@ -749,3 +749,42 @@ body:before,body:after{display:none!important}
 @keyframes voxAura{from{transform:translate(-50%,-50%) scale(.9);opacity:.55}to{transform:translate(-50%,-50%) scale(1.12);opacity:1}}
 @media(max-width:560px){.voice-orb{width:clamp(205px,64vw,245px)}.voice-stage{min-height:clamp(250px,70vw,310px)}}
 @media(prefers-reduced-motion:reduce){.orb-hud-ring,.orb-plasma,.orb-scanline,.orb-particle,.orb-aura{animation:none!important}}
+
+
+/* VOX — human wireframe hologram, based on the supplied visual reference */
+.voice-session-card{overflow:hidden}
+.voice-stage{
+  position:relative;display:block;min-height:0;height:clamp(330px,92vw,440px);
+  margin:0 -1px;padding:0;overflow:hidden;border-radius:16px;
+  background:radial-gradient(ellipse at 68% 48%,#063b65 0%,#031b42 38%,#020b2b 76%,#010720 100%);
+  box-shadow:inset 0 0 55px #008cc51c;
+}
+.voice-stage:before{
+  content:"";position:absolute;inset:0;pointer-events:none;z-index:1;
+  background:linear-gradient(90deg,#01072012 0%,transparent 45%,#01072030 100%);
+}
+.voice-orb{
+  position:absolute;inset:0;width:100%;height:100%;max-width:none;
+  display:block;border:0;border-radius:0;background:transparent;filter:none;
+  box-shadow:none;overflow:hidden;cursor:pointer;
+}
+.voice-orb:focus-visible{outline:2px solid #46dcff;outline-offset:-5px}
+.vox-face-canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.orb-state{
+  position:absolute;z-index:3;left:16px;bottom:15px;margin:0;
+  color:#d9faff;font-size:12px;letter-spacing:.13em;text-transform:uppercase;
+  text-shadow:0 0 12px #00baff99;
+}
+.orb-caption{
+  position:absolute;z-index:3;right:15px;bottom:15px;max-width:48%;
+  margin:0;color:#7dbdd2;font-size:9px;text-align:right;
+}
+.voice-action-button{
+  border-color:#078ac4;background:linear-gradient(180deg,#087caf,#034b82);
+  color:#e6fbff;box-shadow:0 7px 20px #006ba633,inset 0 1px 0 #ffffff35;
+}
+@media(max-width:560px){
+ .voice-stage{height:clamp(300px,88vw,370px);border-radius:13px}
+ .orb-state{left:12px;bottom:11px;font-size:10px}
+ .orb-caption{right:12px;bottom:11px;font-size:8px}
+}
