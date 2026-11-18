@@ -156,7 +156,8 @@ const toggleVoice=()=>{if(recorder){stopRecording();return;}if(window.speechSynt
 $("#voiceOrb").addEventListener("click",toggleVoice);
 $("#voiceAction").addEventListener("click",toggleVoice);
 document.querySelectorAll("[data-focus]").forEach(button=>button.addEventListener("click",()=>{
-  if(sessionActive||busy){toast("Termina la conversación actual para cambiar el enfoque.");return;}
+  if(recorder||busy){toast("Espera a que termine la intervención para cambiar el enfoque.");return;}
+  if(messages.length){messages=[];sessionActive=false;if(window.speechSynthesis?.speaking)window.speechSynthesis.cancel();}
   focusMode=button.dataset.focus;
   document.querySelectorAll("[data-focus]").forEach(option=>{
     const active=option===button;option.classList.toggle("active",active);option.setAttribute("aria-pressed",String(active));
