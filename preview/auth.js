@@ -2,7 +2,7 @@
 const $=selector=>document.querySelector(selector);
 const SUPABASE_URL="https://kmwmwacgsojpkbqwhomd.supabase.co";
 const SUPABASE_KEY="sb_publishable_cS2Rrx0VuOUsQNLd33gNZQ_fgWf0BrI";
-let client=null,clientPromise=null,mode="login",transitioning=false;
+let client=null,clientPromise=null,mode="login",transitioning=false,modeFlipTimer=null,modeFlipBusy=false;
 
 function getClient(){
   if(client)return Promise.resolve(client);
@@ -151,7 +151,22 @@ async function init(){
     authClient.auth.onAuthStateChange((event,session)=>{if(session&&event==="SIGNED_IN")successTransition();});
   }catch(error){message("El acceso está listo. Cuando tengas conexión podrás iniciar sesión.","info");}
 }
-$("#authModeLink").addEventListener("click",()=>setMode(mode==="signup"?"login":"signup"));
+$("#authModeLink").addEventListener("click",()=>{
+  if(modeFlipBusy||transitioning)return;
+  modeFlipBusy=true;
+  const card=$("#authAccess");
+  card.classList.remove("is-flipping");
+  void card.offsetWidth;
+  card.classList.add("is-flipping");
+  window.clearTimeout(modeFlipTimer);
+  modeFlipTimer=window.setTimeout(()=>setMode(mode==="signup"?"login":"signup"),350);
+  card.addEventListener("animationend",event=>{
+    if(event.target!==card||event.animationName!=="cardFlip")return;
+    card.classList.remove("is-flipping");
+    modeFlipBusy=false;
+  },{once:true});
+  window.setTimeout(()=>{card.classList.remove("is-flipping");modeFlipBusy=false;},850);
+});
 $("#authForm").addEventListener("submit",submit);
 ["name","email","password","confirm"].forEach(name=>{
   const p=fieldParts(name);$(p.input).addEventListener("input",()=>clearFieldError(name));
