@@ -7,7 +7,7 @@
 <meta name="description" content="VOX. Entrenamiento inteligente de voz y comunicación.">
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="icon" href="./icon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="./app.css?v=app11">
+<link rel="stylesheet" href="./app.css?v=app12">
 <title>VOX — Hablemos</title>
 </head>
 <body>
@@ -36,20 +36,7 @@
           <div class="voice-stage">
             <div class="orb-aura" aria-hidden="true"></div>
             <button class="voice-orb" id="voiceOrb" data-state="idle" type="button" aria-label="Tocar para hablar con VOX">
-              <span class="orb-hologram" aria-hidden="true">
-                <span class="orb-hud-ring ring-one"></span>
-                <span class="orb-hud-ring ring-two"></span>
-                <span class="orb-hud-ring ring-three"></span>
-                <span class="orb-particle particle-one"></span>
-                <span class="orb-particle particle-two"></span>
-                <span class="orb-particle particle-three"></span>
-              </span>
-              <span class="orb-core" aria-hidden="true">
-                <span class="orb-core-shine"></span>
-                <span class="orb-plasma"></span>
-                <span class="orb-scanline"></span>
-                <span class="orb-core-label">VOX</span>
-              </span>
+              <canvas id="voxFace" class="vox-face-canvas" aria-hidden="true"></canvas>
             </button>
             <p class="orb-state" id="orbState" aria-live="polite">Estoy aquí</p>
             <p class="orb-caption" id="orbCaption">Toca el botón y empecemos a practicar.</p>
@@ -82,6 +69,6 @@
   <div id="appMessage" class="toast" role="status" aria-live="polite" hidden></div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.105.0"></script>
-<script src="./app.js?v=app07"></script>
+<script src="./app.js?v=app08"></script>
 </body>
 </html>
