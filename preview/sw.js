@@ -1,4 +1,4 @@
-const CACHE="vox-conversational-home-01";
+const CACHE="vox-conversational-home-02";
 const FILES=["./","./index.html","./auth.html","./app.css?v=app14","./app.js?v=app11","./auth.css?v=auth19","./auth.js?v=auth14","./manifest.webmanifest","./icon.svg"];
 self.addEventListener("install",event=>event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(FILES)).then(()=>self.skipWaiting())));
 self.addEventListener("activate",event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key!==CACHE).map(key=>caches.delete(key)))).then(()=>self.clients.claim())));
