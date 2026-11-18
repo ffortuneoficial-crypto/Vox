@@ -3,72 +3,78 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0d1118">
-<meta name="description" content="VOX. Entrenamiento inteligente de voz y comunicación.">
+<meta name="theme-color" content="#02040b">
+<meta name="description" content="VOX. Tu inteligencia artificial para conversar y entrenar tu comunicación.">
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="icon" href="./icon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="./app.css?v=app13">
-<title>VOX — Hablemos</title>
+<link rel="stylesheet" href="./app.css?v=app14">
+<title>VOX — Tu espacio</title>
 </head>
 <body>
-<div class="app-boot" id="appBoot" aria-live="polite"><div class="boot-orbit"><span>v.</span></div><div class="boot-loader"></div><p>Abriendo tu espacio VOX...</p></div>
+<div class="app-boot" id="appBoot" aria-live="polite">
+  <div class="boot-core" aria-hidden="true"><span></span></div>
+  <p>Iniciando VOX...</p>
+</div>
 <div class="app">
-  <main>
-        <section class="screen active voice-screen" id="home">
-      <header class="home-topbar">
-        <a class="home-wordmark" href="./index.html" aria-label="VOX inicio">Vox<span>.</span></a>
-        <button class="home-menu-button" id="menuButton" type="button" aria-label="Abrir menú" aria-expanded="false"><span></span><span></span><span></span></button>
-      </header>
-
-      <div class="home-content">
-        <section class="home-intro">
-          <p class="home-eyebrow"><span></span> ENTRENAMIENTO PERSONAL CON IA</p>
-          <h1>Entrena tu <em>voz.</em></h1>
-          <p class="home-description">Practica hablando. VOX te escucha, conversa contigo y te ayuda a comunicarte mejor.</p>
-        </section>
-
-        <section class="voice-session-card" aria-label="Sesión de voz con VOX">
-          <div class="session-card-head">
-            <div><span class="session-kicker">TU ENTRENADOR DE VOZ</span><strong>Sesión con VOX</strong></div>
-            <span class="session-indicator"><i></i> LISTA</span>
-          </div>
-
-          <div class="voice-stage">
-            <div class="orb-aura" aria-hidden="true"></div>
-            <button class="voice-orb" id="voiceOrb" data-state="idle" type="button" aria-label="Tocar para hablar con VOX">
-              <canvas id="voxFace" class="vox-face-canvas" aria-hidden="true"></canvas>
-            </button>
-            <p class="orb-state" id="orbState" aria-live="polite">Estoy aquí</p>
-            <p class="orb-caption" id="orbCaption">Toca el botón y empecemos a practicar.</p>
-          </div>
-
-          <button class="voice-action-button" id="voiceAction" type="button">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="3" width="8" height="12" rx="4"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3m-4 0h8"/></svg>
-            <span id="voiceActionLabel">Comenzar conversación</span>
-          </button>
-          <p class="session-footnote">Puedes hablar con naturalidad. VOX se adapta a la conversación.</p>
-        </section>
-
-        <section class="focus-section" aria-label="Objetivo de entrenamiento">
-          <div class="focus-heading"><span>ELIGE TU ENFOQUE</span><small>Podrás cambiarlo cuando quieras</small></div>
-          <div class="focus-options" role="group" aria-label="Enfoque de la sesión">
-            <button class="focus-option active" type="button" data-focus="libre" aria-pressed="true"><span class="focus-option-icon">✳</span><span><strong>Libre</strong><small>Conversar</small></span></button>
-            <button class="focus-option" type="button" data-focus="seguridad" aria-pressed="false"><span class="focus-option-icon">◈</span><span><strong>Seguridad</strong><small>Confianza</small></span></button>
-            <button class="focus-option" type="button" data-focus="claridad" aria-pressed="false"><span class="focus-option-icon">⌁</span><span><strong>Claridad</strong><small>Dicción</small></span></button>
-            <button class="focus-option" type="button" data-focus="liderazgo" aria-pressed="false"><span class="focus-option-icon">↗</span><span><strong>Liderazgo</strong><small>Presencia</small></span></button>
-          </div>
-        </section>
+  <main class="vox-home screen active" id="home">
+    <div class="vox-ambient" aria-hidden="true"></div>
+    <section class="vox-orb-zone" aria-label="Núcleo de inteligencia artificial">
+      <div class="vox-orb-glow" aria-hidden="true"></div>
+      <div class="vox-core" id="voxCore" data-state="idle" aria-hidden="true">
+        <svg class="vox-core-art" viewBox="0 0 220 220" role="presentation">
+          <defs>
+            <linearGradient id="ribbonA" x1="20" y1="20" x2="190" y2="190" gradientUnits="userSpaceOnUse">
+              <stop offset="0" stop-color="#d9f7ff"/>
+              <stop offset=".23" stop-color="#5fcaff"/>
+              <stop offset=".55" stop-color="#1768ff"/>
+              <stop offset=".82" stop-color="#72d9ff"/>
+              <stop offset="1" stop-color="#e9fbff"/>
+            </linearGradient>
+            <linearGradient id="ribbonB" x1="35" y1="185" x2="190" y2="25" gradientUnits="userSpaceOnUse">
+              <stop offset="0" stop-color="#2559ff"/>
+              <stop offset=".48" stop-color="#b8f2ff"/>
+              <stop offset="1" stop-color="#1679ff"/>
+            </linearGradient>
+            <filter id="blueGlow" x="-100%" y="-100%" width="300%" height="300%">
+              <feGaussianBlur stdDeviation="5" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+          <path class="ribbon-halo" d="M49 107C57 57 99 27 143 43c29 11 45 39 42 69-2 24-16 42-37 51-22 9-47 9-65 26 18-5 40-1 56 8-22 2-46-2-62-17-20-18-34-43-28-73Z" fill="none" stroke="#087cff" stroke-width="17" opacity=".28" filter="url(#blueGlow)"/>
+          <path class="ribbon-main" d="M47 111C52 68 82 39 120 39c36 0 64 25 69 59 6 36-17 63-48 73-25 8-48 13-57 30 17-7 38-6 56 1-24 12-53 7-72-9-18-16-25-47-21-82Z" fill="none" stroke="url(#ribbonA)" stroke-width="3.5" stroke-linecap="round" filter="url(#blueGlow)"/>
+          <path class="ribbon-inner" d="M56 103c9-28 34-47 62-48 28-1 49 17 55 39 7 26-7 43-28 55-17 10-40 14-53 31" fill="none" stroke="url(#ribbonB)" stroke-width="2.1" stroke-linecap="round" opacity=".88" filter="url(#blueGlow)"/>
+          <path class="ribbon-light" d="M52 121c-1 25 13 46 31 58 15 10 35 13 51 9" fill="none" stroke="#b8f6ff" stroke-width="1.3" stroke-linecap="round" opacity=".9"/>
+          <path class="ribbon-light ribbon-light-two" d="M94 42c34-14 67 5 79 30 7 14 9 30 5 44" fill="none" stroke="#8de7ff" stroke-width="1.2" stroke-linecap="round" opacity=".75"/>
+        </svg>
       </div>
-
-      <div class="home-menu-panel" id="menuPanel" hidden><button id="logoutButton" type="button">Cerrar sesión</button></div>
-      <div id="conversation" hidden aria-hidden="true"></div>
-      <span id="sessionCount" hidden>0</span>
     </section>
 
+    <section class="vox-welcome">
+      <p class="vox-greeting" id="homeGreeting">Hola, Cris</p>
+      <h1 id="homePrompt">¿En qué puedo ayudarte hoy?</h1>
+      <p class="vox-live-state" id="orbState" aria-live="polite">Estoy aquí</p>
+      <p class="vox-caption" id="orbCaption">Puedes escribirme o hablar conmigo.</p>
+    </section>
+
+    <form class="vox-composer" id="messageForm" autocomplete="off">
+      <input id="messageInput" type="text" name="message" placeholder="Pregunta lo que quieras..." aria-label="Escribe tu mensaje" maxlength="2000">
+      <button class="vox-send-button" id="sendMessage" type="submit" aria-label="Enviar mensaje">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 5l7 7-7 7"/></svg>
+      </button>
+      <span class="composer-divider" aria-hidden="true"></span>
+      <button class="vox-mic-button" id="voiceOrb" data-state="idle" type="button" aria-label="Hablar con VOX">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M7.5 7v10M16.5 6v12M3.5 10v4M20.5 9v6"/></svg>
+      </button>
+    </form>
+
+    <button id="voiceAction" type="button" hidden>Comenzar conversación</button>
+    <div class="home-menu-panel" id="menuPanel" hidden><button id="logoutButton" type="button">Cerrar sesión</button></div>
+    <div id="conversation" hidden aria-hidden="true"></div>
+    <span id="sessionCount" hidden>0</span>
   </main>
   <div id="appMessage" class="toast" role="status" aria-live="polite" hidden></div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.105.0"></script>
-<script src="./app.js?v=app10"></script>
+<script src="./app.js?v=app11"></script>
 </body>
 </html>
