@@ -44,9 +44,123 @@ async function requireSession(){
 }
 function status(message,kind=""){ /* Estado interno: la pantalla principal permanece limpia. */ }
 function setBusy(value){busy=value;$("#voiceOrb").disabled=value;$("#voiceAction").disabled=value;}
+
+/* Render the wireframe face and live voice response */
+let voxAnalyser=null,voxAudioContext=null,voxAudioData=null,voxFrame=0,voxSpeechEnergy=0,voxSpeechUntil=0;
+function initVoxHologram(){
+  const canvas=$("#voxFace");if(!canvas)return;
+  const ctx=canvas.getContext("2d");if(!ctx)return;
+  let w=0,h=0,dpr=1,last=0;
+  const resize=()=>{
+    const rect=canvas.getBoundingClientRect();dpr=Math.min(window.devicePixelRatio||1,2);
+    w=Math.max(1,rect.width);h=Math.max(1,rect.height);
+    canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+  };
+  if("ResizeObserver"in window)new ResizeObserver(resize).observe(canvas);else window.addEventListener("resize",resize);
+  resize();
+  const rows=19,cols=17,points=[];
+  for(let r=0;r<rows;r++){
+    const v=r/(rows-1),row=[];
+    const y=-1+v*2;
+    const width=Math.sqrt(Math.max(0,1-y*y))*((v<.22)?(.82+v):1);
+    for(let c=0;c<cols;c++){
+      const u=c/(cols-1),x=(u*2-1)*width;
+      const z=Math.sqrt(Math.max(0,1-x*x-y*y));
+      row.push({x,y,z,u,v});
+    }
+    points.push(row);
+  }
+  const stars=Array.from({length:85},(_,i)=>({x:((i*73)%997)/997,y:((i*191)%991)/991,r:.35+(i%4)*.35,p:i*1.7}));
+  const draw=(time)=>{
+    voxFrame=requestAnimationFrame(draw);
+    if(time-last<30)return;last=time;
+    const state=$("#voiceOrb")?.dataset.state||"idle";
+    let level=0;
+    if(voxAnalyser&&state==="listening"&&voxAudioData){
+      voxAnalyser.getByteTimeDomainData(voxAudioData);
+      let sum=0;for(let i=0;i<voxAudioData.length;i++){const d=(voxAudioData[i]-128)/128;sum+=d*d;}
+      level=Math.min(1,Math.sqrt(sum/voxAudioData.length)*4.5);
+    }
+    if(state==="speaking")level=Math.max(level,voxSpeechEnergy||(.18+.22*Math.abs(Math.sin(time*.012))));
+    else if(state==="thinking")level=.08+.04*Math.sin(time*.004);
+    else if(state==="listening")level=Math.max(.035,level);
+    const t=time*.001,scale=Math.min(w/500,h/390),cx=w*.68,cy=h*.48;
+    ctx.clearRect(0,0,w,h);
+    const bg=ctx.createRadialGradient(cx,cy,5,cx,cy,Math.max(w,h)*.72);
+    bg.addColorStop(0,"rgba(0,105,153,.16)");bg.addColorStop(.55,"rgba(0,43,83,.08)");bg.addColorStop(1,"rgba(0,5,30,0)");
+    ctx.fillStyle=bg;ctx.fillRect(0,0,w,h);
+    for(const s of stars){const a=.12+.22*(.5+.5*Math.sin(t*1.2+s.p));ctx.fillStyle="rgba(74,222,255,"+a+")";ctx.beginPath();ctx.arc(s.x*w,s.y*h,s.r,0,Math.PI*2);ctx.fill();}
+    const rot=Math.sin(t*.38)*.045,breath=1+Math.sin(t*1.2)*.008;
+    const project=(p)=>{
+      let x=p.x*Math.cos(rot)-p.z*Math.sin(rot),z=p.x*Math.sin(rot)+p.z*Math.cos(rot);
+      const persp=1+z*.12;
+      return {x:cx+x*145*scale*breath*persp,y:cy+p.y*174*scale*breath+Math.sin(t*1.4+p.x*3)*1.2*scale,z};
+    };
+    const projected=points.map(row=>row.map(project));
+    ctx.save();ctx.lineCap="round";ctx.lineJoin="round";
+    // triangulated facial mesh
+    for(let r=0;r<rows-1;r++)for(let c=0;c<cols-1;c++){
+      const a=projected[r][c],b=projected[r][c+1],d=projected[r+1][c],e=projected[r+1][c+1];
+      const alpha=.16+Math.max(0,(a.z+b.z+d.z+e.z)/4)*.2;
+      ctx.strokeStyle="rgba(37,213,244,"+alpha+")";ctx.lineWidth=.65*scale;
+      ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.lineTo(e.x,e.y);ctx.lineTo(d.x,d.y);ctx.closePath();ctx.stroke();
+      if((r+c)%2===0){ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(e.x,e.y);ctx.stroke();}
+    }
+    // bright facial contour and features
+    const line=(pts,width=1.4,alpha=.8)=>{
+      ctx.beginPath();pts.forEach((p,i)=>{const q=project(p);if(!i)ctx.moveTo(q.x,q.y);else ctx.lineTo(q.x,q.y);});
+      ctx.strokeStyle="rgba(49,225,255,"+alpha+")";ctx.lineWidth=width*scale;ctx.shadowColor="#00cfff";ctx.shadowBlur=8*scale;ctx.stroke();ctx.shadowBlur=0;
+    };
+    const curve=(fn,a,b,n=40)=>{const arr=[];for(let i=0;i<=n;i++){const x=a+(b-a)*i/n;arr.push(fn(x));}line(arr,1.5,.92);};
+    // eyes, brows, nose, lips and jaw are drawn as luminous wire contours
+    for(const side of [-1,1]){
+      curve(x=>({x:x*side,y:-.31-.055*Math.sin((x+.25)*Math.PI*2),z:.82}),.12,.62,18);
+      curve(x=>({x:x*side,y:-.39-.035*Math.sin((x+.2)*Math.PI*2),z:.8}),.13,.6,16);
+      curve(x=>({x:x*side,y:-.48-.035*Math.sin((x+.1)*Math.PI*2),z:.72}),.13,.58,16);
+    }
+    curve(x=>({x,y:-.58-.06*Math.sin((x+1)*Math.PI/2),z:.65}),-.58,.58,22);
+    line([{x:0,y:-.38,z:.9},{x:-.035,y:-.08,z:.96},{x:-.12,y:.03,z:.92},{x:0,y:.09,z:.95},{x:.12,y:.03,z:.92}],1.6,.85);
+    curve(x=>({x,y:.27+.035*Math.cos(x*5)+level*.09*Math.cos(x*9),z:.9}),-.37,.37,26);
+    curve(x=>({x,y:.34-level*.12*Math.cos(x*4),z:.91}),-.35,.35,26);
+    curve(x=>({x,y:.3+level*.15*Math.cos(x*4),z:.93}),-.28,.28,22);
+    // jaw and cheekbone contour
+    curve(x=>({x,y:.25+.75*Math.sqrt(Math.max(0,1-x*x)),z:.65}),-.94,.94,34);
+    // glowing vertices
+    for(let r=0;r<rows;r++)for(let c=0;c<cols;c++){
+      const p=projected[r][c];if((r*3+c*5)%4===0){ctx.fillStyle="rgba(111,245,255,"+(.28+p.z*.35)+")";ctx.beginPath();ctx.arc(p.x,p.y,(.7+p.z*.7)*scale,0,Math.PI*2);ctx.fill();}
+    }
+    ctx.restore();
+    // audio waveform, brighter and more active while speaking/listening
+    const baseY=h*.72,startX=w*.035,endX=w*.39,bars=64,gap=(endX-startX)/bars;
+    for(let i=0;i<bars;i++){
+      const wave=Math.abs(Math.sin(i*.29+t*(state==="speaking"?8:3))*.52+Math.sin(i*.11-t*2)*.28);
+      const envelope=Math.exp(-Math.pow((i-bars*.48)/(bars*.38),2));
+      const height=(3+wave*18+level*36*envelope)*Math.min(1,scale);
+      const x=startX+i*gap;
+      const grad=ctx.createLinearGradient(0,baseY-height,0,baseY+height);grad.addColorStop(0,"rgba(35,225,255,.04)");grad.addColorStop(.5,"rgba(74,237,255,"+(.45+level*.45)+")");grad.addColorStop(1,"rgba(35,225,255,.04)");
+      ctx.fillStyle=grad;ctx.shadowColor="#00cfff";ctx.shadowBlur=level>0.15?7:3;
+      ctx.fillRect(x,baseY-height/2,Math.max(1,gap*.48),height);
+    }
+    ctx.shadowBlur=0;
+  };
+  cancelAnimationFrame(voxFrame);voxFrame=requestAnimationFrame(draw);
+}
+function setVoxAudioStream(mediaStream){
+  try{
+    const AudioCtx=window.AudioContext||window.webkitAudioContext;if(!AudioCtx)return;
+    voxAudioContext?.close();voxAudioContext=new AudioCtx();
+    const source=voxAudioContext.createMediaStreamSource(mediaStream);
+    voxAnalyser=voxAudioContext.createAnalyser();voxAnalyser.fftSize=256;
+    voxAudioData=new Uint8Array(voxAnalyser.fftSize);source.connect(voxAnalyser);
+    voxAudioContext.resume?.();
+  }catch(error){console.warn("VOX visual audio analyser:",error);}
+}
+
 function setOrbState(state,title,caption){
   const orb=$("#voiceOrb");if(!orb)return;
   orb.dataset.state=state;
+  if(state!=="speaking")voxSpeechEnergy=0;
   orb.setAttribute("aria-label",title||"VOX");
   const stateLabel=$("#orbState"),captionLabel=$("#orbCaption"),actionLabel=$("#voiceActionLabel");
   if(stateLabel&&title)stateLabel.textContent=title;
@@ -73,6 +187,7 @@ async function startRecording(){
     const data=await health.json();
     if(!data.whisper||!data.omni)throw new Error("Whisper u OmniRoute no están disponibles");
     stream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true,autoGainControl:true}});
+    setVoxAudioStream(stream);
     chunks=[];
     const mime=["audio/webm;codecs=opus","audio/webm","audio/mp4"].find(type=>MediaRecorder.isTypeSupported(type));
     recorder=new MediaRecorder(stream,mime?{mimeType:mime}:undefined);
@@ -88,6 +203,7 @@ function stopRecording(){
   if(recorder&&recorder.state!=="inactive"){
     recorder.stop();setOrbState("thinking","Estoy pensando","Estoy preparando una respuesta para ayudarte.");
     if(stream){stream.getTracks().forEach(track=>track.stop());stream=null;}
+    voxAnalyser=null;voxAudioData=null;voxAudioContext?.close();voxAudioContext=null;
   }
 }
 async function processRecording(){
@@ -127,9 +243,10 @@ function speak(text){
   if(!("speechSynthesis"in window)){setOrbState("idle","Tocar para hablar con VOX");return;}
   window.speechSynthesis.cancel();const utterance=new SpeechSynthesisUtterance(text);
   utterance.lang="es-ES";utterance.rate=1;
-  utterance.onstart=()=>setOrbState("speaking","VOX está hablando");
-  utterance.onend=()=>setOrbState("idle","Tocar para hablar con VOX");
-  utterance.onerror=()=>setOrbState("idle","Tocar para hablar con VOX");
+  utterance.onstart=()=>{voxSpeechUntil=Date.now()+text.length*45;setOrbState("speaking","VOX está hablando");};
+  utterance.onboundary=event=>{const ch=text.slice(event.charIndex,event.charIndex+Math.max(1,event.charLength||2));voxSpeechEnergy=/[aeiouáéíóú]/i.test(ch)?(.28+Math.random()*.48):(.12+Math.random()*.22);};
+  utterance.onend=()=>{voxSpeechEnergy=0;setOrbState("idle","Tocar para hablar con VOX");};
+  utterance.onerror=()=>{voxSpeechEnergy=0;setOrbState("idle","Tocar para hablar con VOX");};
   window.speechSynthesis.speak(utterance);
 }
 function endSession(){
@@ -171,5 +288,6 @@ $("#sessionCount").textContent=localStorage.getItem("vox.sessionCount")||"0";
 if("serviceWorker"in navigator&&location.protocol!=="file:"){
   window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));
 }
+initVoxHologram();
 requireSession();
 })();
