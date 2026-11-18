@@ -7,7 +7,7 @@
 <meta name="description" content="VOX. Una inteligencia artificial para conversar por voz.">
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="icon" href="./icon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="./app.css?v=app06">
+<link rel="stylesheet" href="./app.css?v=app07">
 <title>VOX — Hablemos</title>
 </head>
 <body>
@@ -21,34 +21,33 @@
     </div>
   </header>
   <main>
-    <section class="screen active conversation-screen" id="home">
-      <div class="conversation-heading">
-        <div>
-          <p class="eyebrow"><span class="status-mark"></span> TU ESPACIO CON IA</p>
-          <h1>Hablemos<span>.</span></h1>
-          <p class="intro">Una conversación a la vez. Cuéntame lo que piensas, pregunta o simplemente empieza a hablar.</p>
-        </div>
-        <div class="ai-presence" aria-label="Asistente VOX"><span class="presence-core">V</span><span>VOX AI</span></div>
-      </div>
+    <section class="screen active voice-screen" id="home">
+      <header class="voice-heading">
+        <p class="eyebrow"><span class="status-mark"></span> INTELIGENCIA ARTIFICIAL</p>
+        <h1>VOX</h1>
+        <p class="intro">Tu voz. Tus ideas. Una IA que te escucha.</p>
+      </header>
       <div class="engine-status" id="engineStatus"><i></i><span>Comprobando motor local…</span></div>
-      <section class="practice-card" aria-label="Conversación con VOX">
-        <div class="conversation-top"><span class="conversation-dot"></span><span>CONVERSACIÓN</span><span class="conversation-live">VOX ESTÁ AQUÍ</span></div>
-        <div class="conversation" id="conversation" aria-live="polite">
-          <div class="welcome-message" id="emptyConversation">
-            <span class="welcome-avatar">V</span>
-            <div><span class="message-label">VOX</span><p>Hola. Estoy aquí para escucharte y conversar contigo. ¿Por dónde quieres empezar?</p></div>
-          </div>
+      <div class="voice-stage" aria-label="Visualizador de voz de VOX">
+        <div class="voice-orb" id="voiceOrb" data-state="idle" role="img" aria-label="VOX está en espera">
+          <span class="orb-halo halo-one"></span><span class="orb-halo halo-two"></span>
+          <span class="orb-ring ring-one"></span><span class="orb-ring ring-two"></span>
+          <span class="orb-core"><span class="orb-glint"></span><span class="orb-mark">V</span></span>
+          <span class="orb-particle particle-one"></span><span class="orb-particle particle-two"></span><span class="orb-particle particle-three"></span>
         </div>
-        <div class="voice-controls">
-          <button class="talk-button" id="talkButton" type="button">
-            <span class="mic-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><rect x="8" y="3" width="8" height="12" rx="4" stroke="currentColor" stroke-width="1.8"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3m-4 0h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
-            <span id="talkLabel">Hablar con VOX</span>
-          </button>
-          <p class="control-hint" id="controlHint">Toca el micrófono, habla con naturalidad y vuelve a tocar cuando termines.</p>
-          <button class="end-button" id="endButton" type="button">Terminar conversación</button>
-        </div>
-      </section>
-      <p class="privacy-note"><span>●</span> El audio se procesa en tu dispositivo. Esta versión no guarda grabaciones ni conversaciones.</p>
+        <p class="orb-state" id="orbState" aria-live="polite">Estoy aquí</p>
+        <p class="orb-caption" id="orbCaption">Toca el micrófono y empieza a hablar conmigo.</p>
+      </div>
+      <div class="voice-actions">
+        <button class="talk-button" id="talkButton" type="button" aria-label="Hablar con VOX">
+          <span class="mic-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><rect x="8" y="3" width="8" height="12" rx="4" stroke="currentColor" stroke-width="1.8"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3m-4 0h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+          <span id="talkLabel">Hablar con VOX</span>
+        </button>
+        <p class="control-hint" id="controlHint">Tu conversación se procesa mediante el motor local.</p>
+        <button class="end-button" id="endButton" type="button">Finalizar sesión</button>
+      </div>
+      <p class="privacy-note"><span>●</span> El micrófono solo se activa cuando tú lo permites.</p>
+      <div id="conversation" hidden aria-hidden="true"></div>
       <span id="sessionCount" hidden>0</span>
     </section>
   </main>
