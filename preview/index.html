@@ -7,13 +7,13 @@
 <meta name="description" content="VOX. Una inteligencia artificial para conversar por voz.">
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="icon" href="./icon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="./app.css?v=app07">
+<link rel="stylesheet" href="./app.css?v=app08">
 <title>VOX — Hablemos</title>
 </head>
 <body>
 <div class="app-boot" id="appBoot" aria-live="polite"><div class="boot-orbit"><span>v.</span></div><div class="boot-loader"></div><p>Abriendo tu espacio VOX...</p></div>
 <div class="app">
-  <header class="topbar">
+  <header class="topbar vox-hidden-topbar">
     <a class="brand" href="#" data-go="home" aria-label="VOX, mi espacio"><span class="brand-script">Vox</span></a>
     <div class="topbar-actions">
       <span class="account-chip"><i></i><span id="accountStatus">Tu espacio</span></span>
@@ -21,39 +21,35 @@
     </div>
   </header>
   <main>
-    <section class="screen active voice-screen" id="home">
-      <header class="voice-heading">
-        <p class="eyebrow"><span class="status-mark"></span> INTELIGENCIA ARTIFICIAL</p>
-        <h1>VOX</h1>
-        <p class="intro">Tu voz. Tus ideas. Una IA que te escucha.</p>
-      </header>
-      <div class="engine-status" id="engineStatus"><i></i><span>Comprobando motor local…</span></div>
-      <div class="voice-stage" aria-label="Visualizador de voz de VOX">
-        <div class="voice-orb" id="voiceOrb" data-state="idle" role="img" aria-label="VOX está en espera">
-          <span class="orb-halo halo-one"></span><span class="orb-halo halo-two"></span>
-          <span class="orb-ring ring-one"></span><span class="orb-ring ring-two"></span>
-          <span class="orb-core"><span class="orb-glint"></span><span class="orb-mark">V</span></span>
-          <span class="orb-particle particle-one"></span><span class="orb-particle particle-two"></span><span class="orb-particle particle-three"></span>
-        </div>
-        <p class="orb-state" id="orbState" aria-live="polite">Estoy aquí</p>
-        <p class="orb-caption" id="orbCaption">Toca el micrófono y empieza a hablar conmigo.</p>
-      </div>
-      <div class="voice-actions">
-        <button class="talk-button" id="talkButton" type="button" aria-label="Hablar con VOX">
-          <span class="mic-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><rect x="8" y="3" width="8" height="12" rx="4" stroke="currentColor" stroke-width="1.8"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3m-4 0h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
-          <span id="talkLabel">Hablar con VOX</span>
+        <section class="screen active voice-screen" id="home">
+      <header class="vox-wordmark"><span>Vox</span></header>
+      <div class="voice-stage">
+        <button class="voice-orb" id="voiceOrb" data-state="idle" type="button" aria-label="Tocar para hablar con VOX">
+          <svg class="orb-art" viewBox="0 0 520 520" aria-hidden="true">
+            <defs>
+              <linearGradient id="outerGradient" x1="0%" y1="15%" x2="100%" y2="90%"><stop offset="0%" stop-color="#77777b"/><stop offset="48%" stop-color="#aaa9ad"/><stop offset="100%" stop-color="#65656b"/></linearGradient>
+              <linearGradient id="middleGradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#ff303b"/><stop offset="52%" stop-color="#ff4540"/><stop offset="100%" stop-color="#c91c35"/></linearGradient>
+              <linearGradient id="innerGradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#a000ff"/><stop offset="50%" stop-color="#7924ef"/><stop offset="100%" stop-color="#4b12b9"/></linearGradient>
+            </defs>
+            <path class="orbit orbit-outer" d="M260 34 C324 23 387 48 431 99 C481 150 493 216 479 281 C468 349 423 411 363 454 C302 493 225 495 159 466 C91 438 45 382 35 311 C22 241 45 166 91 111 C133 61 195 40 260 34Z" />
+            <path class="orbit orbit-middle" d="M257 82 C319 68 377 98 411 148 C449 199 448 270 425 329 C399 389 347 426 282 438 C214 448 146 420 108 369 C69 318 66 247 90 187 C117 127 184 91 257 82Z" />
+            <path class="orbit orbit-inner" d="M257 128 C305 116 350 139 378 177 C410 221 407 280 383 322 C358 365 317 393 266 398 C215 403 166 382 139 343 C109 302 108 245 130 199 C154 154 202 134 257 128Z" />
+          </svg>
+          <span class="orb-core"><span>IA</span></span>
         </button>
-        <p class="control-hint" id="controlHint">Tu conversación se procesa mediante el motor local.</p>
-        <button class="end-button" id="endButton" type="button">Finalizar sesión</button>
       </div>
-      <p class="privacy-note"><span>●</span> El micrófono solo se activa cuando tú lo permites.</p>
+      <button class="vox-menu-trigger" id="menuButton" type="button" aria-expanded="false">MENÚ</button>
+      <div class="vox-menu-panel" id="menuPanel" hidden>
+        <button id="logoutButton" type="button">Cerrar sesión</button>
+      </div>
       <div id="conversation" hidden aria-hidden="true"></div>
       <span id="sessionCount" hidden>0</span>
     </section>
+
   </main>
   <div id="appMessage" class="toast" role="status" aria-live="polite" hidden></div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.105.0"></script>
-<script src="./app.js?v=app03"></script>
+<script src="./app.js?v=app04"></script>
 </body>
 </html>
