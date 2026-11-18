@@ -2,7 +2,7 @@
 const $=selector=>document.querySelector(selector);
 const SUPABASE_URL="https://kmwmwacgsojpkbqwhomd.supabase.co";
 const SUPABASE_KEY="sb_publishable_cS2Rrx0VuOUsQNLd33gNZQ_fgWf0BrI";
-let client=null,clientPromise=null,mode="signup",transitioning=false;
+let client=null,clientPromise=null,mode="login",transitioning=false;
 
 function getClient(){
   if(client)return Promise.resolve(client);
@@ -16,79 +16,60 @@ function getClient(){
     if(window.supabase?.createClient){create();return;}
     const script=document.createElement("script");
     script.src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.105.0";
-    script.async=true;
-    script.onload=create;
+    script.async=true;script.onload=create;
     script.onerror=()=>reject(new Error("No logramos conectar con el servicio de acceso."));
     document.head.appendChild(script);
   }).catch(error=>{clientPromise=null;throw error;});
   return clientPromise;
 }
 function message(text,type="info"){
-  const el=$("#authMessage");
-  el.textContent=text;
-  el.className="auth-message"+(type?" "+type:"");
+  const el=$("#authMessage");el.textContent=text;el.className="auth-message"+(type?" "+type:"");
 }
 function redirectToApp(){window.location.replace("./index.html");}
 function successTransition(){
   if(transitioning)return;
-  transitioning=true;
-  $("#authSubmit").disabled=true;
+  transitioning=true;$("#authSubmit").disabled=true;
   $("#successScene").classList.add("is-active");
-  window.setTimeout(()=>window.location.replace("./index.html"),1550);
+  window.setTimeout(redirectToApp,1350);
 }
 function fieldParts(name){
   const map={
+    name:{field:"#nameField",input:"#authName",error:"#nameError"},
     email:{field:"#emailField",input:"#authEmail",error:"#emailError"},
     password:{field:"#passwordField",input:"#authPassword",error:"#passwordError"},
+    confirm:{field:"#confirmField",input:"#authConfirm",error:"#confirmError"}
   };
   return map[name];
 }
 function clearFieldError(name){
-  const parts=fieldParts(name);
-  if(!parts)return;
-  $(parts.field).classList.remove("has-error");
-  $(parts.input).setAttribute("aria-invalid","false");
-  $(parts.error).textContent="";
+  const p=fieldParts(name);if(!p)return;
+  $(p.field).classList.remove("has-error");$(p.input).setAttribute("aria-invalid","false");$(p.error).textContent="";
 }
 function markField(name,text){
-  const parts=fieldParts(name);
-  if(!parts)return;
-  $(parts.field).classList.add("has-error");
-  $(parts.input).setAttribute("aria-invalid","true");
-  $(parts.error).textContent=text;
+  const p=fieldParts(name);if(!p)return;
+  $(p.field).classList.add("has-error");$(p.input).setAttribute("aria-invalid","true");$(p.error).textContent=text;
 }
-function clearErrors(){
-  ["email","password"].forEach(clearFieldError);
-  message("");
-}
+function clearErrors(){["name","email","password","confirm"].forEach(clearFieldError);message("");}
 function shakeAccess(){
-  const access=$("#authAccess");
-  access.classList.remove("is-shaking");
-  void access.offsetWidth;
-  access.classList.add("is-shaking");
-  window.setTimeout(()=>access.classList.remove("is-shaking"),380);
+  const card=$("#authAccess");card.classList.remove("is-shaking");void card.offsetWidth;
+  card.classList.add("is-shaking");window.setTimeout(()=>card.classList.remove("is-shaking"),380);
 }
 function fail(text,fields=[]){
-  fields.forEach(([name,detail])=>markField(name,detail));
-  message(text,"error");
-  shakeAccess();
+  fields.forEach(([name,detail])=>markField(name,detail));message(text,"error");shakeAccess();
 }
 function setMode(next){
-  mode=next;
-  document.body.dataset.authMode=mode;
+  mode=next;document.body.dataset.authMode=mode;
   const signup=mode==="signup";
-  document.querySelectorAll("[data-auth-mode]").forEach(button=>{
-    const active=button.dataset.authMode===mode;
-    button.classList.toggle("active",active);
-    button.setAttribute("aria-selected",String(active));
-  });
-  $("#authHeading").textContent=signup?"CREAR CUENTA":"INICIO";
-  const divider=$("#authDividerText");if(divider)divider.textContent="o regístrate";
-  const prompt=$("#authModePrompt"),link=$("#authModeLink");
-  if(prompt)prompt.textContent=signup?"¿Ya tienes una cuenta?":"¿No tienes una cuenta?";
-  if(link)link.textContent=signup?"Inicia sesión":"Crear una cuenta";
+  $("#authHeading").textContent=signup?"Crear cuenta":"Bienvenido";
+  $("#authSubtitle").textContent=signup?"Crea tu espacio y empieza a entrenar":"Inicia sesión para continuar";
+  $("#nameField").hidden=!signup;$("#confirmField").hidden=!signup;
+  $("#authName").required=signup;$("#authConfirm").required=signup;
   $("#authPassword").autocomplete=signup?"new-password":"current-password";
-  $("#authSubmit .submit-label").textContent=signup?"CREAR UNA CUENTA":"INICIAR SESIÓN";
+  $("#authSubmit .submit-label").textContent=signup?"Crear cuenta":"Iniciar sesión";
+  $("#authModePrompt").textContent=signup?"¿Ya tienes una cuenta?":"¿No tienes una cuenta?";
+  $("#authModeLink").textContent=signup?"Inicia sesión":"Crear cuenta";
+  $("#formMeta").hidden=signup;
+  $("#authConfirm").value="";
   clearErrors();
 }
 function errorText(error){
@@ -103,45 +84,41 @@ function errorText(error){
   return value||"No pudimos completar la operación. Inténtalo de nuevo.";
 }
 function loading(active){
-  const button=$("#authSubmit");
-  button.disabled=active||transitioning;
+  const button=$("#authSubmit");button.disabled=active||transitioning;
   button.classList.toggle("is-loading",active);
-  button.innerHTML=active
-    ?'<span class="button-spinner"></span><span class="submit-label">Un momento...</span>'
-     :'<span class="submit-label">'+(mode==="signup"?"CREAR UNA CUENTA":"INICIAR SESIÓN")+'</span>';
+  button.innerHTML=active?'<span class="button-spinner"></span><span class="submit-label">Un momento...</span>':'<span class="submit-label">'+(mode==="signup"?"Crear cuenta":"Iniciar sesión")+'</span>';
 }
-function validate(email,password){
+function validate(name,email,password,confirm){
   clearErrors();
+  if(mode==="signup"&&!name.trim()){
+    fail("Escribe tu nombre para crear la cuenta.",[["name","Este campo es obligatorio."]]);$("#authName").focus();return false;
+  }
   if(!email){
-    fail("Escribe el correo con el que creaste tu cuenta.",[["email","Este campo es obligatorio."]]);
-    $("#authEmail").focus();return false;
+    fail("Escribe el correo con el que quieres acceder.",[["email","Este campo es obligatorio."]]);$("#authEmail").focus();return false;
   }
   if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
-    fail("Ese correo no parece tener un formato válido.",[["email","Revisa la dirección de correo."]]);
-    $("#authEmail").focus();return false;
+    fail("Ese correo no parece tener un formato válido.",[["email","Revisa la dirección de correo."]]);$("#authEmail").focus();return false;
   }
   if(!password){
-    fail("Escribe tu contraseña para continuar.",[["password","Este campo es obligatorio."]]);
-    $("#authPassword").focus();return false;
+    fail("Escribe tu contraseña para continuar.",[["password","Este campo es obligatorio."]]);$("#authPassword").focus();return false;
   }
   if(mode==="signup"&&password.length<6){
-    fail("La contraseña debe tener al menos 6 caracteres.",[["password","Usa al menos 6 caracteres."]]);
-    $("#authPassword").focus();return false;
+    fail("La contraseña debe tener al menos 6 caracteres.",[["password","Usa al menos 6 caracteres."]]);$("#authPassword").focus();return false;
+  }
+  if(mode==="signup"&&password!==confirm){
+    fail("Las contraseñas no coinciden.",[["confirm","Repite exactamente la misma contraseña."]]);$("#authConfirm").focus();return false;
   }
   return true;
 }
 async function submit(event){
-  event.preventDefault();
-  if(transitioning)return;
-  const email=$("#authEmail").value.trim();
-  const password=$("#authPassword").value;
-  if(!validate(email,password))return;
-  loading(true);
-  message(mode==="signup"?"Creando tu espacio...":"Comprobando tus datos...","info");
+  event.preventDefault();if(transitioning)return;
+  const name=$("#authName").value.trim(),email=$("#authEmail").value.trim(),password=$("#authPassword").value,confirm=$("#authConfirm").value;
+  if(!validate(name,email,password,confirm))return;
+  loading(true);message(mode==="signup"?"Creando tu espacio...":"Comprobando tus datos...","info");
   try{
     const authClient=await getClient();
     if(mode==="signup"){
-      const {data,error}=await authClient.auth.signUp({email,password});
+      const {data,error}=await authClient.auth.signUp({email,password,options:{data:{full_name:name}}});
       if(error)throw error;
       if(data.session){successTransition();return;}
       setMode("login");
@@ -160,9 +137,7 @@ async function submit(event){
       fail(errorText(error),[["email","Revisa la dirección de correo."]]);
     }else if(/password/i.test(raw)&&mode==="signup"){
       fail(errorText(error),[["password","Revisa la contraseña."]]);
-    }else{
-      fail(errorText(error));
-    }
+    }else fail(errorText(error));
   }finally{loading(false);}
 }
 async function init(){
@@ -171,31 +146,22 @@ async function init(){
   }
   try{
     const authClient=await getClient();
-    const {data,error}=await authClient.auth.getSession();
-    if(error)throw error;
+    const {data,error}=await authClient.auth.getSession();if(error)throw error;
     if(data.session){redirectToApp();return;}
-    authClient.auth.onAuthStateChange((event,session)=>{
-      if(session&&event==="SIGNED_IN")successTransition();
-    });
-  }catch(error){
-    message("El acceso está listo. Cuando tengas conexión podrás iniciar sesión.","info");
-  }
+    authClient.auth.onAuthStateChange((event,session)=>{if(session&&event==="SIGNED_IN")successTransition();});
+  }catch(error){message("El acceso está listo. Cuando tengas conexión podrás iniciar sesión.","info");}
 }
 $("#authModeLink").addEventListener("click",()=>setMode(mode==="signup"?"login":"signup"));
 $("#authForm").addEventListener("submit",submit);
-["email","password"].forEach(name=>{
-  const parts=fieldParts(name);
-  $(parts.input).addEventListener("input",()=>clearFieldError(name));
+["name","email","password","confirm"].forEach(name=>{
+  const p=fieldParts(name);$(p.input).addEventListener("input",()=>clearFieldError(name));
 });
 $("#togglePassword").addEventListener("click",()=>{
-  const input=$("#authPassword"),show=input.type==="password";
-  input.type=show?"text":"password";
+  const input=$("#authPassword"),show=input.type==="password";input.type=show?"text":"password";
   $("#togglePassword").classList.toggle("is-visible",show);
   $("#togglePassword").setAttribute("aria-label",show?"Ocultar contraseña":"Mostrar contraseña");
-  $("#togglePassword").setAttribute("aria-label",show?"Ocultar contraseña":"Mostrar contraseña");
 });
-setMode("signup");
-init();
+setMode("login");init();
 if("serviceWorker"in navigator&&location.protocol!=="file:"){
   window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));
 }
