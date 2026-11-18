@@ -47,13 +47,14 @@ function status(message,kind=""){
   const el=$("#engineStatus");el.className="engine-status "+kind;el.querySelector("span").textContent=message;
 }
 function setBusy(value){busy=value;$("#talkButton").disabled=value;$("#endButton").disabled=value;}
-function addMessage(role,content){
-  const empty=$("#emptyConversation");if(empty)empty.remove();
-  const bubble=document.createElement("div");bubble.className="message "+role;
-  const label=document.createElement("span");label.className="message-label";label.textContent=role==="user"?"TÚ":"VOX";
-  const body=document.createElement("span");body.textContent=content;bubble.append(label,body);
-  $("#conversation").append(bubble);$("#conversation").scrollTop=$("#conversation").scrollHeight;
+function setOrbState(state,title,caption){
+  const orb=$("#voiceOrb");if(!orb)return;
+  orb.dataset.state=state;
+  orb.setAttribute("aria-label",title||"VOX");
+  $("#orbState").textContent=title||"VOX";
+  if(caption)$("#orbCaption").textContent=caption;
 }
+function addMessage(role,content){ /* El contexto vive en memoria; VOX no presenta una interfaz de chat. */ }
 async function checkEngine(){
   try{
     const response=await fetch(API+"/api/health",{cache:"no-store"});
@@ -76,25 +77,25 @@ async function startRecording(){
     recorder=new MediaRecorder(stream,mime?{mimeType:mime}:undefined);
     recorder.ondataavailable=event=>{if(event.data&&event.data.size)chunks.push(event.data);};
     recorder.onstop=processRecording;recorder.start();sessionActive=true;
-    $("#talkButton").classList.add("recording");$("#talkLabel").textContent="Terminar de hablar";
+    $("#talkButton").classList.add("recording");$("#talkLabel").textContent="Terminar de hablar";setOrbState("listening","Te escucho","Estoy atento a lo que quieres decir.");
     $("#controlHint").textContent="Te estoy escuchando. Toca cuando hayas terminado.";status("Escuchando…","online");
   }catch(error){
-    status("No se pudo iniciar el micrófono","error");
+    status("No se pudo iniciar el micrófono","error");setOrbState("idle","No pude escucharte","Revisa el permiso del micrófono.");
     toast(error.message==="Failed to fetch"?"No encuentro el motor local. Inicia los servicios en Termux.":error.message||"Revisa el permiso del micrófono.");
   }
 }
 function stopRecording(){
   if(recorder&&recorder.state!=="inactive"){
     recorder.stop();$("#talkButton").classList.remove("recording");$("#talkLabel").textContent="Hablar con VOX";
-    $("#controlHint").textContent="Procesando tu intervención…";
+    $("#controlHint").textContent="Estoy procesando lo que me dijiste.";setOrbState("thinking","Estoy pensando","Dame un momento para preparar mi respuesta.");
     if(stream){stream.getTracks().forEach(track=>track.stop());stream=null;}
   }
 }
 async function processRecording(){
   const type=recorder?.mimeType||"audio/webm";recorder=null;
   const blob=new Blob(chunks,{type});chunks=[];
-  if(blob.size<1200){status("No se detectó suficiente audio","");$("#controlHint").textContent="Prueba otra vez y habla un poco más cerca del micrófono.";return;}
-  setBusy(true);status("Entendiendo lo que dijiste…");
+  if(blob.size<1200){status("No se detectó suficiente audio","");$("#controlHint").textContent="Prueba otra vez y habla un poco más cerca del micrófono.";setOrbState("idle","No te escuché","Acércate un poco al micrófono e inténtalo de nuevo.");return;}
+  setBusy(true);setOrbState("thinking","Estoy escuchando","Estoy comprendiendo tu mensaje.");status("Entendiendo lo que dijiste…");
   try{
     const transcribe=await fetch(API+"/api/transcribe",{method:"POST",headers:{"Content-Type":type},body:blob});
     if(!transcribe.ok)throw new Error(await responseError(transcribe));
@@ -106,8 +107,8 @@ async function processRecording(){
     const answer=await response.json(),reply=(answer.text||"").trim();
     if(!reply)throw new Error("El modelo no devolvió una respuesta.");
     messages.push({role:"assistant",content:reply});addMessage("assistant",reply);
-    status("Te escucho","online");$("#controlHint").textContent="Toca para responder y continuar la conversación.";speak(reply);
-  }catch(error){status("No se pudo completar la respuesta","error");toast(error.message||"Error de conexión.");}
+    status("VOX está disponible","online");$("#controlHint").textContent="Puedes volver a hablar cuando quieras.";speak(reply);
+  }catch(error){status("No se pudo completar la respuesta","error");setOrbState("idle","Algo salió mal","Revisa el motor local e inténtalo de nuevo.");toast(error.message||"Error de conexión.");}
   finally{setBusy(false);}
 }
 async function responseError(response){
@@ -115,19 +116,24 @@ async function responseError(response){
   catch{return"Error del motor local ("+response.status+")";}
 }
 function speak(text){
-  if(!("speechSynthesis"in window))return;
+  if(!("speechSynthesis"in window)){setOrbState("idle","Respuesta lista","Tu respuesta está preparada.");return;}
   window.speechSynthesis.cancel();const utterance=new SpeechSynthesisUtterance(text);
-  utterance.lang="es-ES";utterance.rate=1;window.speechSynthesis.speak(utterance);
+  utterance.lang="es-ES";utterance.rate=1;
+  utterance.onstart=()=>setOrbState("speaking","VOX está hablando","Escucha. Estoy aquí contigo.");
+  utterance.onend=()=>setOrbState("idle","Estoy aquí","Cuando quieras, seguimos hablando.");
+  utterance.onerror=()=>setOrbState("idle","Estoy aquí","Puedes volver a hablar cuando quieras.");
+  window.speechSynthesis.speak(utterance);
 }
 function endSession(){
   if(recorder)stopRecording();
   if(window.speechSynthesis)window.speechSynthesis.cancel();
+  setOrbState("idle","Estoy aquí","Toca el micrófono cuando quieras volver a hablar.");
   if(sessionActive&&messages.length){
     const count=Number(localStorage.getItem("vox.sessionCount")||0)+1;
     localStorage.setItem("vox.sessionCount",String(count));$("#sessionCount").textContent=String(count);
   }
   messages=[];sessionActive=false;
-  $("#conversation").innerHTML='<p class="empty-conversation" id="emptyConversation"><span class="empty-spark">✧</span>Cuando estés listo, toca el botón y empieza a hablar.<small>Este es tu espacio. Tómate tu tiempo.</small></p>';
+  $("#conversation").innerHTML="";
   $("#controlHint").textContent="Toca para empezar a hablar. Toca de nuevo cuando termines.";
   status("Sesión finalizada","");toast("Sesión cerrada. No se guardó la conversación.");
 }
