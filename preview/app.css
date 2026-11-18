@@ -373,3 +373,59 @@ h1 span{color:#a7b69a;background:none;-webkit-text-fill-color:initial}
  .privacy-note{font-size:8px}
 }
 @media(prefers-reduced-motion:reduce){.talk-button.recording{animation:none!important}}
+
+
+/* VOX — voice-first AI orb; animated only while the assistant speaks */
+.voice-screen{width:min(100%,760px);min-height:calc(100dvh - 90px);margin:0 auto;padding:36px 0 28px;display:flex;flex-direction:column;align-items:center}
+.voice-heading{text-align:center}
+.voice-heading .eyebrow{display:flex;align-items:center;justify-content:center;gap:9px;margin:0 0 10px;color:#9eaa9a;font-size:9px;letter-spacing:.19em;font-weight:800}
+.voice-heading h1{font-family:"Lobster Two","Brush Script MT",cursive;font-size:clamp(54px,10vw,76px);font-style:italic;font-weight:700;letter-spacing:-.055em;color:#f0f1f2}
+.voice-heading .intro{margin:7px 0 0;color:#9da7b3;font-size:13px;letter-spacing:.015em}
+.voice-screen .engine-status{margin:20px 0 0}
+.voice-stage{width:100%;flex:1;min-height:390px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:18px 0 12px;text-align:center}
+.voice-orb{--orb-size:clamp(190px,55vw,270px);position:relative;width:var(--orb-size);height:var(--orb-size);display:grid;place-items:center;isolation:isolate}
+.orb-core{position:relative;z-index:3;width:57%;height:57%;display:grid;place-items:center;overflow:hidden;border:1px solid #71847788;border-radius:50%;background:radial-gradient(circle at 33% 25%,#66766c 0%,#394b4b 35%,#253541 72%,#1b2834 100%);box-shadow:inset 0 2px 14px #d8e4cf24,inset 0 -18px 30px #0c151e66,0 0 35px #a7b69a18,0 18px 45px #080d1470;transition:transform .5s ease,box-shadow .5s ease}
+.orb-mark{font-family:"Lobster Two","Brush Script MT",cursive;font-size:clamp(48px,13vw,72px);font-style:italic;color:#e2e8dd;text-shadow:0 2px 14px #d9e8ce38;transform:translateY(-2px)}
+.orb-glint{position:absolute;top:13%;left:21%;width:30%;height:15%;border-radius:50%;background:linear-gradient(90deg,#e1eadb35,transparent);filter:blur(5px);transform:rotate(-28deg)}
+.orb-halo,.orb-ring{position:absolute;inset:7%;border-radius:50%;pointer-events:none}
+.orb-halo{z-index:0;background:radial-gradient(circle,#a7b69a16 0%,#879b8d0b 48%,transparent 72%);filter:blur(13px);transform:scale(.9)}
+.orb-halo.halo-two{inset:0;background:radial-gradient(circle,transparent 45%,#91a79b0c 66%,transparent 72%)}
+.orb-ring{z-index:1;border:1px solid #a7b69a24;transform:scale(1);opacity:.75}
+.orb-ring.ring-two{inset:0;border-color:#9cabb52a;transform:scale(.87)}
+.orb-particle{position:absolute;z-index:2;width:6px;height:6px;border-radius:50%;background:#c5d2b7;box-shadow:0 0 12px #b9caa8a0;opacity:.55}
+.particle-one{top:18%;right:25%}.particle-two{bottom:24%;left:16%;width:4px;height:4px}.particle-three{right:13%;bottom:34%;width:3px;height:3px}
+.orb-state{margin:25px 0 0;color:#e5e8e9;font-size:17px;font-weight:650;letter-spacing:.005em}
+.orb-caption{margin:8px 0 0;color:#909ba8;font-size:11px;line-height:1.6}
+.voice-orb[data-state="speaking"] .orb-core{animation:voxOrbSpeak 1.05s ease-in-out infinite;box-shadow:inset 0 2px 18px #e2ecd33c,inset 0 -18px 30px #0c151e55,0 0 54px #a7b69a52,0 0 105px #91a99a26,0 18px 45px #080d1470}
+.voice-orb[data-state="speaking"] .orb-ring.ring-one{animation:voxOrbRing 1.8s ease-out infinite}
+.voice-orb[data-state="speaking"] .orb-ring.ring-two{animation:voxOrbRing 1.8s ease-out .9s infinite}
+.voice-orb[data-state="speaking"] .orb-halo{animation:voxOrbGlow 1.05s ease-in-out infinite}
+.voice-orb[data-state="listening"] .orb-core{animation:voxOrbListen 2.4s ease-in-out infinite}
+.voice-orb[data-state="listening"] .orb-ring{border-color:#a7b69a66}
+.voice-orb[data-state="thinking"] .orb-core{animation:voxOrbThink 2.2s ease-in-out infinite}
+.voice-orb[data-state="thinking"] .orb-ring.ring-one{animation:voxOrbRing 3s ease-out infinite}
+@keyframes voxOrbSpeak{0%,100%{transform:scale(.96)}50%{transform:scale(1.075)}}
+@keyframes voxOrbListen{0%,100%{transform:scale(1)}50%{transform:scale(1.035)}}
+@keyframes voxOrbThink{0%,100%{transform:scale(.97) rotate(0)}50%{transform:scale(1.025) rotate(8deg)}}
+@keyframes voxOrbRing{0%{transform:scale(.78);opacity:.75}100%{transform:scale(1.32);opacity:0}}
+@keyframes voxOrbGlow{0%,100%{transform:scale(.92);opacity:.55}50%{transform:scale(1.12);opacity:1}}
+.voice-actions{width:min(100%,390px);display:flex;flex-direction:column;align-items:center;gap:10px}
+.voice-actions .talk-button{width:100%;min-height:58px}
+.voice-actions .control-hint{margin:0;color:#8e99a6;font-size:10px;text-align:center}
+.voice-actions .end-button{margin-top:4px}
+.voice-screen .privacy-note{margin:22px 0 0;text-align:center}
+.voice-screen .privacy-note span{color:#9eae91}
+@media(max-width:600px){
+ .voice-screen{min-height:calc(100dvh - 72px);padding:30px 0 22px}
+ .voice-heading h1{font-size:60px}
+ .voice-heading .intro{font-size:11px}
+ .voice-screen .engine-status{margin-top:17px}
+ .voice-stage{min-height:350px}
+ .voice-orb{--orb-size:clamp(190px,59vw,245px)}
+ .orb-state{font-size:16px;margin-top:22px}
+ .orb-caption{max-width:270px;font-size:10px}
+ .voice-actions{width:min(100%,360px)}
+}
+@media(prefers-reduced-motion:reduce){
+ .voice-orb *{animation:none!important}
+}
