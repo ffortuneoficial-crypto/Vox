@@ -74,7 +74,8 @@ function setOrbState(state,title,caption){
   const orb=$("#voiceOrb");if(!orb)return;
   orb.dataset.state=state;
   if(state!=="speaking")voxSpeechEnergy=0;
-  orb.setAttribute("aria-label",title||"VOX");\n  $("#voxCore")?.setAttribute("data-state",state);
+  orb.setAttribute("aria-label",title||"VOX");
+  $("#voxCore")?.setAttribute("data-state",state);
   const stateLabel=$("#orbState"),captionLabel=$("#orbCaption"),actionLabel=$("#voiceActionLabel");
   if(stateLabel&&title)stateLabel.textContent=title;
   if(captionLabel&&caption)captionLabel.textContent=caption;
