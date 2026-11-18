@@ -3,71 +3,82 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#6479a8">
+<meta name="theme-color" content="#e8edf3">
 <meta name="description" content="VOX — Entrenamiento de voz y comunicación.">
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="icon" href="./icon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="./auth.css?v=auth18">
-<script defer src="./auth.js?v=auth13"></script>
-<title>VOX — Tu voz, tu potencial</title>
+<link rel="stylesheet" href="./auth.css?v=auth19">
+<script defer src="./auth.js?v=auth14"></script>
+<title>VOX — Acceso</title>
 </head>
 <body class="auth-page">
-<div class="auth-atmosphere" aria-hidden="true">
-  <span class="orb orb-blue"></span><span class="orb orb-green"></span><span class="orb orb-cream"></span>
-  <span class="soft-wave"></span>
+<div class="auth-decoration" aria-hidden="true">
+  <span class="decor-circle circle-one"></span><span class="decor-circle circle-two"></span>
+  <span class="decor-circle circle-three"></span><span class="decor-circle circle-four"></span>
+  <span class="decor-dot dot-one"></span><span class="decor-dot dot-two"></span>
 </div>
 <main class="auth-shell" id="authShell">
-  <a class="back-button" href="./index.html" aria-label="Volver"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 4.5 7.5 12l8 7.5"/></svg></a>
-  <header class="auth-brand"><a href="./auth.html" class="brand-lockup" aria-label="VOX, inicio"><span class="brand-name">Vox</span></a></header>
-  <div class="mascot-stage" role="img" aria-label="Visualizador animado del volumen de la voz">
-  <svg class="vox-wave-art" viewBox="0 0 360 104" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Visualizador animado del volumen de la voz">
- <defs>
-  <linearGradient id="voxEqFill" x1="0" y1="0" x2="0.9" y2="1"><stop stop-color="#f8fff5"/><stop offset=".25" stop-color="#a9e9f1"/><stop offset=".62" stop-color="#55a9e8"/><stop offset="1" stop-color="#8edc78"/></linearGradient>
-  <linearGradient id="voxEqWave" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#8edc78" stop-opacity="0"/><stop offset=".25" stop-color="#a9e9f1"/><stop offset=".52" stop-color="#fff"/><stop offset=".78" stop-color="#55a9e8"/><stop offset="1" stop-color="#8edc78" stop-opacity="0"/></linearGradient>
-  <radialGradient id="voxEqAura"><stop stop-color="#d9f5ec" stop-opacity=".62"/><stop offset="1" stop-color="#d9f5ec" stop-opacity="0"/></radialGradient>
-  <filter id="voxEqDepth" x="-30%" y="-100%" width="160%" height="300%"><feGaussianBlur stdDeviation="4" result="blur"/><feColorMatrix in="blur" type="matrix" values="0 0 0 0 .12 0 0 0 0 .28 0 0 0 0 .48 0 0 0 .34 0" result="shadow"/><feMerge><feMergeNode in="shadow"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
- </defs>
- <ellipse cx="180" cy="54" rx="142" ry="38" fill="url(#voxEqAura)"/>
- <g fill="none" stroke="url(#voxEqWave)" stroke-linecap="round" filter="url(#voxEqDepth)">
-  <path class="vox-eq-ripple ripple-a" d="M18 52 C42 52 47 25 72 25 S103 78 130 78 S157 52 180 52 S207 26 230 26 S260 78 288 78 S320 52 342 52" stroke-width="4"/>
-  <path class="vox-eq-ripple ripple-b" d="M28 61 C53 61 58 39 79 39 S111 68 135 68 S160 55 180 55 S205 40 226 40 S256 69 281 69 S309 60 332 60" stroke-width="2.5" opacity=".78"/>
- </g>
- <g filter="url(#voxEqDepth)"><g class="vox-eq-bar" style="--bar-delay:0.00s"><rect x="65" y="47.5" width="10" height="9" rx="5" fill="url(#voxEqFill)"/><rect x="67" y="50.5" width="2" height="5" rx="1" fill="#ffffff" opacity=".58"/><ellipse cx="70" cy="49.5" rx="3" ry="1.5" fill="#fff" opacity=".75"/></g>
-<g class="vox-eq-bar" style="--bar-delay:-0.13s"><rect x="84" y="43" width="10" height="18" rx="5" fill="url(#voxEqFill)"/><rect x="86" y="46" width="2" height="10" rx="1" fill="#ffffff" opacity=".58"/><ellipse cx="89" cy="45" rx="3" ry="1.5" fill="#fff" opacity=".75"/></g>
-<g class="vox-eq-bar" style="--bar-delay:-0.26s"><rect x="103" y="37.5" width="10" height="29" rx="5" fill="url(#voxEqFill)"/><rect x="105" y="40.5" width="2" height="21" rx="1" fill="#ffffff" opacity=".58"/><ellipse cx="108" cy="39.5" rx="3" ry="1.5" fill="#fff" opacity=".75"/></g>
-<g class="vox-eq-bar" style="--bar-delay:-0.39s"><rect x="122" y="31" width="10" height="42" rx="5" fill="url(#voxEqFill)"/><rect x="124" y="34" width="2" height="34" rx="1" fill="#ffffff" opacity=".58"/><ellipse cx="127" cy="33" rx="3" ry="1.5" fill="#fff" opacity=".75"/></g>
-<g class="vox-eq-bar" style="--bar-delay:-0.52s"><rect x="141" y="25" width="10" height="54" rx="5" fill="url(#voxEqFill)"/><rect x="143" y="28" width="2" height="46" rx="1" fill="#ffffff" opacity=".58"/><ellipse cx="146" cy="27" rx="3" ry="1.5" fill="#fff" opacity=".75"/></g>
-<g class="vox-eq-bar" style="--bar-delay:-0.65s"><rect x="160" y="33" width="10" height="38" rx="5" fill="url(#voxEqFill)"/><rect x="162" y="36" width="2" height="30" rx="1" fill="#ffffff" opacity=".58"/><ellipse cx="165" cy="35" rx="3" ry="1.5" fill="#fff" opacity=".75"/></g>
-<g class="vox-eq-bar" style="--bar-delay:-0.78s"><rect x="179" y="39.5" width="10" height="25" rx="5" fill="url(#voxEqFill)"/><rect x="181" y="42.5" width="2" height="17" rx="1" fill="#ffffff" opacity=".58"/><ellipse cx="184" cy="41.5" rx="3" ry="1.5" fill="#fff" opacity=".75"/></g>
-<g class="vox-eq-bar" style="--bar-delay:-0.91s"><rect x="198" y="28.5" width="10" height="47" rx="5" fill="url(#voxEqFill)"/><rect x="200" y="31.5" width="2" height="39" rx="1" fill="#ffffff" opacity=".58"/><ellipse cx="203" cy="30.5" rx="3" ry="1.5" fill="#fff" opacity=".75"/></g>
-<g class="vox-eq-bar" style="--bar-delay:-1.04s"><rect x="217" y="21" width="10" height="62" rx="5" fill="url(#voxEqFill)"/><rect x="219" y="24" width="2" height="54" rx="1" fill="#ffffff" opacity=".58"/><ellipse cx="222" cy="23" rx="3" ry="1.5" fill="#fff" opacity=".75"/></g>
-<g class="vox-eq-bar" style="--bar-delay:-1.17s"><rect x="236" y="30.5" width="10" height="43" rx="5" fill="url(#voxEqFill)"/><rect x="238" y="33.5" width="2" height="35" rx="1" fill="#ffffff" opacity=".58"/><ellipse cx="241" cy="32.5" rx="3" ry="1.5" fill="#fff" opacity=".75"/></g>
-<g class="vox-eq-bar" style="--bar-delay:-1.30s"><rect x="255" y="37" width="10" height="30" rx="5" fill="url(#voxEqFill)"/><rect x="257" y="40" width="2" height="22" rx="1" fill="#ffffff" opacity=".58"/><ellipse cx="260" cy="39" rx="3" ry="1.5" fill="#fff" opacity=".75"/></g>
-<g class="vox-eq-bar" style="--bar-delay:-1.43s"><rect x="274" y="42.5" width="10" height="19" rx="5" fill="url(#voxEqFill)"/><rect x="276" y="45.5" width="2" height="11" rx="1" fill="#ffffff" opacity=".58"/><ellipse cx="279" cy="44.5" rx="3" ry="1.5" fill="#fff" opacity=".75"/></g>
-<g class="vox-eq-bar" style="--bar-delay:-1.56s"><rect x="293" y="46.5" width="10" height="11" rx="5" fill="url(#voxEqFill)"/><rect x="295" y="49.5" width="2" height="5" rx="1" fill="#ffffff" opacity=".58"/><ellipse cx="298" cy="48.5" rx="3" ry="1.5" fill="#fff" opacity=".75"/></g></g>
- <g fill="#eafffa" opacity=".92"><circle cx="48" cy="52" r="2.6"/><circle cx="312" cy="52" r="2.6"/></g>
-</svg>
- </div>
   <section class="auth-card" id="authAccess" aria-labelledby="authHeading">
-    <h1 id="authHeading" class="sr-only">Crear tu cuenta</h1>
+    <div class="auth-mark" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><path d="M7 10V7a5 5 0 0 1 10 0v3"/><rect x="4.5" y="10" width="15" height="11" rx="3"/><path d="M12 14v3"/></svg>
+    </div>
+    <div class="auth-heading">
+      <h1 id="authHeading">Bienvenido</h1>
+      <p id="authSubtitle">Inicia sesión para continuar</p>
+    </div>
     <form id="authForm" class="auth-form" novalidate>
+      <label class="field-label" id="nameField" for="authName" hidden>
+        <span class="sr-only">Nombre</span>
+        <span class="input-wrap">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.5"/><path d="M4.5 20c.7-3.6 3.2-5.5 7.5-5.5s6.8 1.9 7.5 5.5"/></svg>
+          <input id="authName" name="name" type="text" autocomplete="name" placeholder="Nombre completo">
+        </span>
+        <small class="field-error" id="nameError"></small>
+      </label>
       <label class="field-label" id="emailField" for="authEmail">
         <span class="sr-only">Correo electrónico</span>
-        <span class="input-wrap"><span class="field-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="2.8" y="5" width="18.4" height="14" rx="2.2"/><path d="m4 7 8 6 8-6"/></svg></span><input id="authEmail" name="email" type="email" autocomplete="email" inputmode="email" placeholder="you@yours.com" required></span>
+        <span class="input-wrap">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.8" y="5" width="18.4" height="14" rx="2.2"/><path d="m4 7 8 6 8-6"/></svg>
+          <input id="authEmail" name="email" type="email" autocomplete="email" inputmode="email" placeholder="Correo electrónico" required>
+        </span>
         <small class="field-error" id="emailError"></small>
       </label>
       <label class="field-label" id="passwordField" for="authPassword">
         <span class="sr-only">Contraseña</span>
-        <span class="input-wrap"><span class="field-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2.3"/><path d="M8 10V7a4 4 0 0 1 8 0v3m-4 4v3"/></svg></span><input id="authPassword" name="password" type="password" autocomplete="new-password" minlength="6" placeholder="Contraseña" required><button class="password-toggle" type="button" id="togglePassword" aria-label="Mostrar contraseña"><svg viewBox="0 0 24 24"><path d="M2 12s3.6-6 10-6 10 6 10 6-3.6 6-10 6S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/><path d="m3 3 18 18"/></svg></button></span>
+        <span class="input-wrap">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2.3"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+          <input id="authPassword" name="password" type="password" autocomplete="current-password" minlength="6" placeholder="Contraseña" required>
+          <button class="password-toggle" type="button" id="togglePassword" aria-label="Mostrar contraseña">
+            <svg viewBox="0 0 24 24"><path d="M2 12s3.6-6 10-6 10 6 10 6-3.6 6-10 6S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </span>
         <small class="field-error" id="passwordError"></small>
       </label>
-      <button class="submit-button" id="authSubmit" type="submit"><span class="submit-label">CREAR UNA CUENTA</span></button>
+      <label class="field-label" id="confirmField" for="authConfirm" hidden>
+        <span class="sr-only">Confirmar contraseña</span>
+        <span class="input-wrap">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2.3"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+          <input id="authConfirm" name="confirmPassword" type="password" autocomplete="new-password" placeholder="Confirmar contraseña">
+        </span>
+        <small class="field-error" id="confirmError"></small>
+      </label>
+      <div class="form-meta" id="formMeta">
+        <label class="remember-option"><input id="rememberMe" type="checkbox" checked><span class="custom-check"></span><span>Recordarme</span></label>
+        <span class="secure-note"><i></i> Acceso seguro</span>
+      </div>
+      <button class="submit-button" id="authSubmit" type="submit"><span class="submit-label">Iniciar sesión</span></button>
       <p class="auth-message" id="authMessage" role="status" aria-live="polite"></p>
     </form>
-    <div class="auth-divider" aria-hidden="true"><span></span><p id="authDividerText">o regístrate</p><span></span></div>
+    <footer class="auth-footer">
+      <span id="authModePrompt">¿No tienes una cuenta?</span>
+      <button id="authModeLink" type="button">Crear cuenta</button>
+    </footer>
+    <div class="auth-bottom-mark" aria-hidden="true"><span></span><b>VOX</b><span></span></div>
   </section>
-  <footer class="auth-footer"><span id="authModePrompt">¿Ya tienes una cuenta?</span> <button id="authModeLink" type="button">Inicia sesión</button></footer>
 </main>
-<div class="success-scene" id="successScene" aria-hidden="true"><div class="success-mascot">✓</div><p>Bienvenido a VOX</p><span>Tu espacio te espera.</span></div>
+<div class="success-scene" id="successScene" aria-hidden="true">
+  <div class="success-mark"><svg viewBox="0 0 24 24"><path d="m5 12 4.5 4.5L19 7"/></svg></div>
+  <p>Bienvenido a VOX</p><span>Tu espacio te espera.</span>
+</div>
 </body>
 </html>
