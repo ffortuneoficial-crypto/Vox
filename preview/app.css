@@ -429,3 +429,48 @@ h1 span{color:#a7b69a;background:none;-webkit-text-fill-color:initial}
 @media(prefers-reduced-motion:reduce){
  .voice-orb *{animation:none!important}
 }
+
+
+/* VOX — exact minimal concentric-orbit home from the user's sketch */
+html,body{min-height:100%;background:#050506!important;color:#fff!important}
+body{background:#050506!important}
+body:before,body:after{display:none!important}
+.app{width:100%;max-width:none;min-height:100dvh;padding:0 22px calc(26px + env(safe-area-inset-bottom));background:#050506!important;display:flex;flex-direction:column}
+.vox-hidden-topbar{display:none!important}
+.voice-screen{position:relative;display:flex!important;flex:1;min-height:calc(100dvh - 26px);width:100%;max-width:760px;margin:0 auto;padding:24px 0 12px;flex-direction:column;align-items:center;justify-content:space-between;gap:0}
+.vox-wordmark{align-self:flex-start;padding:4px 0 0 2px;color:#fff;line-height:1}
+.vox-wordmark span{font-family:"Lobster Two","Brush Script MT",cursive;font-size:clamp(43px,11vw,66px);font-style:italic;font-weight:700;letter-spacing:-.065em}
+.voice-stage{width:100%;flex:1;min-height:0;display:grid;place-items:center;padding:10px 0 20px}
+.voice-orb{position:relative;width:min(86vw, min(68vh, 470px));aspect-ratio:1;border:0;padding:0;border-radius:50%;background:transparent;display:grid;place-items:center;isolation:isolate;cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.voice-orb:focus-visible{outline:2px solid #fff;outline-offset:8px}
+.orb-art{position:absolute;inset:0;width:100%;height:100%;overflow:visible;z-index:1;filter:drop-shadow(0 0 5px #000)}
+.orbit{fill:none;stroke-width:5.5;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke;opacity:.95}
+.orbit-outer{stroke:url(#outerGradient);stroke-dasharray:510 8 170 10 90 7;animation:orbitDrift 23s linear infinite;transform-origin:260px 260px}
+.orbit-middle{stroke:url(#middleGradient);stroke-dasharray:410 9 115 8 150 8;animation:orbitDrift 18s linear infinite reverse;transform-origin:260px 260px}
+.orbit-inner{stroke:url(#innerGradient);stroke-dasharray:300 7 80 7 110 7;animation:orbitDrift 14s linear infinite;transform-origin:260px 260px}
+.orb-core{position:relative;z-index:2;width:43%;height:43%;display:grid;place-items:center;border:5px solid #f5f5f5;border-radius:47% 53% 49% 51% / 51% 47% 53% 49%;background:#050506;color:#fff;box-shadow:0 0 0 1px #ffffff12,inset 0 0 24px #ffffff08;transition:transform .3s ease}
+.orb-core span{font-family:Arial,sans-serif;font-size:clamp(34px,10vw,62px);font-weight:400;letter-spacing:.015em;color:#fff}
+.voice-orb[data-state="listening"] .orb-core{transform:scale(1.035);box-shadow:0 0 24px #fff2,inset 0 0 24px #fff1}
+.voice-orb[data-state="thinking"] .orb-core{animation:coreThink 2.2s ease-in-out infinite}
+.voice-orb[data-state="speaking"] .orb-core{animation:coreSpeak .8s ease-in-out infinite alternate}
+.voice-orb[data-state="speaking"] .orbit-outer{animation:orbitDrift 5s linear infinite,orbitPulse 1.1s ease-in-out infinite alternate}
+.voice-orb[data-state="speaking"] .orbit-middle{animation:orbitDrift 4s linear infinite reverse,orbitPulse 1s ease-in-out infinite alternate}
+.voice-orb[data-state="speaking"] .orbit-inner{animation:orbitDrift 3s linear infinite,orbitPulse .85s ease-in-out infinite alternate}
+@keyframes orbitDrift{to{transform:rotate(360deg)}}
+@keyframes orbitPulse{from{opacity:.72;stroke-width:5}to{opacity:1;stroke-width:8}}
+@keyframes coreSpeak{from{transform:scale(.97)}to{transform:scale(1.045)}}
+@keyframes coreThink{0%,100%{transform:scale(.985)}50%{transform:scale(1.015)}}
+.vox-menu-trigger{align-self:center;min-width:210px;min-height:58px;padding:10px 34px;border:2px solid #fff;border-radius:12px;background:transparent;color:#fff;font-size:17px;font-weight:650;letter-spacing:.08em;box-shadow:none}
+.vox-menu-trigger:active{background:#ffffff14}
+.vox-menu-panel{position:absolute;bottom:82px;left:50%;transform:translateX(-50%);z-index:10;width:min(260px,80vw);padding:9px;border:1px solid #555;border-radius:12px;background:#111;color:#fff}
+.vox-menu-panel button{width:100%;padding:13px;border:0;border-radius:8px;background:transparent;color:#fff;text-align:center;font-size:14px}
+.vox-menu-panel button:active{background:#ffffff18}
+#appMessage{background:#181818;color:#fff;border:1px solid #444}
+@media(max-width:600px){
+ .app{padding:0 18px calc(24px + env(safe-area-inset-bottom))}
+ .voice-screen{min-height:calc(100dvh - 24px);padding:22px 0 12px}
+ .vox-wordmark span{font-size:54px}
+ .voice-orb{width:min(88vw, min(58vh, 430px))}
+ .vox-menu-trigger{min-width:190px;min-height:56px;font-size:16px}
+}
+@media(prefers-reduced-motion:reduce){.orbit,.orb-core{animation:none!important}}
