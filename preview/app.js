@@ -5,7 +5,7 @@ const SUPABASE_URL="https://kmwmwacgsojpkbqwhomd.supabase.co";
 const SUPABASE_KEY="sb_publishable_cS2Rrx0VuOUsQNLd33gNZQ_fgWf0BrI";
 const supabaseClient=window.supabase?.createClient?window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}}):null;
 const screens=["home"];
-let recorder=null,stream=null,chunks=[],messages=[],busy=false,sessionActive=false,currentUser=null;
+let recorder=null,stream=null,chunks=[],messages=[],busy=false,sessionActive=false,currentUser=null,focusMode="libre";
 
 function show(id){
   if(!screens.includes(id))return;
@@ -43,12 +43,17 @@ async function requireSession(){
   }
 }
 function status(message,kind=""){ /* Estado interno: la pantalla principal permanece limpia. */ }
-function setBusy(value){busy=value;$("#voiceOrb").disabled=value;}
+function setBusy(value){busy=value;$("#voiceOrb").disabled=value;$("#voiceAction").disabled=value;}
 function setOrbState(state,title,caption){
   const orb=$("#voiceOrb");if(!orb)return;
   orb.dataset.state=state;
   orb.setAttribute("aria-label",title||"VOX");
-  orb.setAttribute("aria-label",title||"VOX");
+  const stateLabel=$("#orbState"),captionLabel=$("#orbCaption"),actionLabel=$("#voiceActionLabel");
+  if(stateLabel&&title)stateLabel.textContent=title;
+  if(captionLabel&&caption)captionLabel.textContent=caption;
+  if(actionLabel){
+    actionLabel.textContent=state==="listening"?"Terminar de hablar":state==="thinking"?"Preparando respuesta…":state==="speaking"?"VOX está hablando":"Comenzar conversación";
+  }
 }
 function addMessage(role,content){ /* El contexto vive en memoria; VOX no presenta una interfaz de chat. */ }
 async function checkEngine(){
@@ -73,15 +78,15 @@ async function startRecording(){
     recorder=new MediaRecorder(stream,mime?{mimeType:mime}:undefined);
     recorder.ondataavailable=event=>{if(event.data&&event.data.size)chunks.push(event.data);};
     recorder.onstop=processRecording;recorder.start();sessionActive=true;
-    setOrbState("listening","Te escucho");
+    setOrbState("listening","Te escucho","Habla con naturalidad. Estoy prestando atención.");
   }catch(error){
-    status("No se pudo iniciar el micrófono","error");setOrbState("idle","Tocar para hablar con VOX");
+    status("No se pudo iniciar el micrófono","error");setOrbState("idle","Estoy aquí","Cuando quieras, podemos empezar otra vez.");
     toast(error.message==="Failed to fetch"?"No encuentro el motor local. Inicia los servicios en Termux.":error.message||"Revisa el permiso del micrófono.");
   }
 }
 function stopRecording(){
   if(recorder&&recorder.state!=="inactive"){
-    recorder.stop();setOrbState("thinking","Estoy pensando");
+    recorder.stop();setOrbState("thinking","Estoy pensando","Estoy preparando una respuesta para ayudarte.");
     if(stream){stream.getTracks().forEach(track=>track.stop());stream=null;}
   }
 }
@@ -95,6 +100,15 @@ async function processRecording(){
     if(!transcribe.ok)throw new Error(await responseError(transcribe));
     const result=await transcribe.json(),spoken=(result.text||"").trim();
     if(!spoken){status("No pude reconocer esas palabras","");toast("Inténtalo otra vez, hablando con claridad.");return;}
+    if(!messages.length){
+      const focusInstructions={
+        libre:"Eres VOX, un entrenador de voz y comunicación. Mantén una conversación natural, cálida e inteligente. Escucha primero, haz preguntas útiles y ayuda al usuario a expresarse mejor sin convertir cada respuesta en una clase.",
+        seguridad:"Eres VOX, un entrenador experto en seguridad al hablar. Ayuda al usuario a expresarse con confianza, reducir dudas y comunicar sus ideas con firmeza. Practica con situaciones reales, da una observación concreta cada vez y evita elogios vacíos.",
+        claridad:"Eres VOX, un entrenador experto en claridad, dicción y expresión oral. Ayuda al usuario a ordenar ideas, articular con precisión y explicar de forma comprensible. Propón ejercicios breves dentro de la conversación y da correcciones específicas y respetuosas.",
+        liderazgo:"Eres VOX, un entrenador de comunicación y liderazgo. Ayuda al usuario a transmitir autoridad serena, estructurar mensajes y adaptar el tono a situaciones laborales. Simula conversaciones reales y ofrece feedback directo, concreto y respetuoso."
+      };
+      messages.push({role:"system",content:focusInstructions[focusMode]});
+    }
     messages.push({role:"user",content:spoken});addMessage("user",spoken);status("VOX está pensando…");
     const response=await fetch(API+"/api/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({messages})});
     if(!response.ok)throw new Error(await responseError(response));
@@ -138,7 +152,18 @@ $("#logoutButton").addEventListener("click",async()=>{
   if(error){toast(error.message||"No se pudo cerrar la sesión.");button.disabled=false;}
   else window.location.replace("./auth.html");
 });
-$("#voiceOrb").addEventListener("click",()=>recorder?stopRecording():startRecording());
+const toggleVoice=()=>{if(recorder){stopRecording();return;}if(window.speechSynthesis?.speaking)window.speechSynthesis.cancel();startRecording();};
+$("#voiceOrb").addEventListener("click",toggleVoice);
+$("#voiceAction").addEventListener("click",toggleVoice);
+document.querySelectorAll("[data-focus]").forEach(button=>button.addEventListener("click",()=>{
+  if(sessionActive||busy){toast("Termina la conversación actual para cambiar el enfoque.");return;}
+  focusMode=button.dataset.focus;
+  document.querySelectorAll("[data-focus]").forEach(option=>{
+    const active=option===button;option.classList.toggle("active",active);option.setAttribute("aria-pressed",String(active));
+  });
+  const descriptions={libre:"Toca el botón y empecemos a practicar.",seguridad:"Trabajaremos confianza y firmeza al expresarte.",claridad:"Practicaremos dicción y claridad al comunicar tus ideas.",liderazgo:"Entrenaremos presencia y comunicación con autoridad."};
+  $("#orbCaption").textContent=descriptions[focusMode];
+}));
 $("#menuButton").addEventListener("click",()=>{const panel=$("#menuPanel"),open=panel.hidden;panel.hidden=!open;$("#menuButton").setAttribute("aria-expanded",String(open));});
 document.addEventListener("click",event=>{if(!event.target.closest("#menuButton")&&!event.target.closest("#menuPanel")){$("#menuPanel").hidden=true;$("#menuButton").setAttribute("aria-expanded","false");}});
 $("#sessionCount").textContent=localStorage.getItem("vox.sessionCount")||"0";
