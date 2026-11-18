@@ -578,3 +578,108 @@ body:before,body:after{display:none!important}
  .focus-option{padding:12px}
 }
 @media(prefers-reduced-motion:reduce){.orbit,.orb-core{animation:none!important}}
+
+
+/* VOX HOME — soft neumorphic skin, matching the authentication screen */
+:root{
+  color-scheme:light;
+  --home-surface:#e9eef4;
+  --home-ink:#526176;
+  --home-muted:#8f9cad;
+  --home-blue:#1688ed;
+}
+body{
+  background:radial-gradient(ellipse at 50% 42%,#f5f8fc 0%,#edf2f7 46%,#e4eaf1 100%)!important;
+  color:var(--home-ink)!important;
+}
+body:before,body:after{display:none!important}
+.app{background:transparent!important}
+.voice-screen{color:var(--home-ink)}
+.home-topbar{border-bottom:1px solid #dce4ed}
+.home-wordmark{color:#34445b}
+.home-wordmark span{color:#1688ed}
+.home-menu-button{
+  border:1px solid #edf2f8;
+  border-radius:14px;
+  background:linear-gradient(145deg,#edf3f9,#e4eaf2);
+  box-shadow:6px 6px 13px #c4ceda,-6px -6px 13px #fff;
+}
+.home-menu-button span{background:#718198}
+.home-intro h1{color:#34445b}
+.home-intro h1 em{color:#1688ed}
+.home-eyebrow{color:#8796a9}
+.home-eyebrow span{background:#1688ed;box-shadow:0 0 0 4px #1688ed1b}
+.home-description{color:#8795a7}
+.voice-session-card{
+  border:1px solid #f7faff;
+  border-radius:28px;
+  background:linear-gradient(145deg,#edf2f8,#e5ebf2);
+  box-shadow:15px 15px 34px #bec9d688,-15px -15px 34px #fff;
+  backdrop-filter:none;
+}
+.voice-session-card:before{
+  top:-170px;
+  background:radial-gradient(circle,#1688ed12,transparent 68%);
+}
+.session-card-head{border-bottom:1px solid #dce4ed}
+.session-kicker{color:#91a0b2}
+.session-card-head strong{color:#40516a}
+.session-indicator{color:#648e7c}
+.session-indicator i{background:#6bc5a0;box-shadow:0 0 0 4px #6bc5a022}
+.voice-stage{color:#526176}
+.orb-aura{background:radial-gradient(circle,#1688ed12 0%,#8c78c50b 42%,transparent 72%)}
+.orb-art{filter:drop-shadow(0 7px 12px #8291a333)}
+.orb-state{color:#40516a}
+.orb-caption{color:#8997a8}
+.voice-action-button{
+  border:1px solid #2496f3;
+  border-radius:13px;
+  background:linear-gradient(180deg,#2b9afa 0%,#087de0 100%);
+  color:#fff;
+  box-shadow:0 7px 15px #1688ed36,inset 0 1px 0 #ffffff70;
+}
+.voice-action-button:active{box-shadow:0 3px 8px #1688ed35}
+.session-footnote{color:#94a1b1}
+.focus-heading>span{color:#73849a}
+.focus-heading small{color:#9aa6b5}
+.focus-option{
+  border:1px solid #e6ecf3;
+  border-radius:14px;
+  background:linear-gradient(145deg,#edf2f8,#e5ebf2);
+  color:#526176;
+  box-shadow:6px 6px 13px #c4ceda,-6px -6px 13px #fff;
+  transition:box-shadow .2s ease,border-color .2s ease,transform .2s ease,background .2s ease;
+}
+.focus-option:active{transform:translateY(1px);box-shadow:inset 3px 3px 7px #c9d2de,inset -3px -3px 7px #fff}
+.focus-option.active{
+  border-color:#b7dafa;
+  background:linear-gradient(145deg,#e5edf6,#edf3f9);
+  box-shadow:inset 4px 4px 8px #c9d2de,inset -4px -4px 8px #fff,0 0 0 2px #1688ed12;
+}
+.focus-option-icon{
+  border:1px solid #e7edf4;
+  border-radius:10px;
+  background:linear-gradient(145deg,#e2e8f0,#edf2f7);
+  box-shadow:3px 3px 6px #c9d2de,-3px -3px 6px #fff;
+  color:#1688ed;
+}
+.focus-option strong{color:#46566d}
+.focus-option small{color:#91a0b2}
+.home-menu-panel{
+  border:1px solid #f7faff;
+  border-radius:16px;
+  background:linear-gradient(145deg,#edf2f8,#e5ebf2);
+  box-shadow:10px 10px 24px #bec9d688,-10px -10px 24px #fff;
+}
+.home-menu-panel button{color:#526176}
+.home-menu-panel button:active{background:#dce6f0}
+#appMessage{
+  border:1px solid #f7faff;
+  border-radius:15px;
+  background:linear-gradient(145deg,#edf2f8,#e5ebf2);
+  color:#526176;
+  box-shadow:10px 10px 24px #bec9d688,-10px -10px 24px #fff;
+}
+@media(prefers-reduced-motion:reduce){
+  .voice-orb .orbit,.voice-orb .orb-core{animation:none!important}
+}
