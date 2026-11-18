@@ -1,5 +1,5 @@
-const CACHE_NAME="vox-root-bridge-28";
-const APP_SHELL=["./","./index.html","./auth.html","./manifest.webmanifest","./icons/vox.svg","./preview/auth.html","./preview/auth.css?v=auth18","./preview/auth.js?v=auth13","./preview/index.html","./preview/app.css?v=app08","./preview/app.js?v=app05","./preview/manifest.webmanifest","./preview/icon.svg",];
+const CACHE_NAME="vox-root-bridge-29";
+const APP_SHELL=["./","./index.html","./auth.html","./manifest.webmanifest","./icons/vox.svg","./preview/auth.html","./preview/auth.css?v=auth18","./preview/auth.js?v=auth13","./preview/index.html","./preview/app.css?v=app09","./preview/app.js?v=app06","./preview/manifest.webmanifest","./preview/icon.svg",];
 self.addEventListener("install",event=>event.waitUntil(caches.open(CACHE_NAME).then(cache=>cache.addAll(APP_SHELL)).then(()=>self.skipWaiting())));
 self.addEventListener("activate",event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key!==CACHE_NAME).map(key=>caches.delete(key)))).then(()=>self.clients.claim())));
 self.addEventListener("fetch",event=>{
