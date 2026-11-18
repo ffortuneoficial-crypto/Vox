@@ -46,7 +46,7 @@ function status(message,kind=""){ /* Estado interno: la pantalla principal perma
 function setBusy(value){busy=value;$("#voiceOrb").disabled=value;$("#voiceAction").disabled=value;}
 
 /* VOX hologram — human side-profile mesh with live audio response */
-let voxAnalyser=null,voxAudioContext=null,voxAudioData=null,voxFrame=0,voxSpeechEnergy=0;
+let voxAnalyser=null,voxAudioContext=null,voxAudioData=null,voxFrame=0,voxSpeechEnergy=0,voxSpeechUntil=0;
 function initVoxHologram(){
   const canvas=$("#voxFace");if(!canvas)return;
   const ctx=canvas.getContext("2d");if(!ctx)return;
@@ -193,6 +193,8 @@ function initVoxHologram(){
     const skin=ctx.createLinearGradient(w*.44,0,w*.94,h);
     skin.addColorStop(0,"rgba(0,166,204,.07)");skin.addColorStop(.48,"rgba(0,107,151,.065)");skin.addColorStop(1,"rgba(0,31,70,.02)");
     ctx.fillStyle=skin;ctx.fill();
+    // Clip the irregular network to the face silhouette so it cannot become a globe.
+    ctx.save();ctx.beginPath();outlineMapped.forEach((p,i)=>{if(!i)ctx.moveTo(p.x,p.y);else ctx.lineTo(p.x,p.y);});ctx.closePath();ctx.clip();
     const projected=points.map(p=>mapPoint(p,t,level));
     for(const tri of mesh){
       const a=projected[tri[0]],b=projected[tri[1]],c=projected[tri[2]];
@@ -206,6 +208,7 @@ function initVoxHologram(){
         ctx.beginPath();ctx.arc(mx,my,.85,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;
       }
     }
+    ctx.restore();
     // Facial silhouette: forehead, bridge, nose, lips, chin and jaw.
     strokeCurve(bezierPoints([.51,.015],[.31,.00],[.17,.10],[.14,.25]),t,level,1.6,.78);
     strokeCurve(bezierPoints([.14,.25],[.09,.31],[.015,.335],[.055,.375]),t,level,1.8,.9);
