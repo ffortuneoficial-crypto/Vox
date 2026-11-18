@@ -4,7 +4,7 @@ const API="http://127.0.0.1:8766";
 const SUPABASE_URL="https://kmwmwacgsojpkbqwhomd.supabase.co";
 const SUPABASE_KEY="sb_publishable_cS2Rrx0VuOUsQNLd33gNZQ_fgWf0BrI";
 const supabaseClient=window.supabase?.createClient?window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}}):null;
-const screens=["home","practice"];
+const screens=["home"];
 let recorder=null,stream=null,chunks=[],messages=[],busy=false,sessionActive=false,currentUser=null;
 
 function show(id){
@@ -12,7 +12,7 @@ function show(id){
   screens.forEach(name=>$("#"+name)?.classList.toggle("active",name===id));
   document.querySelectorAll(".nav-item").forEach(button=>button.classList.toggle("active",button.dataset.go===id));
   window.scrollTo({top:0,behavior:"smooth"});
-  if(id==="practice")checkEngine();
+  if(id==="home")checkEngine();
 }
 function toast(message){
   const el=$("#appMessage");el.textContent=message;el.hidden=false;
@@ -33,6 +33,7 @@ async function requireSession(){
     setUser(data.session.user);
     document.body.classList.add("app-ready");
     $("#appBoot").classList.add("is-done");
+    checkEngine();
     supabaseClient.auth.onAuthStateChange((event,session)=>{
       if(event==="SIGNED_OUT"||!session){window.location.replace("./auth.html");return;}
       setUser(session.user);
