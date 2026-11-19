@@ -90,3 +90,53 @@ body.app-ready .app{opacity:1;visibility:visible}
 @media(prefers-reduced-motion:reduce){
  *,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}
 }
+/* VOX — Neon dark visual system */
+:root{--white:#f6f2fa;--muted:#aaa3b3;--violet:#a824f4;--magenta:#f21b9b;--coral:#ff624d;--glass:#151319;--line:#ffffff1b}
+html,body,.app{background:#050507}
+.vox-home{background:#050507}
+.vox-ambient{background:
+ radial-gradient(ellipse 72% 30% at 50% 100%,#b31c7a28 0%,#7012a51c 38%,transparent 76%),
+ radial-gradient(ellipse 45% 25% at 50% 78%,#7b1ac51c 0%,transparent 72%)}
+.vox-topbar{position:absolute;z-index:5;top:calc(22px + env(safe-area-inset-top));left:22px;right:22px;height:48px;display:flex;align-items:center;justify-content:space-between}
+.top-icon,.top-status{width:48px;height:48px;display:grid;place-items:center;border:1px solid #ffffff16;border-radius:50%;background:linear-gradient(145deg,#25232a,#111014);color:#f8f4fb;box-shadow:inset 0 1px 1px #ffffff17,0 5px 16px #0008}
+.top-icon{font-size:18px;line-height:1}
+.top-icon:active{transform:scale(.94)}
+.vox-brand-pill{height:46px;min-width:148px;display:flex;align-items:center;justify-content:center;gap:10px;padding:0 17px;border:1px solid #ffffff14;border-radius:28px;background:linear-gradient(145deg,#211e25,#111014);box-shadow:inset 0 1px 1px #ffffff14,0 5px 18px #0008}
+.brand-spark{font-size:23px;line-height:1;background:linear-gradient(135deg,#ffb34e 5%,#f52ca8 48%,#8b35ff 90%);background-clip:text;-webkit-background-clip:text;color:transparent;filter:drop-shadow(0 0 7px #e72ccf88)}
+.vox-brand-pill span:last-child{display:grid;gap:1px}
+.vox-brand-pill strong{font-size:13px;line-height:1.1;letter-spacing:.02em}
+.vox-brand-pill small{font-size:8px;color:#a9a1b1;letter-spacing:.13em}
+.top-status{width:48px;height:48px}
+.top-status i{width:9px;height:9px;border-radius:50%;background:#d64cff;box-shadow:0 0 12px #d64cff,0 0 22px #a824f4}
+.vox-orb-zone{top:15%;height:28%}
+.vox-orb-glow{width:220px;height:220px;background:radial-gradient(circle,#b11cfa36 0%,#e31c9b1e 40%,#ff5a5a08 65%,transparent 75%);filter:blur(23px)}
+.vox-core{width:205px;height:205px;filter:drop-shadow(0 0 20px #b52cff55);animation:coreFloat 7s ease-in-out infinite}
+.vox-core[data-state="listening"]{filter:drop-shadow(0 0 28px #db32e8aa);animation:coreListen 1.8s ease-in-out infinite}
+.vox-core[data-state="thinking"]{filter:drop-shadow(0 0 30px #a824f4aa);animation:coreThink 2.4s ease-in-out infinite}
+.vox-core[data-state="speaking"]{filter:drop-shadow(0 0 34px #f12caaab);animation:coreSpeak 1.2s ease-in-out infinite alternate}
+.vox-welcome{top:48%;left:7%;width:86%}
+.vox-greeting{margin-bottom:18px;color:#c7bdcd;font-size:16px}
+.vox-welcome h1{max-width:360px;font-size:clamp(30px,8vw,39px);font-weight:560;line-height:1.18;letter-spacing:-.045em;text-shadow:0 2px 22px #000}
+.vox-composer{left:5.5%;right:5.5%;bottom:calc(4.2% + env(safe-area-inset-bottom));height:68px;padding:0 10px 0 20px;border:1px solid #ffffff20;border-radius:999px;background:linear-gradient(145deg,#1c1a20eF,#0e0d11f2);box-shadow:inset 0 1px 1px #ffffff12,0 10px 30px #0009;backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px)}
+.vox-composer:focus-within{border-color:#bd4df277;box-shadow:inset 0 1px 1px #ffffff18,0 10px 30px #0009,0 0 24px #a824f42b}
+.vox-composer input{font-size:14px}
+.vox-composer input::placeholder{color:#938b9c}
+.vox-send-button{color:#d9b4f7}
+.composer-divider{background:#ffffff20}
+.vox-mic-button{width:48px;height:48px;border-radius:50%;background:linear-gradient(145deg,#b92cff 0%,#8b20ec 48%,#f13b9d 78%,#ff654e 100%);box-shadow:0 0 18px #bd2cff65,inset 0 1px 2px #ffffff70;transition:transform .24s ease,filter .24s ease,box-shadow .24s ease}
+.vox-mic-button svg{width:23px;height:23px;filter:drop-shadow(0 1px 2px #4d075f88)}
+.vox-mic-button:active{transform:scale(.93)}
+.vox-mic-button[data-state="listening"]{animation:micPulse 1.8s ease-in-out infinite;background:linear-gradient(145deg,#d94aff,#a524ee 48%,#f13b9d)}
+.vox-mic-button[data-state="thinking"]{animation:micPulse 2.4s ease-in-out infinite}
+.vox-mic-button[data-state="speaking"]{box-shadow:0 0 0 5px #e72ca51c,0 0 28px #f13b9d88}
+.home-menu-panel{top:calc(78px + env(safe-area-inset-top));right:22px;border-color:#ffffff1d;border-radius:16px;background:#17131b;box-shadow:0 14px 38px #000b}
+.home-menu-panel button{color:#f5eef9}
+#appMessage{border-color:#a824f455;background:#17111df2;box-shadow:0 12px 34px #000b,0 0 24px #a824f41b}
+@keyframes coreFloat{0%,100%{transform:translateY(0) rotate(-1.5deg) scale(1)}50%{transform:translateY(-5px) rotate(1.5deg) scale(1.018)}}
+@keyframes glowPulse{from{transform:scale(.94);opacity:.62}to{transform:scale(1.07);opacity:.9}}
+@keyframes ribbonFlow{from{transform:rotate(-2deg) scale(.99)}to{transform:rotate(2deg) scale(1.015)}}
+@keyframes ribbonInner{from{transform:translate(-1px,1px) rotate(1deg)}to{transform:translate(1px,-1px) rotate(-1.5deg)}}
+@keyframes micPulse{0%,100%{box-shadow:0 0 0 0 #e72ca500,0 0 17px #b82cff66}50%{box-shadow:0 0 0 7px #e72ca51b,0 0 25px #f13b9d88}}
+@media(max-width:380px){.vox-topbar{left:16px;right:16px}.vox-orb-zone{top:15.5%}.vox-core{width:184px;height:184px}.vox-brand-pill{min-width:136px}}
+@media(max-height:680px){.vox-topbar{top:calc(12px + env(safe-area-inset-top));height:42px}.vox-topbar .top-icon,.vox-topbar .top-status{width:42px;height:42px}.vox-orb-zone{top:13%;height:27%}.vox-core{width:155px;height:155px}.vox-welcome{top:42%}.vox-composer{height:60px}}
+@media(prefers-reduced-motion:reduce){.vox-core,.vox-orb-glow,.ribbon-halo,.ribbon-main,.ribbon-inner,.ribbon-light,.vox-mic-button{animation:none!important;transition:none!important}}
