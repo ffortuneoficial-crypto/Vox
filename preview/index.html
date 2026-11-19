@@ -117,6 +117,21 @@
   </main>
   <div id="appMessage" class="toast" role="status" aria-live="polite" hidden></div>
 </div>
+<script>
+(()=>{const $=s=>document.querySelector(s);const dashboard=$("#dashboard");if(!dashboard)return;
+const openVoice=()=>{document.body.classList.add("vox-conversation");window.scrollTo({top:0,behavior:"smooth"});};
+$("#openConversation")?.addEventListener("click",openVoice);
+$("#backToDashboard")?.addEventListener("click",()=>{document.body.classList.remove("vox-conversation");window.scrollTo({top:0,behavior:"smooth"});});
+$("#dashFree")?.addEventListener("click",openVoice);
+$("#dashMenu")?.addEventListener("click",()=>$(".dash-sidebar")?.classList.toggle("is-open"));
+dashboard.querySelectorAll("[data-section]").forEach(button=>button.addEventListener("click",()=>{const section=button.dataset.section;dashboard.querySelectorAll("[data-section]").forEach(item=>item.classList.toggle("is-active",item===button));$("#dashCrumb").textContent=({inicio:"Inicio",entrenamiento:"Entrenamiento",simulaciones:"Simulaciones",progreso:"Mi progreso",historial:"Historial",biblioteca:"Biblioteca"})[section]||"Inicio";$(".dash-sidebar")?.classList.remove("is-open");if(section==="entrenamiento")$("#dashTraining")?.scrollIntoView({behavior:"smooth"});else if(section==="simulaciones")document.querySelector(".dash-lower")?.scrollIntoView({behavior:"smooth"});else if(section==="progreso")document.querySelector(".dash-panel:last-child")?.scrollIntoView({behavior:"smooth"});}));
+dashboard.querySelectorAll("[data-focus]").forEach(button=>button.addEventListener("click",openVoice));
+$("#dashLogout")?.addEventListener("click",()=>$("#logoutButton")?.click());
+$("#dashUserMini")?.addEventListener("click",()=>$("#dashLogout")?.click());
+const updateName=()=>{const greeting=$("#homeGreeting")?.textContent||"Hola, Cris";$("#dashGreeting").textContent=greeting+". Hoy tienes una nueva oportunidad para comunicar con intención.";const name=greeting.replace(/^Hola,\s*/,"").split(" ")[0]||"C";$("#dashUserName").textContent=name;$("#dashAvatar").textContent=name.charAt(0).toUpperCase();$("#dashUserMini").textContent=name.charAt(0).toUpperCase();};
+updateName();const greeting=$("#homeGreeting");if(greeting)new MutationObserver(updateName).observe(greeting,{childList:true,characterData:true,subtree:true});
+})();
+</script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.105.0"></script>
 <script src="./app.js?v=app11"></script>
 </body>
