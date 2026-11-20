@@ -123,3 +123,24 @@ This is a target proposal, not the current tree. Do not migrate until contracts 
 
 ## Product decision
 VOX MVP is a guided communication practice session, not a dashboard. The session is the primary product object; navigation, progress, reports and gamification are secondary and only appear when backed by real behavior and data.
+
+
+## 11. Supabase project audit (read-only inspection)
+
+**Project:** VOX / kmwmwacgsojpkbqwhomd — ACTIVE_HEALTHY, PostgreSQL 17.11.0.011, region sa-east-1.
+
+- Public schema currently exposes one application table: public.vox_sessions. It has RLS enabled and 0 rows at inspection time.
+- Table columns: id, user_id (FK to auth.users), title, prompt, transcript, duration_seconds, word_count, acoustic_metrics, ai_analysis, audio_path, status, created_at, updated_at.
+- One migration is recorded: 20261102172409 / vox_sessions_auth_and_private_audio.
+- No Edge Functions are deployed in this project.
+- Private Storage bucket vox-audio exists, 25 MiB file limit, accepts webm/ogg/mp4/mpeg/wav.
+- Storage policies restrict read/insert/delete to authenticated users whose first folder segment matches auth.uid(). No Storage UPDATE policy was listed; this is acceptable for non-upsert uploads but should be considered if overwrite behavior is introduced.
+- vox_sessions has authenticated SELECT/INSERT/UPDATE/DELETE policies scoped to user_id = auth.uid(); UPDATE has both USING and WITH CHECK.
+- Supabase Security Advisor: one warning — leaked-password protection is disabled. Enable it in Auth security settings when ready.
+- Performance Advisor: four RLS init-plan warnings on the vox_sessions policies (auth.uid() is evaluated per row; use (select auth.uid()) when optimizing policies), plus one INFO unused index vox_sessions_user_created_idx. Do not drop the index based on an early low-volume workload alone.
+- Health Advisor returned no findings.
+
+**Important reconciliation:** the database and private audio bucket are prepared for the legacy root app's save flow, but the deployed preview app does not use them for session persistence. Database readiness is not proof of a working published feature.
+
+### Remaining audit limits
+Auth provider settings, email templates, redirect allowlists and password settings were not inspected through dashboard configuration. No test user was created and no write/delete test was performed. RLS policy definitions were read, not adversarially tested.
