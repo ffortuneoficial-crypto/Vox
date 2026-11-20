@@ -163,7 +163,7 @@ function speak(text){
   utterance.onerror=()=>{voxSpeechEnergy=0;setOrbState("idle","Tocar para hablar con VOX");};
   window.speechSynthesis.speak(utterance);
 }
-function endSession(){
+function endSession(){\n  const completedMessages=messages.filter(m=>m.role==="user").length;\n  if(sessionActive&&completedMessages){try{const list=JSON.parse(localStorage.getItem("vox.sessions.v1")||"[]");list.push({id:Date.now().toString(36),date:new Date().toISOString(),title:window.voxScenarioTitle||"Práctica de comunicación",minutes:Math.max(1,Math.round(completedMessages*1.5)),turns:completedMessages});localStorage.setItem("vox.sessions.v1",JSON.stringify(list.slice(-100)));}catch(error){console.warn("No se pudo guardar el historial local",error);}}
   if(recorder)stopRecording();
   if(window.speechSynthesis)window.speechSynthesis.cancel();
   setOrbState("idle","Tocar para hablar con VOX");
@@ -184,7 +184,7 @@ function ensureFocusPrompt(){
     claridad:"Eres VOX, un entrenador experto en claridad, dicción y expresión oral. Ayuda al usuario a ordenar ideas, articular con precisión y explicar de forma comprensible. Propón ejercicios breves dentro de la conversación y da correcciones específicas y respetuosas.",
     liderazgo:"Eres VOX, un entrenador de comunicación y liderazgo. Ayuda al usuario a transmitir autoridad serena, estructurar mensajes y adaptar el tono a situaciones laborales. Simula conversaciones reales y ofrece feedback directo, concreto y respetuoso."
   };
-  messages.push({role:"system",content:prompts[focusMode]||prompts.libre});
+  messages.push({role:"system",content:(prompts[focusMode]||prompts.libre)+(window.voxScenarioPrompt?"\\n\\nEscenario activo: "+window.voxScenarioPrompt:"")});
 }
 async function sendTextMessage(value){
   const content=value.trim();if(!content||busy)return;
