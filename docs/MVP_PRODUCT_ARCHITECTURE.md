@@ -125,3 +125,24 @@ Do not skip the design stage or treat a code mockup as approved visual design.
 6. Implement initial coaching modes and evidence-grounded feedback.
 7. Define persistence and update Supabase schema/RLS only after data contract approval.
 8. Run device, security, cost and reliability QA before public release.
+
+
+## 13. Confirmed interaction and memory architecture
+### Voice interaction preferences
+- Support both natural conversational voice and push-to-talk.
+- Store the user's interruption preference as an explicit setting and apply it in VoiceSessionController.
+- Capability detection must distinguish turn-based, streaming and genuinely interruptible behavior. Never advertise a capability that the selected provider/browser combination cannot deliver.
+
+### Memory architecture (target; not a migration)
+Keep three layers separate:
+1. **Session context:** short-lived context required to maintain the current conversation.
+2. **Conversation history:** user-visible records retained only under the user's explicit save choice.
+3. **Persistent selective memory:** useful facts/preferences/goals that VOX identifies as candidates, with transparent explanation and user control.
+
+Requirements:
+- A memory candidate is not automatically equivalent to an approved permanent memory.
+- Provide inspect, correct, delete and disable controls.
+- Support scoped memory (for example, by project or role) to prevent unrelated contexts from contaminating one another.
+- Do not persist sensitive information by default.
+- Define candidate generation, user notification/approval, retention, deletion propagation, export and provider data handling before implementation.
+- Do not reuse saved conversation history as persistent memory without a separately defined and disclosed memory process.
