@@ -83,7 +83,7 @@ Existing `vox_sessions` is not assumed to be the final schema. Inspect and desig
 Permission denied, no microphone, network unavailable, upload timeout, transcription failure, model timeout, TTS failure, quota exceeded, expired auth, user cancellation and partial response. Each state must preserve typed user input and explain the next action. If TTS fails, show the text response. If voice transcription fails, allow retry or text input.
 
 ## 9. Deployment and development
-- Current GitHub Pages workflow publishes `preview/`.
+- Current GitHub Pages workflow publishes the root application assets through a curated `_site` directory.
 - Current `local-engine/server.mjs` and Termux/Whisper/OmniRoute path are development artifacts only and must not be required by production.
 - Target PWA calls authenticated cloud endpoints.
 - Supabase Edge Functions are the first candidate broker; test streaming support, execution limits, payload constraints and latency before committing.
@@ -105,7 +105,7 @@ Do not skip the design stage or treat a code mockup as approved visual design.
 ## 11. Architecture decisions
 | ID | Decision | Status |
 |---|---|---|
-| A-001 | GitHub Pages active artifact is preview/; root frontend is legacy | Confirmed |
+| A-001 | The root frontend is the sole GitHub Pages application; the separate preview frontend is removed | Owner-directed, implemented |
 | A-002 | Remove fake dashboard metrics and dead sections | Approved |
 | A-003 | VOX is a conversational AI plus communication-improvement modes | Owner-directed |
 | A-004 | Modes are prompt/configuration presets over one shared runtime | Proposed |
