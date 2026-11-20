@@ -28,11 +28,11 @@ VOX es un entrenador conversacional de comunicación impulsado por IA. No es una
 - Persistencia: perfiles, sesiones, informes y preferencias con consentimiento y políticas de acceso.
 
 ## Estado de implementación
-- Interfaz PWA minimalista publicada desde `preview/`.
+- La interfaz PWA principal se publica desde la raíz del repositorio (`index.html`, `css/app.css`, `js/app.js`).
 - Primer circuito local implementado: captura de audio en navegador, transcripción mediante whisper.cpp, conversación contextual mediante OmniRoute y respuesta hablada con síntesis del navegador.
 - El puente de desarrollo se ejecuta en Termux y solo escucha en loopback (`127.0.0.1`). No es arquitectura de producción ni se debe compartir como servicio.
 - No se guardan grabaciones ni el historial de conversación al cerrar la sesión.
-- La versión publicada incorpora autenticación por correo y contraseña mediante Supabase Auth, con sesiones persistentes.
+- La aplicación raíz incorpora autenticación por correo y contraseña mediante Supabase Auth, con sesiones persistentes.
 - Todavía no hay modo full-duplex, informes analíticos validados ni persistencia multiusuario de las conversaciones.
 
 ## Criterios de aceptación de la primera experiencia real
@@ -51,3 +51,12 @@ VOX es un entrenador conversacional de comunicación impulsado por IA. No es una
 - The PWA manifest starts at `auth.html`; a valid existing session immediately continues to the main app.
 - `preview/auth.css` and `preview/app.css` use a soft, colorful, animated visual system with responsive layouts and loading states.
 - `preview/sw.js` caches both entry points and their assets independently.
+
+
+## Cambio de frontend principal — 19 Nov 2026
+
+- Se retiró el frontend paralelo `preview/`.
+- La raíz del repositorio es ahora la única aplicación PWA y el workflow de GitHub Pages publica sus archivos.
+- La raíz mantiene autenticación Supabase, grabación de audio, transcripción del navegador y guardado explícito de sesiones/audio.
+- La identidad visual aplicada incluye núcleo orgánico animado, inicio centrado, navegación híbrida y tema claro/oscuro.
+- Importante: esta migración visual no incorpora todavía el runtime conversacional IA que existía en el prototipo separado. Conversación IA, voz bidireccional, simulaciones con roles, análisis y memoria selectiva siguen pendientes de integración en la aplicación raíz.
