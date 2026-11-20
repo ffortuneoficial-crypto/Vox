@@ -157,3 +157,19 @@ VOX uses a stable base identity with context-sensitive expression.
 - VOX may challenge assumptions and offer proactive guidance when useful, without humiliation, manipulation or artificial flattery.
 - The base identity and adjustable dimensions should be represented as explicit, versioned behavior configuration rather than scattered prompt fragments.
 - Exact default traits, allowed ranges and precedence rules remain to be specified before implementation.
+
+
+## 15. Confirmed initiative behavior
+VOX exposes three selectable initiative levels as an explicit user preference:
+
+- **Reactive:** respond to the user's expressed request without unnecessary redirection.
+- **Collaborative:** respond and ask useful questions or help expand the user's thinking.
+- **Proactive:** surface meaningful opportunities, risks, contradictions, ideas and next steps without waiting for a direct request.
+
+The proactive level is context-sensitive, not continuously interruptive. It must not inject advice into every turn or force coaching into ordinary conversation. The runtime should balance contribution with attentive listening and conversational flow.
+
+Implementation direction:
+- Store the selected initiative level in user preferences.
+- Include it in runtime prompt/configuration assembly, with mode- and turn-level context able to narrow it when appropriate.
+- Keep it subordinate to stable identity principles, safety, privacy, authorization and truthful capability representation.
+- Provide a clear control so the user can change the level at any time.
