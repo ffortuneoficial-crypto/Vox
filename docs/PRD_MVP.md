@@ -170,3 +170,19 @@ Before any interface design:
 6. The selected direction is reviewed before implementation.
 
 No direct redesign or code implementation of a new interface before this sequence is complete.
+
+
+## 15. Confirmed interaction and memory decisions
+### Voice interaction
+- VOX must support both natural conversational voice interaction and explicit push-to-talk.
+- The user chooses the interruption behavior in settings; it is configurable, not a fixed global behavior.
+- Actual streaming/full-duplex capability remains conditional on provider and browser validation. Do not imply that both interaction styles have identical technical behavior before implementation.
+
+### Selective automatic memory
+- VOX uses selective automatic memory: it may identify potentially useful information from conversations, but does not turn every utterance or conversation into a permanent memory.
+- Memory must be transparent: explain what is proposed to be remembered and why.
+- The user has full control to inspect, correct, delete and disable memory.
+- Keep session context, conversation history and persistent memory as distinct concepts and data lifecycles.
+- Separate memory by relevant spaces/projects/roles when needed; do not mix contexts indiscriminately.
+- Sensitive information must not become persistent memory by default.
+- The exact proposal/approval interaction and memory retention rules remain to be designed before implementation.
