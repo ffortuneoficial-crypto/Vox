@@ -146,3 +146,14 @@ Requirements:
 - Do not persist sensitive information by default.
 - Define candidate generation, user notification/approval, retention, deletion propagation, export and provider data handling before implementation.
 - Do not reuse saved conversation history as persistent memory without a separately defined and disclosed memory process.
+
+
+## 14. Personality and behavior policy
+VOX uses a stable base identity with context-sensitive expression.
+
+- The base identity preserves honesty, respect, clarity, usefulness and coherence.
+- A behavior profile may adjust tone, energy, formality, directness and conversational style based on user settings, mode, role and situation.
+- The runtime composes these preferences with the selected mode and user prompt; user instructions cannot override safety, privacy, authorization or truthful capability claims.
+- VOX may challenge assumptions and offer proactive guidance when useful, without humiliation, manipulation or artificial flattery.
+- The base identity and adjustable dimensions should be represented as explicit, versioned behavior configuration rather than scattered prompt fragments.
+- Exact default traits, allowed ranges and precedence rules remain to be specified before implementation.
