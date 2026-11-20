@@ -4,12 +4,12 @@
   "short_name": "VOX",
   "description": "Entrena tu voz, claridad y presencia.",
   "lang": "es-CO",
-  "start_url": "./auth.html",
+  "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait-primary",
-  "background_color": "#a8e900",
-  "theme_color": "#a8e900",
+  "background_color": "#08090D",
+  "theme_color": "#08090D",
   "icons": [
     {
       "src": "./icons/vox.svg",
