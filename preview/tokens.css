@@ -1,0 +1,9 @@
+/* VOX Learning System — Design Tokens */
+:root{
+ --vox-bg:#f7f7fb;--vox-surface:#fff;--vox-ink:#20243b;--vox-ink-soft:#555b73;--vox-muted:#85899d;--vox-line:#e9eaf2;
+ --vox-purple:#7657df;--vox-purple-dark:#6042c6;--vox-purple-soft:#eee9ff;--vox-lilac:#b9a5ff;
+ --vox-orange:#ff9b54;--vox-orange-soft:#fff0e4;--vox-mint:#54c9a5;--vox-mint-soft:#e4f8f1;--vox-blue:#66a9ee;--vox-blue-soft:#e8f3ff;--vox-yellow:#ffd66b;
+ --vox-radius-card:22px;--vox-radius-control:14px;--vox-shadow-card:0 5px 0 rgba(35,39,66,.055),0 12px 30px rgba(39,42,76,.045);
+ --vox-motion-fast:160ms ease;--vox-motion-standard:240ms cubic-bezier(.2,.8,.2,1);
+ --vox-space-1:4px;--vox-space-2:8px;--vox-space-3:12px;--vox-space-4:16px;--vox-space-5:20px;--vox-space-6:24px;--vox-space-8:32px;
+}
