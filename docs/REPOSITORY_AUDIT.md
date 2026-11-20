@@ -1,4 +1,4 @@
-# VOX — Repository Audit
+> **Superseded status update — 19 Nov 2026:** The separate `preview/` frontend described by this audit has been removed. GitHub Pages now deploys the root application (`index.html`, `css/app.css`, `js/app.js`). The root app is the active source of truth. It retains Supabase email/password authentication, browser audio capture, browser speech transcription, explicit session/audio persistence and history. Its UI now has the organic VOX core, responsive layout, hybrid navigation and dark/light theme. The root app does **not** yet include the conversational AI voice loop, scenario orchestration, coaching analysis or selective memory that were present or planned in the separate prototype. Treat all sections below that describe `preview/` as historical audit findings, not current deployment facts.\n\n# VOX — Repository Audit
 Audit date: 2026-11-20 | Branch: main | Method: static source inspection; no Android runtime, Supabase schema/RLS, or browser tests performed.
 
 ## Executive verdict
