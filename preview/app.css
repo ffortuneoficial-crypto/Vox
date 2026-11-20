@@ -266,3 +266,18 @@ html,body{background:var(--vox-bg)!important;color:var(--vox-ink)}
 .dash-toast,.toast{background:#292443;border-color:#8d78c6;color:#fff}
 @media(max-width:760px){.dash-sidebar{box-shadow:20px 0 50px #20243b22}.dash-content{padding-top:23px}.dash-hero{border-radius:21px}.dash-stats article{border-radius:15px}.dash-module{border-radius:15px}.dash-panel{border-radius:16px}}
 @media(prefers-reduced-motion:reduce){.dash-module,.dash-primary,.dash-sidebar{transition:none!important}}
+
+/* VOX gamified learning structure */
+.dash-xp,.dash-streak{height:34px;padding:0 11px;border:1px solid var(--vox-line);border-radius:11px;display:flex;align-items:center;gap:5px;font-size:10px;font-weight:800;background:#fff;color:var(--vox-purple)}
+.dash-streak{color:#d88935;background:#fff8ed;border-color:#ffebd5}
+.dash-learning-progress{display:grid;grid-template-columns:1fr auto;gap:7px 18px;align-items:center;background:#fff;border:1px solid var(--vox-line);border-radius:18px;padding:14px 18px;margin:-1px 0 28px;box-shadow:var(--vox-shadow-card)}
+.learning-progress-copy{display:flex;justify-content:space-between;gap:12px;font-size:9px;grid-column:1/-1}
+.learning-progress-copy span{color:#8d91a3;font-weight:800;letter-spacing:.08em}.learning-progress-copy b{color:var(--vox-purple)}
+.learning-progress-track{height:8px;border-radius:20px;background:#eeeef5;overflow:hidden}
+.learning-progress-track i{display:block;width:50%;height:100%;border-radius:20px;background:linear-gradient(90deg,#8d71ed,#b6a2ff)}
+.dash-learning-progress>small{font-size:8px;color:#969aab;white-space:nowrap}
+.learning-mini-stats{grid-column:1/-1;display:flex;gap:24px;border-top:1px solid #f0f0f5;padding-top:10px}
+.learning-mini-stats span{display:grid;grid-template-columns:auto auto;align-items:center;column-gap:6px;font-size:11px}
+.learning-mini-stats small{grid-column:2;font-size:8px;color:#969aab}
+@media(max-width:760px){.dash-xp,.dash-streak{height:30px;padding:0 7px;font-size:8px}.dash-top-actions{gap:6px}.dash-learning-progress{padding:12px;margin-bottom:23px}.learning-mini-stats{justify-content:space-between;gap:8px}.learning-mini-stats span{font-size:9px}.learning-mini-stats small{font-size:7px}}
+@media(max-width:390px){.dash-streak{display:none}.dash-xp{font-size:8px}}
