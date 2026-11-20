@@ -1,117 +1,127 @@
-# VOX — MVP Product Architecture
-Status: working baseline from repository audit, 2026-11-20.
+# VOX — Product & Technical Architecture
+**Version:** 0.2 — cloud conversational AI direction  
+**Date:** 2026-11-20  
+**Status:** target architecture proposal; provider and runtime choices require validation.
 
-## Product definition
-VOX is a personal communication coach. The first useful release helps a user practice one real communication skill through a guided session, receive honest feedback grounded in observable evidence, and choose a next step. It is not a dashboard, transcription utility, generic chatbot or gamified course catalog.
+## 1. Product architecture
+VOX has one shared conversational core and multiple behavior modes. It is a voice-first conversational AI that can follow a user-defined prompt/context and can also coach communication skills.
 
-## Primary user journey
-1. Access: create account or sign in.
-2. Set intention: choose a communication goal (clarity, confidence, calm authority).
-3. Calibrate: short baseline prompt; explain microphone use and consent.
-4. Practice: one guided exercise or role-play with context, objective and success criteria.
-5. Respond: voice or text; show recording, processing and playback states.
-6. Feedback: concise strengths, one priority improvement and transcript examples. Acoustic feedback only when actually measured.
-7. Close: save or discard; explain exactly what is retained.
-8. Continue: recommend the next practice using completed sessions, not invented scores.
+### Product surfaces
+- Conversational AI: open-ended conversation, custom prompts, role-play and context.
+- Coaching modes: voice delivery, articulation, clarity, leadership, listening, improvisation, persuasion, storytelling and difficult conversations.
+- Sessions: saved conversations, practice reports and user-controlled history.
+- Account: identity, preferences, privacy and data controls.
 
-## MVP navigation
-Three destinations only:
-- Practicar: active goal and one recommended session.
-- Sesiones: saved practices and reports.
-- Cuenta: profile, privacy, export and deletion.
-Simulations are a practice type inside Practicar, not a separate top-level destination in MVP. Defer library and gamification.
+## 2. Core runtime
+A session is not synonymous with a training exercise. It is a contextual interaction that may be open conversation, a guided practice or a simulation.
 
-## Screen contracts
-### Practicar
-Show active goal, one recommended exercise and a clear start action. Empty state asks the user to set a goal. No XP, streak, score or weekly chart until backed by real events.
+Each runtime request is composed from:
+- Platform/system constraints.
+- Selected mode instruction template (optional).
+- User-provided prompt and context.
+- Current session conversation history (within limits).
+- User preferences explicitly enabled for the session.
+- Optional coaching rubric and evidence contract.
 
-### Session setup
-Show scenario, role, objective, constraints, estimated duration only when configured, and what feedback can/cannot measure. Choose voice or text. Request microphone permission only after explicit voice action.
+User prompts customize the conversation but cannot override platform safety, privacy, authorization or data-retention controls.
 
-### Active session
-One main action at a time. States: idle, permission request, recording, transcribing, generating, speaking, paused, recoverable error and completed. User can end at any time. Never record secretly.
+## 3. Target cloud voice pipeline
+**No local engine in the product path.**
 
-### Feedback
-Separate content observations from acoustic measurements. Use short examples as evidence. No numerical grade until a repeatable rubric exists. Give one actionable recommendation and optional retry.
+1. PWA obtains microphone permission after explicit action.
+2. Browser captures audio and sends it through an authenticated cloud endpoint.
+3. Speech-to-text provider transcribes audio.
+4. Conversation orchestrator combines transcript, mode instructions, user prompt and session context.
+5. LLM generates a response.
+6. Optional TTS provider converts response text to speech.
+7. Browser plays audio and displays the text response.
+8. Session service applies explicit save/discard choice.
 
-### Sesiones
-Show saved sessions only. Include date, exercise, duration when measured, report availability, loading/empty/error states and deletion.
+The app owns the user experience and session state; cloud providers perform transcription, model inference and speech synthesis.
 
-### Cuenta
-Show account, sign-out, privacy, data export/deletion path and voice engine availability only when relevant.
+## 4. Service boundaries
+- **AuthService:** Supabase Auth, identity and session renewal.
+- **ConversationRuntime:** manages turns, prompt assembly, context window and cancellation.
+- **ModeRegistry:** versioned mode definitions, system prompt templates, objectives, rubrics and supported capabilities.
+- **SpeechToTextAdapter:** provider-neutral transcription API.
+- **LanguageModelAdapter:** provider-neutral chat/generation API.
+- **TextToSpeechAdapter:** provider-neutral speech synthesis API.
+- **VoiceSessionController:** browser microphone lifecycle, permissions, playback, interruption and UI states.
+- **SessionRepository:** save/discard/history/delete; never saves by default.
+- **CoachingAnalyzer:** transcript and optional acoustic analysis, with evidence labels and confidence/limitations.
+- **UsageGuard:** quotas, rate limits, cost controls and abuse prevention.
 
-## Logical domain model (not a Supabase migration)
-profiles, communication_goals, exercises, scenarios, sessions, optional session_turns, feedback_reports, user_preferences.
-User-owned rows require RLS. Never put service-role credentials in client code. Audio is off by default; storage requires explicit opt-in and deletion semantics.
+## 5. Transport strategy
+Start with the simplest transport that can meet the product requirement:
+- Baseline: explicit push-to-talk turns with cloud transcription, model response and optional TTS.
+- Upgrade path: streaming transcription/response and interruption support where selected provider and browser APIs permit.
+- Do not promise full-duplex natural conversation until latency, interruption, echo handling, browser compatibility and cost are measured.
+- Keep text input available for permission denial, unsupported browsers and service outages.
 
-## Application boundaries
-UI renders state and emits user intent; it does not call Supabase or local engine directly.
-- Auth service owns session state.
-- Session service owns lifecycle and persistence.
-- Voice adapter abstracts local Termux prototype from future authenticated backend.
-- Conversation service composes scenario instructions and context.
-- Analysis service is deferred until evidence and measurement contracts are defined.
+## 6. Security and privacy
+- Frontend contains only public Supabase configuration and no service-role/provider secrets.
+- Provider secrets live in server-side environment secrets.
+- Every cloud request authenticates the user and validates payload size, duration, mode and quotas.
+- Enforce per-user rate limits and usage budgets.
+- Do not persist raw audio by default.
+- Do not persist transcripts or conversation history without explicit save consent.
+- RLS protects every user-owned record; storage paths are user-scoped and private.
+- Define provider retention/training settings and legal/privacy disclosures before external release.
 
-## Delivery phases
-### P0 Audit and stabilize
-- [x] Inspect full Git tree and Pages deployment path.
-- [x] Identify active and legacy frontends.
-- [x] Map published auth, conversation and voice path.
-- [x] Identify fake navigation and metrics.
-- [ ] Inspect Supabase schema, RLS, Storage policies and auth configuration.
-- [ ] Run live Android/Chrome/Termux smoke test.
+## 7. Data model direction (not a migration)
+- profiles / user_preferences
+- modes (versioned definitions; may initially be static configuration)
+- sessions (mode, custom prompt/context, status, timestamps, retention choice)
+- session_turns (role, text, sequence, timestamps; only when user saves)
+- feedback_reports (observations, evidence references, recommendations, rubric version)
+- usage_events (provider, model, duration, token/audio usage, estimated cost, status)
+- optional audio_assets only after explicit opt-in and defined deletion lifecycle
 
-### P1 Product contract
-- [x] Define primary user journey.
-- [x] Propose MVP navigation and screen contracts.
-- [ ] Finalize first target persona and initial goal set.
-- [ ] Define acceptance criteria and success metrics.
-- [ ] Approve transcript/audio retention policy.
+Existing `vox_sessions` is not assumed to be the final schema. Inspect and design a migration before changing it.
 
-### P2 UX prototype
-- [ ] Wireflow for onboarding, setup, active session, feedback, history and account.
-- [ ] Empty/loading/error/permission states.
-- [ ] Verify every action has a destination and result.
+## 8. Failure and recovery states
+Permission denied, no microphone, network unavailable, upload timeout, transcription failure, model timeout, TTS failure, quota exceeded, expired auth, user cancellation and partial response. Each state must preserve typed user input and explain the next action. If TTS fails, show the text response. If voice transcription fails, allow retry or text input.
 
-### P3 Design system
-- [ ] Brand and visual direction.
-- [ ] Tokens and component states.
-- [ ] Mobile-first screens and responsive rules.
-- [ ] Accessibility and reduced-motion rules.
+## 9. Deployment and development
+- Current GitHub Pages workflow publishes `preview/`.
+- Current `local-engine/server.mjs` and Termux/Whisper/OmniRoute path are development artifacts only and must not be required by production.
+- Target PWA calls authenticated cloud endpoints.
+- Supabase Edge Functions are the first candidate broker; test streaming support, execution limits, payload constraints and latency before committing.
+- If Edge Functions are unsuitable, deploy a dedicated authenticated backend; do not move provider secrets into the PWA.
+- Add automated tests, lint/build checks, endpoint contract tests and Android Chrome smoke tests.
 
-### P4 Technical foundation
-- [ ] Choose module/build strategy and deployment layout.
-- [ ] Define database schema, RLS and migrations.
-- [ ] Define voice adapter contract and backend migration plan.
-- [ ] Add tests and release checks.
+## 10. Design-to-implementation workflow
+Mandatory sequence for every new screen or major redesign:
+1. Product requirement and user flow.
+2. Wireflow and all states.
+3. Visual exploration in Canva, Figma, MagicPath or a justified alternative.
+4. Review and approval of the visual direction.
+5. Implementation in GitHub.
+6. Responsive/accessibility/interaction QA.
+7. Update docs and decision log.
 
-### P5 MVP implementation
-- [ ] Auth and onboarding.
-- [ ] Guided session lifecycle.
-- [ ] Voice/text input and error recovery.
-- [ ] Evidence-based feedback.
-- [ ] Saved sessions/history and user controls.
-- [ ] QA and limited release.
+Do not skip the design stage or treat a code mockup as approved visual design.
 
-## MVP acceptance criteria
-- New user registers, sets a goal and completes a guided practice without dead ends.
-- Returning user can resume the next recommended practice.
-- Voice use is explicit, visible and stoppable.
-- Text remains available when microphone/engine is unavailable.
-- No unsupported analysis claims or scores.
-- Save/discard is clear; saved data is isolated and deletable.
-- Core flow works on Android Chrome at narrow mobile widths.
-- Errors are actionable and do not silently lose user input.
-
-## Architecture decisions
+## 11. Architecture decisions
 | ID | Decision | Status |
 |---|---|---|
-| A-001 | GitHub Pages active artifact is preview/; root frontend is legacy | Confirmed by workflow |
-| A-002 | Retire current fake dashboard metrics and dead sections | Approved |
-| A-003 | Session is the core product object | Working baseline |
-| A-004 | MVP navigation: Practicar, Sesiones, Cuenta | Proposed |
-| A-005 | Keep Termux voice bridge for development only | Confirmed constraint |
-| A-006 | Do not persist audio by default | Strategic direction; retention policy to approve |
+| A-001 | GitHub Pages active artifact is preview/; root frontend is legacy | Confirmed |
+| A-002 | Remove fake dashboard metrics and dead sections | Approved |
+| A-003 | VOX is a conversational AI plus communication-improvement modes | Owner-directed |
+| A-004 | Modes are prompt/configuration presets over one shared runtime | Proposed |
+| A-005 | Production voice transcription must be cloud-based in the app flow | Owner-directed |
+| A-006 | No dependency on Termux, local Whisper or local OmniRoute in production | Owner-directed |
+| A-007 | Keep STT, LLM and TTS provider adapters replaceable | Proposed |
+| A-008 | Supabase Edge Functions are candidate broker, subject to validation | Proposed |
+| A-009 | No audio/transcript persistence by default | Proposed privacy baseline |
+| A-010 | Design tool exploration/review precedes interface implementation | Owner-directed |
 
-## Change control
-Scope, data retention, voice architecture and navigation decisions must be recorded in the Notion Product & Engineering HQ before implementation. Every feature needs an end-to-end flow, states, acceptance criteria and test plan.
+## 12. Migration plan
+1. Remove local engine requirement from production experience.
+2. Select providers and validate cost, quality, language support and latency.
+3. Prototype cloud STT from Android Chrome through an authenticated endpoint.
+4. Add shared conversation runtime and prompt/mode registry.
+5. Add optional TTS and interruption behavior.
+6. Implement initial coaching modes and evidence-grounded feedback.
+7. Define persistence and update Supabase schema/RLS only after data contract approval.
+8. Run device, security, cost and reliability QA before public release.
