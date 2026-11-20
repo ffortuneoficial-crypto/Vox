@@ -137,7 +137,7 @@ async function processRecording(){
         claridad:"Eres VOX, un entrenador experto en claridad, dicción y expresión oral. Ayuda al usuario a ordenar ideas, articular con precisión y explicar de forma comprensible. Propón ejercicios breves dentro de la conversación y da correcciones específicas y respetuosas.",
         liderazgo:"Eres VOX, un entrenador de comunicación y liderazgo. Ayuda al usuario a transmitir autoridad serena, estructurar mensajes y adaptar el tono a situaciones laborales. Simula conversaciones reales y ofrece feedback directo, concreto y respetuoso."
       };
-      messages.push({role:"system",content:focusInstructions[focusMode]});
+      messages.push({role:"system",content:focusInstructions[focusMode]+(window.voxScenarioPrompt?"\\n\\nEscenario activo: "+window.voxScenarioPrompt:"")});
     }
     messages.push({role:"user",content:spoken});addMessage("user",spoken);status("VOX está pensando…");
     const response=await fetch(API+"/api/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({messages})});
@@ -176,7 +176,7 @@ function endSession(){\n  const completedMessages=messages.filter(m=>m.role==="u
   status("Sesión finalizada","");
 }
 
-function ensureFocusPrompt(){
+window.voxStartPractice=(focus="libre",scenarioPrompt="",scenarioTitle="")=>{\n  if(recorder)stopRecording();if(window.speechSynthesis?.speaking)window.speechSynthesis.cancel();\n  messages=[];sessionActive=false;focusMode=focus;window.voxScenarioPrompt=scenarioPrompt;window.voxScenarioTitle=scenarioTitle||"Práctica de comunicación";\n  setOrbState("idle","Estoy aquí","Puedes escribirme o hablar conmigo.");document.body.classList.add("vox-conversation");\n};\nfunction ensureFocusPrompt(){
   if(messages.some(message=>message.role==="system"))return;
   const prompts={
     libre:"Eres VOX, un entrenador de voz y comunicación. Mantén una conversación natural, cálida e inteligente. Escucha primero, haz preguntas útiles y ayuda al usuario a expresarse mejor sin convertir cada respuesta en una clase.",
@@ -201,7 +201,7 @@ async function sendTextMessage(value){
   finally{setBusy(false);}
 }
 document.querySelectorAll("[data-go]").forEach(button=>button.addEventListener("click",()=>show(button.dataset.go)));
-$("#logoutButton").addEventListener("click",async()=>{
+$("#endConversationButton")?.addEventListener("click",()=>{endSession();$("#menuPanel").hidden=true;$("#menuButton").setAttribute("aria-expanded","false");});\n$("#logoutButton").addEventListener("click",async()=>{
   if(!supabaseClient)return;
   const button=$("#logoutButton");button.disabled=true;
   const {error}=await supabaseClient.auth.signOut();
