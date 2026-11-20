@@ -281,3 +281,5 @@ html,body{background:var(--vox-bg)!important;color:var(--vox-ink)}
 .learning-mini-stats small{grid-column:2;font-size:8px;color:#969aab}
 @media(max-width:760px){.dash-xp,.dash-streak{height:30px;padding:0 7px;font-size:8px}.dash-top-actions{gap:6px}.dash-learning-progress{padding:12px;margin-bottom:23px}.learning-mini-stats{justify-content:space-between;gap:8px}.learning-mini-stats span{font-size:9px}.learning-mini-stats small{font-size:7px}}
 @media(max-width:390px){.dash-streak{display:none}.dash-xp{font-size:8px}}
+
+/* Unified visual workspace is defined in workspace.css */
